@@ -42,11 +42,11 @@ void SQLManager::insert(std::string table, std::string column, std::vector<std::
 	// TODO to optimize so it run in one batch
 }
 
-std::map<std::string, std::string> SQLManager::checkLogin(std::string nickName)
+std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
 {
 	sql::Statement *stmt;
 	sql::ResultSet *res;
-	std::string query = "SELECT name, password, x, y, z FROM users WHERE name LIKE '" + nickName + "'";
+	std::string query = "SELECT x, y, z, mp, hp, re FROM users WHERE name LIKE '" + nickName + "'";
 	std::map<std::string, std::string> result;
 
 	try
@@ -54,18 +54,46 @@ std::map<std::string, std::string> SQLManager::checkLogin(std::string nickName)
 		stmt = con->createStatement();
 		res = stmt->executeQuery(query);
 
-		while (res->next()) {
-			std::string name = res->getString("name");
-			std::string pass = res->getString("password");
-			std::string x = std::to_string(res->getDouble("x"));
-			std::string y = std::to_string(res->getDouble("y"));
-			std::string z = std::to_string(res->getDouble("z"));
+		while (res->next())
+		{
+			result.insert(std::pair<std::string, std::string>("x", std::to_string(res->getDouble("x"))));
+			result.insert(std::pair<std::string, std::string>("y", std::to_string(res->getDouble("y"))));
+			result.insert(std::pair<std::string, std::string>("z", std::to_string(res->getDouble("z"))));
+			result.insert(std::pair<std::string, std::string>("mp", std::to_string(res->getInt("mp"))));
+			result.insert(std::pair<std::string, std::string>("hp", std::to_string(res->getDouble("hp"))));
+			result.insert(std::pair<std::string, std::string>("re", std::to_string(res->getInt("re"))));
+		}
 
-			result.insert(std::pair<std::string, std::string>("name", name));
-			result.insert(std::pair<std::string, std::string>("password", pass));
-			result.insert(std::pair<std::string, std::string>("x", x));
-			result.insert(std::pair<std::string, std::string>("y", y));
-			result.insert(std::pair<std::string, std::string>("z", z));
+		delete res;
+		delete stmt;
+		return result;
+	}
+	catch (sql::SQLException &e)
+	{
+		std::cout << "# ERR: SQLException in " << __FILE__;
+		std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
+		std::cout << "# ERR: " << e.what();
+		std::cout << " (MySQL error code: " << e.getErrorCode();
+		std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+	}
+}
+
+std::map<std::string, std::string> SQLManager::checkLogin(std::string nickName)
+{
+	sql::Statement *stmt;
+	sql::ResultSet *res;
+	std::string query = "SELECT name, password FROM users WHERE name LIKE '" + nickName + "'";
+	std::map<std::string, std::string> result;
+
+	try
+	{
+		stmt = con->createStatement();
+		res = stmt->executeQuery(query);
+
+		while (res->next())
+		{
+			result.insert(std::pair<std::string, std::string>("name", res->getString("name")));
+			result.insert(std::pair<std::string, std::string>("password", res->getString("password")));
 		}
 
 		delete res;

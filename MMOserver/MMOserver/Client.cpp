@@ -13,11 +13,35 @@ Client::Client(std::string client, std::string nickName)
 
 	this->clientAddress = client;
 	this->nickName = nickName;
-	/*this->x = std::stod(x);
-	this->y = std::stod(y);
-	this->z = std::stod(z);*/
 
 	clientWrite("Accepted");
+}
+
+void Client::initClient(std::string client, std::string nickName)
+{
+	std::cout << "New client logging: " << nickName << std::endl;
+	this->error = WSAStartup(MAKEWORD(2, 2), &initialisation_win32);
+	if (this->error != 0)
+		std::cout << "Can't initialize Winsock : " << this->error << " " << WSAGetLastError() << std::endl;
+
+	this->_client = socket(AF_INET, SOCK_DGRAM, 0);
+	if (this->_client == INVALID_SOCKET)
+		std::cout << "Can't initialiaze socket : " << WSAGetLastError() << std::endl;
+
+	this->clientAddress = client;
+	this->nickName = nickName;
+
+	clientWrite("Accepted");
+}
+
+void Client::initClient(std::map<std::string, std::string> cmd)
+{
+	this->HP = std::stod(cmd["hp"]);
+	this->HP = std::stod(cmd["x"]);
+	this->HP = std::stod(cmd["y"]);
+	this->HP = std::stod(cmd["z"]);
+	this->MP = std::stoi(cmd["mp"]);
+	this->RE = std::stoi(cmd["re"]);
 }
 
 void Client::closeClient()

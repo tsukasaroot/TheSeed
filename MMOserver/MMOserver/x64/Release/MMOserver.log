@@ -1,13 +1,15 @@
 ﻿  Client.cpp
-c:\users\jorou\documents\github\mmoserver\mmoserver\client.cpp(42): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+c:\users\jorou\documents\github\theseed\mmoserver\mmoserver\client.cpp(67): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
   MMOserver.cpp
-c:\users\jorou\documents\github\mmoserver\mmoserver\mmoserver.cpp(31): warning C4244: 'argument' : conversion de 'SOCKET' en 'int', perte possible de données
+c:\users\jorou\documents\github\theseed\mmoserver\mmoserver\mmoserver.cpp(31): warning C4244: 'argument' : conversion de 'SOCKET' en 'int', perte possible de données
   Opcodes.cpp
   Server.cpp
   ServerUtilities.cpp
+  SQLmanager.cpp
+  stringFormatting.cpp
   Génération de code en cours
-  0 of 781 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+c:\users\jorou\documents\github\theseed\mmoserver\mmoserver\sqlmanager.cpp(111): warning C4715: 'SQLManager::checkLogin' : les chemins de contrôle ne retournent pas tous une valeur
+c:\users\jorou\documents\github\theseed\mmoserver\mmoserver\sqlmanager.cpp(79): warning C4715: 'SQLManager::initPlayer' : les chemins de contrôle ne retournent pas tous une valeur
+  All 868 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Fin de la génération du code
-  MMOserver.vcxproj -> C:\Users\jorou\Documents\GitHub\MMOserver\x64\Release\MMOserver.exe
+  MMOserver.vcxproj -> C:\Users\jorou\Documents\GitHub\TheSeed\MMOserver\x64\Release\MMOserver.exe

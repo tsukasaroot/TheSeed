@@ -28,6 +28,7 @@ private:
 	typedef void(Server::*opcodes)(std::vector<std::string>);
 	std::map<std::string, opcodes> list;
 
+	std::map<std::string, Client*> _client;
 	std::map<std::string, std::string> Movements;
 	std::vector<std::pair<std::string, Client>> client;
 	SQLManager *dataBase;

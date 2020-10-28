@@ -26,6 +26,7 @@ public:
 	SQLManager();
 	void insert(std::string table, std::string column, std::vector<std::string> values);
 	std::map<std::string, std::string> checkLogin(std::string nickName);
+	std::map<std::string, std::string> initPlayer(std::string name);
 private:
 	void initialize();
 

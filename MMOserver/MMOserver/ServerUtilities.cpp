@@ -3,15 +3,9 @@
 void Server::logout(std::vector<std::string> cmd)
 {
 	std::string nickName = cmd[0];
-	for (auto it = client.begin(); it != client.end(); it++)
-	{ 
-		if (it->first == nickName)
-		{
-			it->second.closeClient();
-			client.erase(it);
-			return;
-		}
-	}
+	this->_client[nickName]->closeClient();
+	delete(this->_client[nickName]);
+	this->_client.erase(nickName);
 }
 
 void Server::login(std::vector<std::string> cmd)
@@ -21,5 +15,9 @@ void Server::login(std::vector<std::string> cmd)
 
 	auto result = this->dataBase->checkLogin(login);
 	if (login == result["name"] && password == result["password"])
-		client.push_back(std::make_pair(login, Client(cmd[2], result["name"])));
+		this->_client.insert(std::pair<std::string, Client*>(login, new Client()));
+	_client[login]->initClient(cmd[2], result["name"]);
+
+	auto datas = this->dataBase->initPlayer(login);
+	_client[login]->initClient(datas);
 }
