@@ -1,0 +1,13 @@
+﻿  Client.cpp
+c:\users\jorou\documents\github\mmoserver\mmoserver\client.cpp(42): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+  MMOserver.cpp
+c:\users\jorou\documents\github\mmoserver\mmoserver\mmoserver.cpp(31): warning C4244: 'argument' : conversion de 'SOCKET' en 'int', perte possible de données
+  Opcodes.cpp
+  Server.cpp
+  ServerUtilities.cpp
+  Génération de code en cours
+  0 of 781 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Fin de la génération du code
+  MMOserver.vcxproj -> C:\Users\jorou\Documents\GitHub\MMOserver\x64\Release\MMOserver.exe

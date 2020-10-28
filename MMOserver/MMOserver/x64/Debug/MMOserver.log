@@ -1,0 +1,5 @@
+﻿  MMOserver.cpp
+c:\users\jorou\documents\github\mmoserver\mmoserver\mmoserver.cpp(31): warning C4244: 'argument' : conversion de 'SOCKET' en 'int', perte possible de données
+  Server.cpp
+  Génération de code en cours...
+  MMOserver.vcxproj -> C:\Users\jorou\Documents\GitHub\MMOserver\x64\Debug\MMOserver.exe
