@@ -75,6 +75,7 @@ std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
 		std::cout << "# ERR: " << e.what();
 		std::cout << " (MySQL error code: " << e.getErrorCode();
 		std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+		exit(0);
 	}
 }
 
@@ -107,5 +108,6 @@ std::map<std::string, std::string> SQLManager::checkLogin(std::string nickName)
 		std::cout << "# ERR: " << e.what();
 		std::cout << " (MySQL error code: " << e.getErrorCode();
 		std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+		exit(0);
 	}
 }

@@ -37,9 +37,9 @@ void Client::initClient(std::string client, std::string nickName)
 void Client::initClient(std::map<std::string, std::string> cmd)
 {
 	this->HP = std::stod(cmd["hp"]);
-	this->HP = std::stod(cmd["x"]);
-	this->HP = std::stod(cmd["y"]);
-	this->HP = std::stod(cmd["z"]);
+	this->x = std::stod(cmd["x"]);
+	this->y = std::stod(cmd["y"]);
+	this->z = std::stod(cmd["z"]);
 	this->MP = std::stoi(cmd["mp"]);
 	this->RE = std::stoi(cmd["re"]);
 }
