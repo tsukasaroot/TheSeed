@@ -27,6 +27,7 @@ Server::Server()
 		std::cout << "Can't listen to this port : " << error << " " << WSAGetLastError() << std::endl;
 	else
 		std::cout << "Bind : OK" << std::endl;
+	std::cout << std::endl;
 	
 	// Will initialiaze the different XMLs needed for the game
 	Opcodesinitialize();

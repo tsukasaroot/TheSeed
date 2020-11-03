@@ -167,11 +167,13 @@
     <ClCompile Include="ServerUtilities.cpp" />
     <ClCompile Include="SQLmanager.cpp" />
     <ClCompile Include="stringFormatting.cpp" />
+    <ClCompile Include="xmlParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="SQLmanager.h" />
+    <ClInclude Include="xmlParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
