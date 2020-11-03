@@ -24,7 +24,10 @@ std::vector<std::string> formatString(std::string line);
 class SQLManager {
 public:
 	SQLManager();
+	
 	void insert(std::string table, std::string column, std::vector<std::string> values);
+	void update(std::string user, std::string table, std::vector<std::pair<std::string, std::string>> values);
+
 	std::map<std::string, std::string> checkLogin(std::string nickName);
 	std::map<std::string, std::string> initPlayer(std::string name);
 private:

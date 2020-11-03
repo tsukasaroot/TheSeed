@@ -1,9 +1,7 @@
-﻿  Opcodes.cpp
-  xmlParser.cpp
-c:\users\jorou\documents\github\theseed\mmoserver\mmoserver\xmlparser.cpp(65): warning C4267: '=' : conversion de 'size_t' en 'int', perte possible de données
+﻿  SQLmanager.cpp
   Génération de code en cours
-  5 of 1034 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+  1 of 1140 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Fin de la génération du code
   MMOserver.vcxproj -> C:\Users\jorou\Documents\GitHub\TheSeed\MMOserver\x64\Release\MMOserver.exe

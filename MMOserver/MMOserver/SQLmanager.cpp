@@ -42,6 +42,25 @@ void SQLManager::insert(std::string table, std::string column, std::vector<std::
 	// TODO to optimize so it run in one batch
 }
 
+void SQLManager::update(std::string user, std::string table, std::vector<std::pair<std::string, std::string>> values)
+{
+	sql::Statement *stmt;
+	std::string query = "UPDATE " + table + " SET ";
+	std::string condition = " WHERE name LIKE '" + user + "'";
+
+	for (auto it = values.begin(); it != values.end(); it++)
+	{
+		query += it->first + " = '" + it->second + "'";
+		if (it + 1 != values.end())
+			query += " AND ";
+	}
+	query += condition;
+
+	stmt = con->createStatement();
+	stmt->executeUpdate(query);
+	delete(stmt);
+}
+
 std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
 {
 	sql::Statement *stmt;

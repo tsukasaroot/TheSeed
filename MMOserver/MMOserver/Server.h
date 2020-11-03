@@ -25,6 +25,7 @@ private:
 	void logout(std::vector<std::string> cmd);
 	void Opcodesinitialize();
 	void closeServer();
+	void savePlayerData(std::vector<std::string> cmd);
 
 	typedef void(Server::*opcodes)(std::vector<std::string>);
 	std::map<std::string, opcodes> list;
