@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 
 		FD_ZERO(&rfds);
 		FD_SET(serverRCV, &rfds);
-		int recVal = select((int)serverRCV + 1, &rfds, NULL, NULL, &read_timeout);
+		int recVal = select(serverRCV + 1, &rfds, NULL, NULL, &read_timeout);
 
 		if (recVal != 0 && recVal != -1) {
 			size_t pos = 0;

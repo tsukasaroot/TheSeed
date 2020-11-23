@@ -10,9 +10,9 @@ void Server::logout(std::vector<std::string> cmd)
 
 void Server::login(std::vector<std::string> cmd)
 {
+	std::cerr << "login here" << std::endl;
 	std::string login = cmd[0];
 	std::string password = cmd[1];
-
 	auto result = this->dataBase->checkLogin(login);
 	if (login == result["name"] && password == result["password"])
 		this->_client.insert(std::pair<std::string, Client*>(login, new Client()));
