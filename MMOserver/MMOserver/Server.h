@@ -21,11 +21,29 @@ private:
 	SOCKET serverRCV;
 	SOCKADDR_IN ipep; // Déclaration de la structure des informations lié à l'écoute
 
+	/**
+	* Log the client server-side.
+	*
+	* @param Take a cmd string that contain IP, nickname and password.
+	* @return no return values.
+	*/
 	void login(std::vector<std::string> cmd);
+	/**
+	* Logout the client server-side.
+	*
+	* @param Take a cmd string that contain IP, nickname.
+	* @return no return values.
+	*/
 	void logout(std::vector<std::string> cmd);
+	/**
+	* Save players data server-side.
+	*
+	* @param Take a cmd string that contain all clients informations.
+	* @return no return values.
+	*/
+	void savePlayerData(std::vector<std::string> cmd);
 	void Opcodesinitialize();
 	void closeServer();
-	void savePlayerData(std::vector<std::string> cmd);
 
 	typedef void(Server::*opcodes)(std::vector<std::string>);
 	std::map<std::string, opcodes> list;
