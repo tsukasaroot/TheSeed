@@ -57,12 +57,12 @@ std::vector<std::string> xmlParser::cleanData(std::string data)
 {
 	std::vector<std::string> functions;
 	std::string token;
-	int pos = 0;
+	size_t pos = 0;
 
 	data.erase(std::remove_if(data.begin(), data.end(), OneOf("/<")), data.end());
 	std::replace(data.begin(), data.end(), '>', ' ');
 
-	while ((pos = data.find(' ')) != std::string::npos)
+	while ((pos = (size_t)data.find(' ')) != std::string::npos)
 	{
 		std::string token = data.substr(0, data.find(' '));
 		if (!token.empty())
