@@ -33,7 +33,7 @@ Server::Server()
 	Opcodesinitialize();
 }
 
-void Server::Start(std::vector<std::string> opcodes, std::string ip)
+void Server::processOpcodes(std::vector<std::string> opcodes, std::string ip)
 {
 	for (auto & cmd : opcodes)
 	{

@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 				token.clear();
 			}
 
-			server->Start(opcodes, ip);
+			server->processOpcodes(opcodes, ip);
 
 			memset(buffer, 0, buffLength);
 			line.clear();

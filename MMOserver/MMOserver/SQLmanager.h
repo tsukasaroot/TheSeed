@@ -37,6 +37,7 @@ private:
 	const char *userName = "root";
 	const char *password = "";
 	const int port = 3306;
+
 	sql::Driver *driver;
 	sql::Connection *con;
 	sql::ConnectOptionsMap connection_properties;

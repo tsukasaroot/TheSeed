@@ -8,7 +8,7 @@
 class Server {
 public:
 	Server();
-	void Start(std::vector<std::string> opcodes, std::string ip);
+	void processOpcodes(std::vector<std::string> opcodes, std::string ip);
 
 	SOCKET getSocket();
 	struct timeval getTimeVal();
