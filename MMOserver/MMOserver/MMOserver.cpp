@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 
 	Server *server = new Server();
 
-	int serverRCV = server->getSocket();
+	SOCKET serverRCV = server->getSocket();
 	struct timeval read_timeout = server->getTimeVal();
 	SOCKADDR_IN ipep = server->getIpep();
 
@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 
 		FD_ZERO(&rfds);
 		FD_SET(serverRCV, &rfds);
-		SOCKET recVal = select(serverRCV + 1, &rfds, NULL, NULL, &read_timeout);
+		int recVal = select(serverRCV + 1, &rfds, NULL, NULL, &read_timeout);
 
 		if (recVal != 0 && recVal != -1) {
 			size_t pos = 0;
