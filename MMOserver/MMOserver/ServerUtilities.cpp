@@ -3,9 +3,18 @@
 void Server::logout(std::vector<std::string> cmd)
 {
 	std::string nickName = cmd[0];
-	this->_client[nickName]->closeClient();
-	delete(this->_client[nickName]);
-	this->_client.erase(nickName);
+
+	auto it = std::find(this->playerList.begin(), this->playerList.end(), nickName);
+	if (it != this->playerList.end())
+	{
+		this->playerList.erase(it);
+		this->_client[nickName]->closeClient();
+		delete(this->_client[nickName]);
+		this->_client.erase(nickName);
+		return ;
+	}
+	std::cerr << "Error: " << nickName << " player already logged out, logout command denied." << std::endl;
+	return;
 }
 
 void Server::login(std::vector<std::string> cmd)
@@ -17,7 +26,7 @@ void Server::login(std::vector<std::string> cmd)
 	if (std::find(this->playerList.begin(), this->playerList.end(), login) != this->playerList.end())
 	{
 		std::cerr << "Error: " << login << " player already logged, connection denied." << std::endl;
-		return;
+		return ;
 	}
 	this->playerList.push_back(login);
 	if (login == result["name"] && password == result["password"])
