@@ -1,13 +1,12 @@
-﻿  Client.cpp
-F:\laragon\www\TheSeed\MMOserver\MMOserver\Client.cpp(66,114): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-  MMOserver.cpp
+﻿  MMOserver.cpp
 F:\laragon\www\TheSeed\MMOserver\MMOserver\MMOserver.cpp(31,33): warning C4244: 'argument' : conversion de 'SOCKET' en 'int', perte possible de données
   Opcodes.cpp
+  SQLmanager.cpp
   Server.cpp
   ServerUtilities.cpp
   Génération de code en cours
-  3 of 946 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  49 of 967 functions ( 5.1%) were compiled, the rest were copied from previous compilation.
+    10 functions were new in current compilation
+    10 functions had inline decision re-evaluated but remain unchanged
   Fin de la génération du code
   MMOserver.vcxproj -> F:\laragon\www\TheSeed\MMOserver\x64\Release\MMOserver.exe

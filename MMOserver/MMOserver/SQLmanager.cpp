@@ -34,7 +34,8 @@ void SQLManager::insert(std::string table, std::string column, std::vector<std::
 	pstmt = con->prepareStatement(query);
 
 	auto i = 1;
-	for (std::vector<std::string>::iterator it = values.begin(); it != values.end(); ++it) {
+	for (std::vector<std::string>::iterator it = values.begin(); it != values.end(); ++it)
+	{
 		pstmt->setString(1, *it);
 		pstmt->execute();
 	}

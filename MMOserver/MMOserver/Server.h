@@ -47,6 +47,7 @@ private:
 
 	typedef void(Server::*opcodes)(std::vector<std::string>);
 	std::map<std::string, opcodes> list;
+	std::vector<std::string> playerList;
 
 	xmlParser *reader;
 	std::map<std::string, Client*> _client;

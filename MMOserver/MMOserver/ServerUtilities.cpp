@@ -10,10 +10,16 @@ void Server::logout(std::vector<std::string> cmd)
 
 void Server::login(std::vector<std::string> cmd)
 {
-	std::cerr << "login here" << std::endl;
 	std::string login = cmd[0];
 	std::string password = cmd[1];
 	auto result = this->dataBase->checkLogin(login);
+
+	if (std::find(this->playerList.begin(), this->playerList.end(), login) != this->playerList.end())
+	{
+		std::cerr << "Error: " << login << " player already logged, connection denied." << std::endl;
+		return;
+	}
+	this->playerList.push_back(login);
 	if (login == result["name"] && password == result["password"])
 		this->_client.insert(std::pair<std::string, Client*>(login, new Client()));
 	_client[login]->initClient(cmd[2], result["name"]);
