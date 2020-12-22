@@ -28,13 +28,15 @@ void Server::login(std::vector<std::string> cmd)
 		std::cerr << "Error: " << login << " player already logged, connection denied." << std::endl;
 		return ;
 	}
-	this->playerList.push_back(login);
 	if (login == result["name"] && password == result["password"])
+	{
+		this->playerList.push_back(login);
 		this->_client.insert(std::pair<std::string, Client*>(login, new Client()));
-	_client[login]->initClient(cmd[2], result["name"]);
+		_client[login]->initClient(cmd[2], result["name"]);
 
-	auto datas = this->dataBase->initPlayer(login);
-	_client[login]->initClient(datas);
+		auto datas = this->dataBase->initPlayer(login);
+		_client[login]->initClient(datas);
+	}
 }
 
 void Server::savePlayerData(std::vector<std::string> cmd)

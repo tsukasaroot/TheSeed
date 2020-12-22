@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 
 	Server *server = new Server();
 
-	SOCKET serverRCV = server->getSocket();
+	int serverRCV = server->getSocket();
 	struct timeval read_timeout = server->getTimeVal();
 	SOCKADDR_IN ipep = server->getIpep();
 
@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 
 		FD_ZERO(&rfds);
 		FD_SET(serverRCV, &rfds);
-		int recVal = select(serverRCV + 1, &rfds, NULL, NULL, &read_timeout);
+		SOCKET recVal = select(serverRCV + 1, &rfds, NULL, NULL, &read_timeout);
 
 		if (recVal != 0 && recVal != -1) {
 			size_t pos = 0;
@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 			tempo = sizeof(ipep);
 			bytes = recvfrom(serverRCV, buffer, buffLength, 0, (struct sockaddr*)&ipep, &tempo);
 			std::string ip = inet_ntoa(ipep.sin_addr);
-			buffer[bytes] = 0;
+			buffer[bytes - 1] = 0;
 
 			std::string line = buffer;
 			while ((pos = line.find(delimiter)) != std::string::npos)
