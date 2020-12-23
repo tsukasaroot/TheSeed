@@ -44,6 +44,14 @@ private:
 	* @return no return values.
 	*/
 	void savePlayerData(std::vector<std::string> cmd);
+	/**
+	* get Client Data server-side.
+	*
+	* @param Take a cmd string that contain clients info we want and send info back.
+	* @return no return values.
+	*/
+	void getClientData(std::vector<std::string> cmd);
+
 	void Opcodesinitialize();
 	void closeServer();
 

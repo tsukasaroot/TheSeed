@@ -169,7 +169,7 @@
     <ClCompile Include="npcSpawner.cpp" />
     <ClCompile Include="Opcodes.cpp" />
     <ClCompile Include="Server.cpp" />
-    <ClCompile Include="ServerUtilities.cpp" />
+    <ClCompile Include="clientAuth.cpp" />
     <ClCompile Include="SQLmanager.cpp" />
     <ClCompile Include="stringFormatting.cpp" />
     <ClCompile Include="utils.cpp" />

@@ -66,7 +66,7 @@ std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
 {
 	sql::Statement *stmt;
 	sql::ResultSet *res;
-	std::string query = "SELECT x, y, z, mp, hp, re FROM users WHERE name LIKE '" + nickName + "'";
+	std::string query = "SELECT x, y, z, mp, hp, re, class FROM users WHERE name LIKE '" + nickName + "'";
 	std::map<std::string, std::string> result;
 
 	try
@@ -82,6 +82,7 @@ std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
 			result.insert(std::pair<std::string, std::string>("mp", std::to_string(res->getInt("mp"))));
 			result.insert(std::pair<std::string, std::string>("hp", std::to_string(res->getDouble("hp"))));
 			result.insert(std::pair<std::string, std::string>("re", std::to_string(res->getInt("re"))));
+			result.insert(std::pair<std::string, std::string>("class", std::to_string(res->getInt("class"))));
 		}
 
 		delete res;

@@ -42,6 +42,7 @@ void Client::initClient(std::map<std::string, std::string> cmd)
 	this->z = std::stod(cmd["z"]);
 	this->MP = std::stoi(cmd["mp"]);
 	this->RE = std::stoi(cmd["re"]);
+	this->clientClass = std::stoi(cmd["class"]);
 }
 
 void Client::closeClient()
