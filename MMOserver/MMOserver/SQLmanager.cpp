@@ -103,7 +103,7 @@ std::map<std::string, std::string> SQLManager::checkLogin(std::string nickName)
 {
 	sql::Statement *stmt;
 	sql::ResultSet *res;
-	std::string query = "SELECT name, password FROM users WHERE name LIKE '" + nickName + "'";
+	std::string query = "SELECT name, password FROM accounts WHERE name LIKE '" + nickName + "'";
 	std::map<std::string, std::string> result;
 
 	try
