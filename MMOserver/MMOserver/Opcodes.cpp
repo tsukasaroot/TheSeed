@@ -14,6 +14,7 @@ void Server::Opcodesinitialize()
 
 	this->inventory = new inventoryManager();
 	this->npcSpawn = new npcSpawner();
+	this->items = new itemsManager();
 }
 
 void Server::processOpcodes(std::vector<std::string> opcodes, std::string ip)
