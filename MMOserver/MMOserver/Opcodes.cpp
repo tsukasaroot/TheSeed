@@ -9,6 +9,8 @@ void Server::Opcodesinitialize()
 	list.insert(std::pair<std::string, opcodes>("logout", &Server::logout));
 	list.insert(std::pair<std::string, opcodes>("saveData", &Server::savePlayerData));
 
+	std::cout << "OPCodes initialized " << list.size() << " OPCodes loaded" << std::endl;
+
 	this->inventory = new inventoryManager();
 	this->npcSpawn = new npcSpawner();
 }
