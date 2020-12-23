@@ -10,6 +10,8 @@
 #include <thread>
 #include <map>
 
+std::map<std::string, std::vector<std::string>> stockXML(xmlParser* reader);
+
 class inventoryManager {
 public:
 	inventoryManager();

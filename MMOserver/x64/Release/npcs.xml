@@ -2,7 +2,4 @@
 	<monster1>
 		<Karya x="test"/>
 	</monster1>
-	<monster2>
-		<bro power="12"/>
-	</monster2>
 </npcs>

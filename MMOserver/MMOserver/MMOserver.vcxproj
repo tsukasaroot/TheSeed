@@ -172,6 +172,7 @@
     <ClCompile Include="ServerUtilities.cpp" />
     <ClCompile Include="SQLmanager.cpp" />
     <ClCompile Include="stringFormatting.cpp" />
+    <ClCompile Include="utils.cpp" />
     <ClCompile Include="xmlParser.cpp" />
   </ItemGroup>
   <ItemGroup>
