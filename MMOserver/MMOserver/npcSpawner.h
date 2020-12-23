@@ -14,7 +14,8 @@ class npcSpawner {
 public:
 	npcSpawner();
 private:
-	xmlParser* reader;
+	xmlParser *reader;
+	std::map<std::string, std::vector<std::string>> npcs;
 };
 
 #endif
