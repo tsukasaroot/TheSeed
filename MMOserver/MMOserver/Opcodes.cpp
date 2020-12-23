@@ -15,3 +15,17 @@ void Server::Opcodesinitialize()
 	this->inventory = new inventoryManager();
 	this->npcSpawn = new npcSpawner();
 }
+
+void Server::processOpcodes(std::vector<std::string> opcodes, std::string ip)
+{
+	for (auto& cmd : opcodes)
+	{
+		std::string token = cmd.substr(0, cmd.find(':'));
+		cmd.erase(0, token.length() + 1);
+		std::vector<std::string> args = formatString(cmd);
+
+		(this->*list[token])(args);
+
+		args.clear();
+	}
+}

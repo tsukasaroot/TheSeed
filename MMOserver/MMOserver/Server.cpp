@@ -33,20 +33,6 @@ Server::Server()
 	Opcodesinitialize();
 }
 
-void Server::processOpcodes(std::vector<std::string> opcodes, std::string ip)
-{
-	for (auto & cmd : opcodes)
-	{
-		std::string token = cmd.substr(0, cmd.find(':'));
-		cmd.erase(0, token.length() + 1);
-		std::vector<std::string> args = formatString(cmd);
-
-		(this->*list[token])(args);
-
-		args.clear();
-	}
-}
-
 void Server::closeServer()
 {
 	error = closesocket(serverRCV);
@@ -60,6 +46,7 @@ void Server::closeServer()
 		std::cout << "Winsock can't be freed : " << error << " " << WSAGetLastError() << std::endl;
 	else
 		std::cout << "WSACleanup  : OK" << std::endl;
+	exit(0);
 }
 
 SOCKET Server::getSocket()
