@@ -164,7 +164,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="inventoryManager.cpp" />
     <ClCompile Include="MMOserver.cpp" />
+    <ClCompile Include="npcSpawner.cpp" />
     <ClCompile Include="Opcodes.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="ServerUtilities.cpp" />
@@ -174,6 +176,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h" />
+    <ClInclude Include="inventoryManager.h" />
+    <ClInclude Include="npcSpawner.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="SQLmanager.h" />
     <ClInclude Include="xmlParser.h" />

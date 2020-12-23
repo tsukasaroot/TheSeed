@@ -1,9 +1,8 @@
-﻿  MMOserver.cpp
-F:\laragon\www\TheSeed\MMOserver\MMOserver\MMOserver.cpp(31,33): warning C4244: 'argument' : conversion de 'SOCKET' en 'int', perte possible de données
-  SQLmanager.cpp
+﻿  inventoryManager.cpp
+  npcSpawner.cpp
   Génération de code en cours
-  3 of 967 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  4 of 971 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    11 functions had inline decision re-evaluated but remain unchanged
   Fin de la génération du code
   MMOserver.vcxproj -> F:\laragon\www\TheSeed\MMOserver\x64\Release\MMOserver.exe

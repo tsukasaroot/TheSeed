@@ -4,6 +4,8 @@
 #include "Client.h"
 #include "SQLmanager.h"
 #include "xmlParser.h"
+#include "inventoryManager.h"
+#include "npcSpawner.h"
 
 class Server {
 public:
@@ -49,6 +51,8 @@ private:
 	std::map<std::string, opcodes> list;
 	std::vector<std::string> playerList;
 
+	inventoryManager *inventory;
+	npcSpawner *npcSpawn;
 	xmlParser *reader;
 	std::map<std::string, Client*> _client;
 	std::map<std::string, std::string> Movements;
