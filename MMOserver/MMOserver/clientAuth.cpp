@@ -66,6 +66,17 @@ void Server::getClientData(std::vector<std::string> cmd)
 {
 	if (cmd.size() == 2)
 	{
-		std::cout << "let's send dataaas" << std::endl;
+		std::string nickName = cmd[0];
+		auto it = std::find(this->playerList.begin(), this->playerList.end(), nickName);
+
+		if (it != this->playerList.end())
+		{
+			auto dataToSend = this->_client[nickName]->getAll();
+			std::cout << dataToSend << std::endl;
+			this->_client[nickName]->clientWrite(dataToSend);
+			return;
+		}
+		std::cerr << "Error: " << nickName << " this player don't exist, command denied." << std::endl;
+		return;
 	}
 }

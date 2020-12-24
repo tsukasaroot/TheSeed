@@ -83,6 +83,7 @@ std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
 			result.insert(std::pair<std::string, std::string>("hp", std::to_string(res->getDouble("hp"))));
 			result.insert(std::pair<std::string, std::string>("re", std::to_string(res->getInt("re"))));
 			result.insert(std::pair<std::string, std::string>("class", std::to_string(res->getInt("class"))));
+			result.insert(std::pair<std::string, std::string>("class", std::to_string(res->getInt("class"))));
 		}
 
 		delete res;

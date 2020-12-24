@@ -93,7 +93,7 @@ void Client::left()
 	clientWrite("movement:left:" + std::to_string(this->x) + ";" + std::to_string(this->y) + ";" + std::to_string(this->z));
 }
 
-/* 
+/*
 ** Getters method
 */
 
@@ -125,4 +125,13 @@ double Client::getY()
 double Client::getZ()
 {
 	return this->z;
+}
+
+std::string Client::getAll()
+{
+	std::string toSend;
+
+	std::cout << this->MP << ':' << this->clientClass << ':' << this->RE << ':' + this->HP << ':' + this->currency << std::endl;
+	toSend = this->MP + ':' + this->clientClass + ':' + this->RE + ':' + this->HP + ':' + this->currency;
+	return toSend;
 }

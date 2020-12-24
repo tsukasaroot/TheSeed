@@ -26,15 +26,19 @@ public:
 	double getY();
 	double getZ();
 
+	std::string getAll();
+
 	SOCKET getClientSocket();
 	std::string getClientAddress();
 	std::string getNickName();
 private:
+
 	std::string clientAddress;
 	std::string nickName;
 	std::string ip;
 	double x = 0, y = 0, z = 0, HP = 0;
-	int MP = 0, RE = 0, clientClass;
+	int MP = 0, RE = 0, clientClass = 0;
+	unsigned int currency = 0;
 
 	SOCKET _client = 0;
 

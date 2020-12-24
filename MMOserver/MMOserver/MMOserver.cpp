@@ -11,9 +11,9 @@ int main(int argc, char* argv[])
 
 	std::vector<Client> client;
 
-	char buffer[4024];
+	const int buffLength = 4024;
+	char buffer[buffLength];
 	int bytes;
-	int buffLength = 4024;
 	int tempo;
 
 	Server *server = new Server();
