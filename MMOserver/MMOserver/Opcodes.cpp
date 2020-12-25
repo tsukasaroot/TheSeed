@@ -2,7 +2,7 @@
 
 void Server::Opcodesinitialize()
 {
-	this->reader = new xmlParser("initialiaze.xml");
+	this->reader = new xmlParser("opcodes.xml");
 	auto functions = this->reader->cleanData(reader->Data["<functions>"]);
 
 	list.insert(std::pair<std::string, opcodes>("login", &Server::login));
@@ -25,8 +25,14 @@ void Server::processOpcodes(std::vector<std::string> opcodes, std::string ip)
 		cmd.erase(0, token.length() + 1);
 		std::vector<std::string> args = formatString(cmd);
 
-		(this->*list[token])(args);
-
+		if (this->list.find(token) != this->list.end())
+		{
+			(this->*list[token])(args);
+		}
+		else
+		{
+			std::cerr << "Invalid opcode sent from: " << ip << std::endl;
+		}
 		args.clear();
 	}
 }

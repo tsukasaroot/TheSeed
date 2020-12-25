@@ -2,19 +2,6 @@
 
 Client::Client(std::string client, std::string nickName)
 {
-	std::cout << "New client logging: " << nickName << std::endl;
-	this->error = WSAStartup(MAKEWORD(2, 2), &initialisation_win32);
-	if (this->error != 0)
-		std::cout << "Can't initialize Winsock : " << this->error << " " << WSAGetLastError() << std::endl;
-
-	this->_client = socket(AF_INET, SOCK_DGRAM, 0);
-	if (this->_client == INVALID_SOCKET)
-		std::cout << "Can't initialiaze socket : " << WSAGetLastError() << std::endl;
-
-	this->clientAddress = client;
-	this->nickName = nickName;
-
-	clientWrite("Accepted");
 }
 
 void Client::initClient(std::string client, std::string nickName)
@@ -131,7 +118,7 @@ std::string Client::getAll()
 {
 	std::string toSend;
 
-	std::cout << this->MP << ':' << this->clientClass << ':' << this->RE << ':' + this->HP << ':' + this->currency << std::endl;
-	toSend = this->MP + ':' + this->clientClass + ':' + this->RE + ':' + this->HP + ':' + this->currency;
+	toSend = std::to_string(this->MP) + ':' + std::to_string(this->HP) + ':' + std::to_string(this->RE) + ':' + std::to_string(this->currency) + ':' + std::to_string(this->clientClass) + ':' +
+		std::to_string(this->x) + ':' + std::to_string(this->y) + ':' + std::to_string(this->z);
 	return toSend;
 }

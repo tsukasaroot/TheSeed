@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers sources\Database">
+      <UniqueIdentifier>{8f01be2a-702a-4849-acaa-df4b6a15f8c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Database">
+      <UniqueIdentifier>{be476d10-79c1-4b5f-aafe-a74e1541a443}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\xmlParser">
+      <UniqueIdentifier>{05e94d45-91de-4156-ad2a-3a58befaf905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\xmlParser">
+      <UniqueIdentifier>{22985040-3e0a-4f45-9edf-e93bff201d60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\OPCodes">
+      <UniqueIdentifier>{3612a81a-fc46-459c-8deb-cc3aaac85f3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\OPCodes">
+      <UniqueIdentifier>{490301e6-402e-4298-aa4c-bbb40fa34aea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MMOserver.cpp">
@@ -21,58 +39,58 @@
     <ClCompile Include="Client.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="SQLmanager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="Server.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="stringFormatting.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Opcodes.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="xmlParser.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="inventoryManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="npcSpawner.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="SQLmanager.cpp">
+      <Filter>Fichiers sources\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="xmlParser.cpp">
+      <Filter>Fichiers sources\xmlParser</Filter>
+    </ClCompile>
+    <ClCompile Include="stringFormatting.cpp">
+      <Filter>Fichiers sources\xmlParser</Filter>
+    </ClCompile>
     <ClCompile Include="clientAuth.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\OPCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="inventoryManager.cpp">
+      <Filter>Fichiers sources\OPCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Opcodes.cpp">
+      <Filter>Fichiers sources\OPCodes</Filter>
     </ClCompile>
     <ClCompile Include="items.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\OPCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="npcSpawner.cpp">
+      <Filter>Fichiers sources\OPCodes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="SQLmanager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="Server.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="SQLmanager.h">
+      <Filter>Fichiers d%27en-tête\Database</Filter>
+    </ClInclude>
     <ClInclude Include="xmlParser.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\xmlParser</Filter>
     </ClInclude>
     <ClInclude Include="inventoryManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="npcSpawner.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\OPCodes</Filter>
     </ClInclude>
     <ClInclude Include="items.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\OPCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="npcSpawner.h">
+      <Filter>Fichiers d%27en-tête\OPCodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

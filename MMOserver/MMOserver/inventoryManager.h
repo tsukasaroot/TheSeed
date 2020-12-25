@@ -17,6 +17,7 @@ class inventoryManager {
 public:
 	inventoryManager();
 	void addItem(std::vector<int> item);
+	void saveClientInventory(std::string cmd);
 	std::vector<int> getClientInventory(std::string client);
 private:
 	xmlParser *reader;

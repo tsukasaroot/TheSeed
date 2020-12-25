@@ -1,13 +1,9 @@
 ﻿  Client.cpp
-F:\laragon\www\TheSeed\MMOserver\MMOserver\Client.cpp(67,114): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-F:\laragon\www\TheSeed\MMOserver\MMOserver\Client.cpp(135,86): warning C4244: 'argument' : conversion de 'double' en 'const _Elem', perte possible de données
-          with
-          [
-              _Elem=char
-          ]
+F:\laragon\www\TheSeed\MMOserver\MMOserver\Client.cpp(54,114): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+  clientAuth.cpp
   Génération de code en cours
-  4 of 1090 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    20 functions had inline decision re-evaluated but remain unchanged
+  34 of 1102 functions ( 3.1%) were compiled, the rest were copied from previous compilation.
+    16 functions were new in current compilation
+    76 functions had inline decision re-evaluated but remain unchanged
   Fin de la génération du code
   MMOserver.vcxproj -> F:\laragon\www\TheSeed\MMOserver\x64\Release\MMOserver.exe

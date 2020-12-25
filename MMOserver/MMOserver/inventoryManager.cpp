@@ -14,3 +14,8 @@ std::vector<int> inventoryManager::getClientInventory(std::string client)
 {
 
 }
+
+void inventoryManager::saveClientInventory(std::string cmd)
+{
+
+}

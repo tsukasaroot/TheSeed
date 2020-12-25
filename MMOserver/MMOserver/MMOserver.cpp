@@ -48,7 +48,6 @@ int main(int argc, char* argv[])
 				line.erase(0, pos + delimiter.length());
 				token.clear();
 			}
-
 			server->processOpcodes(opcodes, ip);
 
 			memset(buffer, 0, buffLength);
