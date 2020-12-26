@@ -7,11 +7,11 @@ Client::Client(std::string client, std::string nickName)
 void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV)
 {
 	std::cout << "New client logging: " << nickName << std::endl;
-	this->error = WSAStartup(MAKEWORD(2, 2), &initialisation_win32);
+	/*this->error = WSAStartup(MAKEWORD(2, 2), &initialisation_win32);
 	if (this->error != 0)
 		std::cout << "Can't initialize Winsock : " << this->error << " " << WSAGetLastError() << std::endl;
 
-	/*this->_client = socket(AF_INET, SOCK_DGRAM, 0);
+	this->_client = socket(AF_INET, SOCK_DGRAM, 0);
 	if (this->_client == INVALID_SOCKET)
 		std::cout << "Can't initialiaze socket : " << WSAGetLastError() << std::endl;*/
 
@@ -35,13 +35,13 @@ void Client::initClient(std::map<std::string, std::string> cmd)
 
 void Client::closeClient()
 {
-	this->error = closesocket(this->_client);
+	/*this->error = closesocket(this->_client);
 	if (this->error != 0)
 		std::cout << "Socket can't be freed : " << this->error << " " << WSAGetLastError() << std::endl;
 
 	this->error = WSACleanup();
 	if (this->error != 0)
-		std::cout << "Winsock can't be freed : " << this->error << " " << WSAGetLastError() << std::endl;
+		std::cout << "Winsock can't be freed : " << this->error << " " << WSAGetLastError() << std::endl;*/
 	std::cout << "Client logged out: " << this->nickName << std::endl;
 }
 
