@@ -28,23 +28,23 @@
     <Filter Include="Fichiers sources\OPCodes">
       <UniqueIdentifier>{3612a81a-fc46-459c-8deb-cc3aaac85f3d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\OPCodes">
+    <Filter Include="Fichiers sources\Managers">
+      <UniqueIdentifier>{2cb80a9e-227b-42ee-82b8-b7f4af82e8b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Managers">
+      <UniqueIdentifier>{66389b99-84e0-4ff6-ac4d-b7ed1a8449f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Server">
+      <UniqueIdentifier>{1942d09f-5c5d-403b-9e83-8accb033b184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Server">
       <UniqueIdentifier>{490301e6-402e-4298-aa4c-bbb40fa34aea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Client">
+      <UniqueIdentifier>{3616f26a-6e63-4d2c-8040-aa0745767fa9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MMOserver.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Client.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Server.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="utils.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="SQLmanager.cpp">
       <Filter>Fichiers sources\Database</Filter>
     </ClCompile>
@@ -57,24 +57,39 @@
     <ClCompile Include="clientAuth.cpp">
       <Filter>Fichiers sources\OPCodes</Filter>
     </ClCompile>
-    <ClCompile Include="inventoryManager.cpp">
-      <Filter>Fichiers sources\OPCodes</Filter>
-    </ClCompile>
     <ClCompile Include="Opcodes.cpp">
       <Filter>Fichiers sources\OPCodes</Filter>
     </ClCompile>
-    <ClCompile Include="items.cpp">
-      <Filter>Fichiers sources\OPCodes</Filter>
+    <ClCompile Include="inventoryManager.cpp">
+      <Filter>Fichiers sources\Managers</Filter>
     </ClCompile>
     <ClCompile Include="npcSpawner.cpp">
+      <Filter>Fichiers sources\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="itemManager.cpp">
+      <Filter>Fichiers sources\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="messageManager.cpp">
+      <Filter>Fichiers sources\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="MMOserver.cpp">
+      <Filter>Fichiers sources\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>Fichiers sources\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Fichiers sources\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Fichiers sources\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="message.cpp">
       <Filter>Fichiers sources\OPCodes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Server.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="SQLmanager.h">
@@ -83,14 +98,20 @@
     <ClInclude Include="xmlParser.h">
       <Filter>Fichiers d%27en-tête\xmlParser</Filter>
     </ClInclude>
-    <ClInclude Include="inventoryManager.h">
-      <Filter>Fichiers d%27en-tête\OPCodes</Filter>
+    <ClInclude Include="messageManager.h">
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="items.h">
-      <Filter>Fichiers d%27en-tête\OPCodes</Filter>
+    <ClInclude Include="inventoryManager.h">
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
     </ClInclude>
     <ClInclude Include="npcSpawner.h">
-      <Filter>Fichiers d%27en-tête\OPCodes</Filter>
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Server.h">
+      <Filter>Fichiers d%27en-tête\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="itemManager.h">
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

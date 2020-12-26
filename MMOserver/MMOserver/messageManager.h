@@ -2,6 +2,7 @@
 #define MESSAGEMANAGER_H_
 
 #include "xmlParser.h"
+#include "Client.h"
 
 #include <windows.h>
 
@@ -15,10 +16,12 @@
 class messageManager {
 public:
 	messageManager();
+	void sendMessage(std::map<std::string, Client*> clientFrom, std::map<std::string, Client*> clientToSend);
 private:
 	xmlParser* reader;
 	std::map<std::string, std::vector<std::string>> messages;
 	std::map<std::string, int> timestamp;
+	std::map<std::string, Client*> _client;
 };
 
 #endif

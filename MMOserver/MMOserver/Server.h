@@ -7,6 +7,7 @@
 #include "inventoryManager.h"
 #include "npcSpawner.h"
 #include "itemManager.h"
+#include "messageManager.h"
 
 class Server {
 public:
@@ -19,10 +20,10 @@ public:
 private:
 	int serverPort = 11102;
 	struct timeval read_timeout;
-	WSADATA initialisation_win32; // Variable permettant de récupérer la structure d'information sur l'initialisation
-	int error; // Variable permettant de récupérer la valeur de retour des fonctions utilisées
+	WSADATA initialisation_win32;
+	int error;
 	SOCKET serverRCV;
-	SOCKADDR_IN ipep; // Déclaration de la structure des informations lié à l'écoute
+	SOCKADDR_IN ipep;
 
 	/**
 	* Log the client server-side.
@@ -53,6 +54,8 @@ private:
 	*/
 	void getClientData(std::vector<std::string> cmd);
 
+	void message(std::vector<std::string> cmd);
+
 	void Opcodesinitialize();
 	void closeServer();
 
@@ -60,6 +63,7 @@ private:
 	std::map<std::string, opcodes> list;
 	std::vector<std::string> playerList;
 
+	messageManager* messages;
 	itemsManager* items;
 	inventoryManager* inventory;
 	npcSpawner* npcSpawn;

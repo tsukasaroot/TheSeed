@@ -9,12 +9,14 @@ void Server::Opcodesinitialize()
 	list.insert(std::pair<std::string, opcodes>("logout", &Server::logout));
 	list.insert(std::pair<std::string, opcodes>("saveData", &Server::savePlayerData));
 	list.insert(std::pair<std::string, opcodes>("getClientData", &Server::getClientData));
+	list.insert(std::pair<std::string, opcodes>("message", &Server::message));
 
 	std::cout << "OPCodes initialized: " << list.size() << " OPCodes loaded" << std::endl;
 
 	this->inventory = new inventoryManager();
 	this->npcSpawn = new npcSpawner();
 	this->items = new itemsManager();
+	this->messages = new messageManager();
 }
 
 void Server::processOpcodes(std::vector<std::string> opcodes, std::string ip)

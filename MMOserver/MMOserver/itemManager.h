@@ -13,8 +13,7 @@
 
 std::map<std::string, std::vector<std::string>> stockXML(xmlParser* reader);
 
-class itemsManager
-{
+class itemsManager {
 public:
 	itemsManager();
 private:
