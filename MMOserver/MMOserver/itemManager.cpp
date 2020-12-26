@@ -1,4 +1,4 @@
-#include "items.h"
+#include "itemManager.h"
 
 itemsManager::itemsManager()
 {

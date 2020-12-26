@@ -6,7 +6,7 @@
 #include "xmlParser.h"
 #include "inventoryManager.h"
 #include "npcSpawner.h"
-#include "items.h"
+#include "itemManager.h"
 
 class Server {
 public:
