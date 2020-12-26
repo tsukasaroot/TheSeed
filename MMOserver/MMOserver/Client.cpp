@@ -4,17 +4,18 @@ Client::Client(std::string client, std::string nickName)
 {
 }
 
-void Client::initClient(std::string ip, std::string nickName)
+void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV)
 {
 	std::cout << "New client logging: " << nickName << std::endl;
 	this->error = WSAStartup(MAKEWORD(2, 2), &initialisation_win32);
 	if (this->error != 0)
 		std::cout << "Can't initialize Winsock : " << this->error << " " << WSAGetLastError() << std::endl;
 
-	this->_client = socket(AF_INET, SOCK_DGRAM, 0);
+	/*this->_client = socket(AF_INET, SOCK_DGRAM, 0);
 	if (this->_client == INVALID_SOCKET)
-		std::cout << "Can't initialiaze socket : " << WSAGetLastError() << std::endl;
+		std::cout << "Can't initialiaze socket : " << WSAGetLastError() << std::endl;*/
 
+	this->_client = serverRCV;
 	this->clientAddress = ip;
 	this->nickName = nickName;
 
@@ -48,7 +49,7 @@ void Client::clientWrite(std::string msg)
 {
 	this->ipep.sin_family = AF_INET;
 	this->ipep.sin_addr.s_addr = inet_addr(this->clientAddress.c_str()); // Indique l'adresse IP du client qui a été push
-	this->ipep.sin_port = htons(11102);
+	this->ipep.sin_port = htons(16384);
 	msg = msg + "0x12" + '\n';
 	strcpy_s(buffer, msg.c_str());
 	this->bytes = sendto(this->_client, buffer, strlen(buffer), 0, (struct sockaddr*)&this->ipep, sizeof(this->ipep));

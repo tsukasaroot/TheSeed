@@ -13,7 +13,7 @@ public:
 	Client(std::string client, std::string nickName);
 	Client() {};
 	void closeClient();
-	void initClient(std::string client, std::string nickName);
+	void initClient(std::string client, std::string nickName, SOCKET serverRCV);
 	void initClient(std::map<std::string, std::string> cmd);
 
 	void clientWrite(std::string msg);
