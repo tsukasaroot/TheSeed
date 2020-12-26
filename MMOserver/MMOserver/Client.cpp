@@ -4,7 +4,7 @@ Client::Client(std::string client, std::string nickName)
 {
 }
 
-void Client::initClient(std::string client, std::string nickName)
+void Client::initClient(std::string ip, std::string nickName)
 {
 	std::cout << "New client logging: " << nickName << std::endl;
 	this->error = WSAStartup(MAKEWORD(2, 2), &initialisation_win32);
@@ -15,7 +15,7 @@ void Client::initClient(std::string client, std::string nickName)
 	if (this->_client == INVALID_SOCKET)
 		std::cout << "Can't initialiaze socket : " << WSAGetLastError() << std::endl;
 
-	this->clientAddress = client;
+	this->clientAddress = ip;
 	this->nickName = nickName;
 
 	clientWrite("Accepted");
@@ -48,8 +48,8 @@ void Client::clientWrite(std::string msg)
 {
 	this->ipep.sin_family = AF_INET;
 	this->ipep.sin_addr.s_addr = inet_addr(this->clientAddress.c_str()); // Indique l'adresse IP du client qui a été push
-	this->ipep.sin_port = htons(11101);
-	msg = msg + "0x12";
+	this->ipep.sin_port = htons(11102);
+	msg = msg + "0x12" + '\n';
 	strcpy_s(buffer, msg.c_str());
 	this->bytes = sendto(this->_client, buffer, strlen(buffer), 0, (struct sockaddr*)&this->ipep, sizeof(this->ipep));
 	if (this->bytes == SOCKET_ERROR)
