@@ -10,6 +10,7 @@ void Server::Opcodesinitialize()
 	list.insert(std::pair<std::string, opcodes>("saveData", &Server::savePlayerData));
 	list.insert(std::pair<std::string, opcodes>("getClientData", &Server::getClientData));
 	list.insert(std::pair<std::string, opcodes>("message", &Server::message));
+	list.insert(std::pair<std::string, opcodes>("getAllClientsName", &Server::getAllClientsName));
 
 	std::cout << "OPCodes initialized: " << list.size() << " OPCodes loaded" << std::endl;
 

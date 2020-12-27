@@ -56,6 +56,8 @@ private:
 
 	void message(std::vector<std::string> cmd);
 
+	void getAllClientsName(std::vector<std::string> cmd);
+
 	void Opcodesinitialize();
 	void closeServer();
 

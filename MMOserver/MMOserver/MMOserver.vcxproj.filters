@@ -87,6 +87,9 @@
     <ClCompile Include="message.cpp">
       <Filter>Fichiers sources\OPCodes</Filter>
     </ClCompile>
+    <ClCompile Include="serverGets.cpp">
+      <Filter>Fichiers sources\OPCodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
