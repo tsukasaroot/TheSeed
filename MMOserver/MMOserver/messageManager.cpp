@@ -5,7 +5,10 @@ messageManager::messageManager()
 
 }
 
-void  messageManager::sendMessage(std::map<std::string, Client*> clientFrom, std::map<std::string, Client*> clientToSend)
+void  messageManager::sendMessage(Client* clientFrom, Client* clientToSend, std::string message)
 {
+	int timestamp = 27122020;
+	std::string toSend = clientFrom->getNickName() + ':' + message + ':' + std::to_string(timestamp);
 
+	clientToSend->clientWrite(toSend);
 }
