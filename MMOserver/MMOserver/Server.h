@@ -54,7 +54,9 @@ private:
 	*/
 	void getClientData(std::vector<std::string> cmd);
 
-	void message(std::vector<std::string> cmd);
+	void privateMessage(std::vector<std::string> cmd);
+
+	void globalMessage(std::vector<std::string> cmd);
 
 	void getAllClientsName(std::vector<std::string> cmd);
 

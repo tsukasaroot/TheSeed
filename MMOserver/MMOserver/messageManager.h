@@ -16,7 +16,8 @@
 class messageManager {
 public:
 	messageManager();
-	void sendMessage(Client* clientFrom, Client* clientToSend, std::string message);
+	void sendPrivateMessage(Client* clientFrom, Client* clientToSend, std::string message);
+	void sendGlobalMessage(Client* clientFrom, std::string message, std::map<std::string, Client*> clientsToSend);
 private:
 	xmlParser* reader;
 	std::map<std::string, std::vector<std::string>> messages;
