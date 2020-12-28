@@ -1,6 +1,9 @@
 #ifndef CLIENT_H_
 #define CLIENT_H_
 
+#include "inventoryManager.h"
+#include "SQLmanager.h"
+
 #include <windows.h>
 
 #include <iostream>
@@ -13,7 +16,7 @@ public:
 	Client(std::string client, std::string nickName);
 	Client() {};
 	void closeClient();
-	void initClient(std::string client, std::string nickName, SOCKET serverRCV);
+	void initClient(std::string client, std::string nickName, SOCKET serverRCV, SQLManager* db);
 	void initClient(std::map<std::string, std::string> cmd);
 
 	void clientWrite(std::string msg);
@@ -39,6 +42,8 @@ private:
 	double x = 0, y = 0, z = 0, HP = 0;
 	int MP = 0, RE = 0, clientClass = 0;
 	unsigned int currency = 0;
+
+	inventoryManager* inventory;
 
 	SOCKET _client = 0;
 

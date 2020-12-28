@@ -4,10 +4,11 @@ Client::Client(std::string client, std::string nickName)
 {
 }
 
-void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV)
+void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, SQLManager *db)
 {
 	std::cout << "New client logging: " << nickName << std::endl;
 
+	this->inventory = new inventoryManager(db);
 	this->_client = serverRCV;
 	this->clientAddress = ip;
 	this->nickName = nickName;

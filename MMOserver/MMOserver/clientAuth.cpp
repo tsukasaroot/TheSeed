@@ -41,7 +41,7 @@ void Server::login(std::vector<std::string> cmd)
 		{
 			this->playerList.push_back(login);
 			this->_client.insert(std::pair<std::string, Client*>(login, new Client()));
-			_client[login]->initClient(cmd[2], result["name"], this->serverRCV);
+			_client[login]->initClient(cmd[2], result["name"], this->serverRCV, this->dataBase);
 
 			auto datas = this->dataBase->initPlayer(login);
 			_client[login]->initClient(datas);

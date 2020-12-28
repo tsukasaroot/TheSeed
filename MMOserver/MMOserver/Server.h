@@ -4,7 +4,6 @@
 #include "Client.h"
 #include "SQLmanager.h"
 #include "xmlParser.h"
-#include "inventoryManager.h"
 #include "npcSpawner.h"
 #include "itemManager.h"
 #include "messageManager.h"
@@ -69,7 +68,6 @@ private:
 
 	messageManager* messages;
 	itemsManager* items;
-	inventoryManager* inventory;
 	npcSpawner* npcSpawn;
 	xmlParser* reader;
 	std::map<std::string, Client*> _client;
