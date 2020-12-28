@@ -2,7 +2,25 @@
 
 SQLManager::SQLManager()
 {
-	initialize();
+	connection_properties["hostName"] = server;
+	connection_properties["userName"] = userName;
+	connection_properties["password"] = password;
+	connection_properties["port"] = port;
+	connection_properties["OPT_RECONNECT"] = true;
+
+	try
+	{
+		driver = get_driver_instance();
+		this->con = driver->connect(connection_properties);
+		std::cout << "SQLManager initialiazed" << std::endl;
+	}
+	catch (sql::SQLException e)
+	{
+		std::cout << "Could not connect to server. Error message: " << e.what() << std::endl;
+		system("pause");
+		exit(1);
+	}
+	//initialize()
 }
 
 void SQLManager::initialize()
@@ -29,7 +47,7 @@ void SQLManager::initialize()
 
 void SQLManager::insert(std::string table, std::string column, std::vector<std::string> values)
 {
-	sql::PreparedStatement *pstmt;
+	sql::PreparedStatement* pstmt;
 	std::string query = "INSERT INTO " + table + "(" + column + ") VALUES(?)";
 	pstmt = con->prepareStatement(query);
 
@@ -45,7 +63,7 @@ void SQLManager::insert(std::string table, std::string column, std::vector<std::
 
 void SQLManager::update(std::string user, std::string table, std::vector<std::pair<std::string, std::string>> values)
 {
-	sql::Statement *stmt;
+	sql::Statement* stmt;
 	std::string query = "UPDATE " + table + " SET ";
 	std::string condition = " WHERE name LIKE '" + user + "'";
 
@@ -60,6 +78,64 @@ void SQLManager::update(std::string user, std::string table, std::vector<std::pa
 	stmt = con->createStatement();
 	stmt->executeUpdate(query);
 	delete(stmt);
+}
+
+void SQLManager::get(std::string table, std::vector<std::string> fields, std::vector<std::string> columnName, std::vector<std::string> where)
+{
+	sql::Statement* stmt;
+	sql::ResultSet* res;
+	std::string query = "SELECT ";
+	std::string condition = " WHERE ";
+
+	for (auto it = fields.begin(); it != fields.end(); it++)
+	{
+		query += *it;
+		if (it + 1 != fields.end())
+			query += ',';
+	}
+	query += " FROM " + table + condition;
+	
+	for (size_t i = 0; i < where.size() && i < columnName.size(); i++)
+	{
+		query += columnName[i] + "=" + where[i];
+		if (i + 1 != where.size() && i + 1 != columnName.size())
+			query += " AND ";
+	}
+	std::cout << query << std::endl;
+	try
+	{
+		stmt = con->createStatement();
+		res = stmt->executeQuery(query);
+		std::map<int, std::vector<double>> inventories;
+		std::vector<double> items_id;
+		
+		while (res->next())
+		{
+			items_id.push_back(res->getDouble("item_id"));
+			inventories.insert(std::pair<int, std::vector<double>>(res->getInt("player_id"), items_id));
+		}
+		items_id.clear();
+		delete res;
+		delete stmt;
+		for (auto it = inventories.begin(); it != inventories.end(); it++)
+		{
+			std::cout << "player " << it->first << std::endl;
+			for (auto itI = it->second.begin(); itI != it->second.end(); itI++)
+			{
+				std::cout << "Has those items in inventory: " << *itI << std::endl;
+			}
+		}
+		return;
+	}
+	catch (sql::SQLException& e)
+	{
+		std::cout << "# ERR: SQLException in " << __FILE__;
+		std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
+		std::cout << "# ERR: " << e.what();
+		std::cout << " (MySQL error code: " << e.getErrorCode();
+		std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+		exit(0);
+	}
 }
 
 std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)

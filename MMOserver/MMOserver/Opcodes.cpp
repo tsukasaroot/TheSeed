@@ -15,9 +15,9 @@ void Server::Opcodesinitialize()
 
 	std::cout << "OPCodes initialized: " << list.size() << " OPCodes loaded" << std::endl;
 
-	this->inventory = new inventoryManager();
-	this->npcSpawn = new npcSpawner();
 	this->items = new itemsManager();
+	this->inventory = new inventoryManager(this->dataBase);
+	this->npcSpawn = new npcSpawner();
 	this->messages = new messageManager();
 }
 
