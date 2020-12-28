@@ -6,12 +6,16 @@
 
 #include <windows.h>
 
+#include <fstream>
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <thread>
 #include <map>
 #include <vector>
+#include <filesystem>
 
+namespace fs = std::filesystem;
 
 class messageManager {
 public:

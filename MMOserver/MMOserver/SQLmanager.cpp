@@ -82,6 +82,8 @@ void SQLManager::update(std::string user, std::string table, std::vector<std::pa
 
 void SQLManager::get(std::string table, std::vector<std::string> fields, std::vector<std::string> columnName, std::vector<std::string> where)
 {
+	// to refactor
+
 	sql::Statement* stmt;
 	sql::ResultSet* res;
 	std::string query = "SELECT ";
