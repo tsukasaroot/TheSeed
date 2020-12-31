@@ -18,6 +18,7 @@ void Server::Opcodesinitialize()
 	this->items = new itemsManager();
 	this->npcSpawn = new npcSpawner();
 	this->messages = new messageManager();
+	this->skills = new skillManager();
 }
 
 void Server::processOpcodes(std::vector<std::string> opcodes, std::string ip)

@@ -7,6 +7,7 @@
 #include "npcSpawner.h"
 #include "itemManager.h"
 #include "messageManager.h"
+#include "skillManager.h"
 
 class Server {
 public:
@@ -66,6 +67,7 @@ private:
 	std::map<std::string, opcodes> list;
 	std::vector<std::string> playerList;
 
+	skillManager* skills;
 	messageManager* messages;
 	itemsManager* items;
 	npcSpawner* npcSpawn;

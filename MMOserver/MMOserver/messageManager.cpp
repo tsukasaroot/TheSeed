@@ -1,10 +1,5 @@
 #include "messageManager.h"
 
-messageManager::messageManager()
-{
-
-}
-
 void  messageManager::sendPrivateMessage(Client* clientFrom, Client* clientToSend, std::string message)
 {
 	SYSTEMTIME time;

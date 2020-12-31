@@ -176,6 +176,7 @@
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="clientAuth.cpp" />
     <ClCompile Include="serverGets.cpp" />
+    <ClCompile Include="skillManager.cpp" />
     <ClCompile Include="SQLmanager.cpp" />
     <ClCompile Include="stringFormatting.cpp" />
     <ClCompile Include="utils.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="messageManager.h" />
     <ClInclude Include="npcSpawner.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="skillManager.h" />
     <ClInclude Include="SQLmanager.h" />
     <ClInclude Include="xmlParser.h" />
   </ItemGroup>

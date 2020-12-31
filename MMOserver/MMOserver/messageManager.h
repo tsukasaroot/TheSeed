@@ -20,7 +20,8 @@ namespace fs = std::filesystem;
 
 class messageManager {
 public:
-	messageManager();
+	messageManager() {};
+	~messageManager() {};
 	void sendPrivateMessage(Client* clientFrom, Client* clientToSend, std::string message);
 	void sendGlobalMessage(Client* clientFrom, std::string message, std::map<std::string, Client*> clientsToSend);
 private:
