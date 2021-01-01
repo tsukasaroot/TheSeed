@@ -65,12 +65,21 @@ std::vector<std::string> xmlParser::cleanData(std::string data)
 	while ((pos = (size_t)data.find(' ')) != std::string::npos)
 	{
 		std::string token = data.substr(0, data.find(' '));
+
 		if (!token.empty())
 			functions.push_back(token);
 		data.erase(0, pos + 1);
 		token.clear();
 	}
 	return functions;
+}
+
+std::string xmlParser::cleanParent(std::string data)
+{
+	data.erase(std::remove_if(data.begin(), data.end(), OneOf("/<")), data.end());
+	std::replace(data.begin(), data.end(), '>', ' ');
+
+	return data;
 }
 
 xmlParser::xmlParser(const char *const path)

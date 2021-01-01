@@ -23,6 +23,7 @@ public:
 	xmlParser(const char *const path);
 	std::map<std::string, std::string> Data;
 	std::vector<std::string> cleanData(std::string data);
+	std::string cleanParent(std::string data);
 private:
 };
 
