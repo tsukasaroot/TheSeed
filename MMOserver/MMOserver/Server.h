@@ -63,7 +63,8 @@ private:
 	void Opcodesinitialize();
 	void closeServer();
 
-	typedef void(Server::*opcodes)(std::vector<std::string>);
+	typedef void(Server::* opcodes)(std::vector<std::string>);
+
 	std::map<std::string, opcodes> list;
 	std::vector<std::string> playerList;
 

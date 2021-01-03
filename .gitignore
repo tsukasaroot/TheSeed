@@ -41,3 +41,8 @@ MMOserver/MMOserver/x64/Release/MMOserver.tlog/CL.read.1.tlog
 MMOserver/MMOserver/x64/Release/MMOserver.tlog/CL.command.1.tlog
 MMOserver/MMOserver/x64/Release/MMOserver.log
 MMOserver/MMOserver/x64/Release/MMOserver.Build.CppClean.log
+*.pdb
+*.ipdb
+*.iobj
+*.tlog
+*.log
