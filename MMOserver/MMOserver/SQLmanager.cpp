@@ -20,29 +20,6 @@ SQLManager::SQLManager()
 		system("pause");
 		exit(1);
 	}
-	//initialize()
-}
-
-void SQLManager::initialize()
-{
-	connection_properties["hostName"] = server;
-	connection_properties["userName"] = userName;
-	connection_properties["password"] = password;
-	connection_properties["port"] = port;
-	connection_properties["OPT_RECONNECT"] = true;
-
-	try
-	{
-		driver = get_driver_instance();
-		this->con = driver->connect(connection_properties);
-		std::cout << "SQLManager initialiazed" << std::endl;
-	}
-	catch (sql::SQLException e)
-	{
-		std::cout << "Could not connect to server. Error message: " << e.what() << std::endl;
-		system("pause");
-		exit(1);
-	}
 }
 
 void SQLManager::insert(std::string table, std::string column, std::vector<std::string> values)

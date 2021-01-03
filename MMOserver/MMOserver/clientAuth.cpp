@@ -72,7 +72,6 @@ void Server::getClientData(std::vector<std::string> cmd)
 		if (it != this->playerList.end())
 		{
 			auto dataToSend = this->_client[nickName]->getAll();
-			std::cout << dataToSend << std::endl;
 			this->_client[nickName]->clientWrite(dataToSend);
 			return;
 		}

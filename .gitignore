@@ -30,3 +30,14 @@
 *.out
 *.app
 .vs
+MMOserver/x64/Release/MMOserver.pdb
+MMOserver/x64/Release/MMOserver.ipdb
+MMOserver/x64/Release/MMOserver.iobj
+MMOserver/MMOserver/x64/Release/vc142.pdb
+MMOserver/MMOserver/x64/Release/MMOserver.tlog/MMOserver.write.1u.tlog
+MMOserver/MMOserver/x64/Release/MMOserver.tlog/link.read.1.tlog
+MMOserver/MMOserver/x64/Release/MMOserver.tlog/CL.write.1.tlog
+MMOserver/MMOserver/x64/Release/MMOserver.tlog/CL.read.1.tlog
+MMOserver/MMOserver/x64/Release/MMOserver.tlog/CL.command.1.tlog
+MMOserver/MMOserver/x64/Release/MMOserver.log
+MMOserver/MMOserver/x64/Release/MMOserver.Build.CppClean.log
