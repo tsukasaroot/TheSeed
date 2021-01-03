@@ -25,12 +25,14 @@ void Server::processOpcodes(std::vector<std::string> opcodes, std::string ip)
 {
 	for (auto& cmd : opcodes)
 	{
+		static int i = 0;
 		std::string token = cmd.substr(0, cmd.find(':'));
 		cmd.erase(0, token.length() + 1);
 		std::vector<std::string> args = formatString(cmd);
 
 		if (this->list.find(token) != this->list.end())
 		{
+			std::cout << i++ << std::endl;
 			(this->*list[token])(args);
 		}
 		else

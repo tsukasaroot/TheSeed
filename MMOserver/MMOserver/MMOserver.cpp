@@ -4,6 +4,12 @@
 
 auto const tableName = "users";
 
+void runOpcodes(Server* server, std::vector<std::string> opcodes, std::string ip)
+{
+	server->processOpcodes(opcodes, ip);
+
+}
+
 int main(int argc, char* argv[])
 {
 	std::string delimiter = "0x12";
@@ -15,8 +21,9 @@ int main(int argc, char* argv[])
 	char buffer[buffLength];
 	int bytes;
 	int tempo;
+	unsigned int nThreads = std::thread::hardware_concurrency();
 
-	Server *server = new Server();
+	Server* server = new Server();
 
 	SOCKET serverRCV = server->getSocket();
 	struct timeval read_timeout = server->getTimeVal();
@@ -48,7 +55,9 @@ int main(int argc, char* argv[])
 				line.erase(0, pos + delimiter.length());
 				token.clear();
 			}
-			server->processOpcodes(opcodes, ip);
+
+			std::thread thread(runOpcodes, server, opcodes, ip);
+			thread.detach();
 
 			memset(buffer, 0, buffLength);
 			line.clear();

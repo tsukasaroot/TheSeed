@@ -10,7 +10,6 @@
 #include <windows.h>
 #include <iostream>
 #include <string>
-#include <thread>
 #include <errno.h>
 #include <winsock.h>
 #include <algorithm>
