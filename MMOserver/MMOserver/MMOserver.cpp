@@ -7,7 +7,6 @@ auto const tableName = "users";
 void runOpcodes(Server* server, std::vector<std::string> opcodes, std::string ip)
 {
 	server->processOpcodes(opcodes, ip);
-
 }
 
 int main(int argc, char* argv[])
@@ -50,6 +49,7 @@ int main(int argc, char* argv[])
 			{
 				std::string token = line.substr(0, line.find(delimiter));
 				token += ':' + ip;
+				
 				if (!token.empty())
 					opcodes.push_back(token);
 				line.erase(0, pos + delimiter.length());

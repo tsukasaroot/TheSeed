@@ -18,7 +18,7 @@ public:
 	struct timeval getTimeVal();
 	SOCKADDR_IN getIpep();
 private:
-	int serverPort = 11102;
+	int serverPort = 16384;
 	struct timeval read_timeout;
 	WSADATA initialisation_win32;
 	int error;

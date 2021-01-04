@@ -14,15 +14,15 @@ Server::Server()
 		std::cout << "WSAStartup : OK" << std::endl;
 
 	this->serverRCV = socket(AF_INET, SOCK_DGRAM, 0);
-	if (serverRCV == INVALID_SOCKET)
+	if (this->serverRCV == INVALID_SOCKET)
 		std::cout << "Can't initialiaze socket : " << WSAGetLastError() << std::endl;
 	else
 		std::cout << "socket : OK" << std::endl;
 
 	ipep.sin_family = AF_INET;
 	ipep.sin_addr.s_addr = INADDR_ANY;
-	ipep.sin_port = htons(serverPort);
-	error = bind(serverRCV, (struct sockaddr*)&ipep, sizeof(ipep));
+	ipep.sin_port = htons(this->serverPort);
+	error = bind(this->serverRCV, (struct sockaddr*)&ipep, sizeof(ipep));
 	if (error != 0)
 		std::cout << "Can't listen to this port : " << error << " " << WSAGetLastError() << std::endl;
 	else
@@ -35,7 +35,7 @@ Server::Server()
 
 void Server::closeServer()
 {
-	error = closesocket(serverRCV);
+	error = closesocket(this->serverRCV);
 	if (error != 0)
 		std::cout << "Socket can't be freed : " << error << " " << WSAGetLastError() << std::endl;
 	else

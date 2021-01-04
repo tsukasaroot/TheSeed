@@ -32,6 +32,7 @@ void Server::processOpcodes(std::vector<std::string> opcodes, std::string ip)
 
 		if (this->list.find(token) != this->list.end())
 		{
+			std::cout << i++ << std::endl;
 			(this->*list[token])(args);
 		}
 		else
