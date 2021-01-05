@@ -13,8 +13,8 @@
 
 class Client {
 public:
-	Client(std::string client, std::string nickName);
 	Client() {};
+	~Client() {};
 	void closeClient();
 	void initClient(std::string client, std::string nickName, SOCKET serverRCV, SQLManager* db);
 	void initClient(std::map<std::string, std::string> cmd);

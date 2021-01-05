@@ -1,9 +1,5 @@
 #include "Client.h"
 
-Client::Client(std::string client, std::string nickName)
-{
-}
-
 void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, SQLManager *db)
 {
 	std::cout << "New client logging: " << nickName << std::endl;
@@ -13,7 +9,7 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 	this->clientAddress = ip;
 	this->nickName = nickName;
 
-	clientWrite("Accepted");
+	clientWrite("C_LOGIN:Accepted");
 }
 
 void Client::initClient(std::map<std::string, std::string> cmd)
