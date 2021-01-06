@@ -23,6 +23,8 @@ public:
 
 	void queryClientPosition();
 
+	void queryClientInventory();
+
 	void forward();
 	void back();
 	void left();
