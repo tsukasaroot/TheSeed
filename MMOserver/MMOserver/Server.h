@@ -47,17 +47,32 @@ private:
 	*/
 	void savePlayerData(std::vector<std::string> cmd);
 	/**
-	* get Client Data server-side.
+	* Get Client Data server-side.
 	*
 	* @param Take a cmd string that contain clients info we want and send info back.
 	* @return no return values.
 	*/
 	void getClientData(std::vector<std::string> cmd);
-
+	/**
+	* Send a private message to a connected client
+	* 
+	* @param Take the current client that wants to send the message, the second client that will receive it, and finally the string
+	* @return no return values
+	*/
 	void privateMessage(std::vector<std::string> cmd);
-
+	/**
+	* Send a global message to all connected client
+	*
+	* @param Take the current client that wants to send the message and finally the string
+	* @return no return values
+	*/
 	void globalMessage(std::vector<std::string> cmd);
-
+	/**
+	* Send to the asking client all the connected clients name
+	*
+	* @param Take the current client that wants the list
+	* @return no return values
+	*/
 	void getAllClientsName(std::vector<std::string> cmd);
 
 	void Opcodesinitialize();
