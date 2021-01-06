@@ -93,6 +93,9 @@
     <ClCompile Include="skillManager.cpp">
       <Filter>Fichiers sources\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="queriesToClient.cpp">
+      <Filter>Fichiers sources\Client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">

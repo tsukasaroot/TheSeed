@@ -20,6 +20,9 @@ public:
 	void initClient(std::map<std::string, std::string> cmd);
 
 	void clientWrite(std::string msg);
+
+	void queryClientPosition();
+
 	void forward();
 	void back();
 	void left();
@@ -35,13 +38,12 @@ public:
 	std::string getClientAddress();
 	std::string getNickName();
 private:
-
 	std::string clientAddress;
 	std::string nickName;
 	std::string ip;
 	double x = 0, y = 0, z = 0, HP = 0;
 	int MP = 0, RE = 0, clientClass = 0;
-	unsigned int currency = 0;
+	double currency = 0;
 
 	inventoryManager* inventory;
 
