@@ -46,3 +46,4 @@ MMOserver/MMOserver/x64/Release/MMOserver.Build.CppClean.log
 *.iobj
 *.tlog
 *.log
+*.recipe
