@@ -1,11 +1,11 @@
 #include "server.h"
 
-void Server::getAllClientsName(std::vector<std::string> cmd)
+void Server::sendAllClientsName(std::vector<std::string> cmd)
 {
 	if (cmd.size() == 2)
 	{
 		std::string currentClient = cmd[0];
-		std::string listName = "getAllClientsName";
+		std::string listName = "S_GETALLCLIENTSNAME";
 
 		for (auto it = this->_client.begin(); it != this->_client.end(); it++)
 		{
@@ -15,7 +15,7 @@ void Server::getAllClientsName(std::vector<std::string> cmd)
 	}
 }
 
-void Server::getClientData(std::vector<std::string> cmd)
+void Server::sendClientData(std::vector<std::string> cmd)
 {
 	if (cmd.size() == 2)
 	{
@@ -30,5 +30,30 @@ void Server::getClientData(std::vector<std::string> cmd)
 		}
 		std::cerr << "Error: " << nickName << " this player don't exist, command denied." << std::endl;
 		return;
+	}
+}
+
+void Server::sendProfile(std::vector<std::string> cmd)
+{
+	if (cmd.size() == 2)
+	{
+		std::string nickName = cmd[0];
+		auto it = std::find(this->playerList.begin(), this->playerList.end(), nickName);
+		if (it != this->playerList.end())
+		{
+			auto dataToSend = "C_GETPROFILE:" + this->_client[nickName]->getNickName() + ':' + this->_client[nickName]->getAll();
+			this->_client[nickName]->clientWrite(dataToSend);
+			return;
+		}
+		std::cerr << "Error: " << nickName << " this player don't exist, command denied." << std::endl;
+		return;
+	}
+}
+
+void Server::getPosition(std::vector<std::string> cmd)
+{
+	if (cmd.size() == 2)
+	{
+
 	}
 }

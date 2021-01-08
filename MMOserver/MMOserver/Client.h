@@ -30,6 +30,7 @@ public:
 	double getZ();
 
 	std::string getAll();
+	std::string getProfile();
 
 	SOCKET getClientSocket();
 	std::string getClientAddress();

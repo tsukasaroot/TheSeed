@@ -74,6 +74,13 @@ double Client::getZ()
 	return this->z;
 }
 
+std::string Client::getProfile()
+{
+	std::string toSend = this->nickName + ':' + getAll();
+
+	return toSend;
+}
+
 std::string Client::getAll()
 {
 	std::string toSend;

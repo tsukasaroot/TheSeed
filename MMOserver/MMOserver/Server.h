@@ -53,7 +53,7 @@ private:
 	* @param Take a cmd string that contain clients info we want and send info back.
 	* @return no return values.
 	*/
-	void getClientData(std::vector<std::string> cmd);
+	void sendClientData(std::vector<std::string> cmd);
 	/**
 	* Send a private message to a connected client
 	* 
@@ -74,7 +74,11 @@ private:
 	* @param Take the current client that wants the list
 	* @return no return values
 	*/
-	void getAllClientsName(std::vector<std::string> cmd);
+	void sendAllClientsName(std::vector<std::string> cmd);
+
+	void sendProfile(std::vector<std::string> cmd);
+
+	void getPosition(std::vector<std::string> cmd);
 
 	void Opcodesinitialize();
 	void closeServer();

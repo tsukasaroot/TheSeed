@@ -8,10 +8,12 @@ void Server::Opcodesinitialize()
 	list.insert(std::pair<std::string, opcodes>("S_LOGIN", &Server::login));
 	list.insert(std::pair<std::string, opcodes>("S_LOGOUT", &Server::logout));
 	list.insert(std::pair<std::string, opcodes>("S_SAVEDATA", &Server::savePlayerData));
-	list.insert(std::pair<std::string, opcodes>("S_GETCLIENTDATA", &Server::getClientData));
+	list.insert(std::pair<std::string, opcodes>("S_SENDCLIENTDATA", &Server::sendClientData));
 	list.insert(std::pair<std::string, opcodes>("S_PRIVATEMESSAGE", &Server::privateMessage));
 	list.insert(std::pair<std::string, opcodes>("S_GLOBALMESSAGE", &Server::globalMessage));
-	list.insert(std::pair<std::string, opcodes>("S_GETALLCLIENTSNAME", &Server::getAllClientsName));
+	list.insert(std::pair<std::string, opcodes>("S_SENDALLCLIENTSNAME", &Server::sendAllClientsName));
+	list.insert(std::pair<std::string, opcodes>("S_SENDPROFILE", &Server::sendProfile));
+	list.insert(std::pair<std::string, opcodes>("S_GETPOSITION", &Server::getPosition));
 
 	std::cout << "OPCodes initialized: " << list.size() << " OPCodes loaded" << std::endl;
 
