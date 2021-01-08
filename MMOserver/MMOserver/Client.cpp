@@ -40,30 +40,6 @@ void Client::clientWrite(std::string msg)
 		std::cout << "Can't send data: " << WSAGetLastError() << std::endl;
 }
 
-void Client::forward()
-{
-	this->x += 1;
-	clientWrite("movement:forward:" + std::to_string(this->x) + ";" + std::to_string(this->y) + ";" + std::to_string(this->z));
-}
-
-void Client::back()
-{
-	this->x -= 1;
-	clientWrite("movement:backward:" + std::to_string(this->x) + ";" + std::to_string(this->y) + ";" + std::to_string(this->z));
-}
-
-void Client::right()
-{
-	this->y += 1;
-	clientWrite("movement:right:" + std::to_string(this->x) + ";" + std::to_string(this->y) + ";" + std::to_string(this->z));
-}
-
-void Client::left()
-{
-	this->y -= 1;
-	clientWrite("movement:left:" + std::to_string(this->x) + ";" + std::to_string(this->y) + ";" + std::to_string(this->z));
-}
-
 /*
 ** Getters method
 */

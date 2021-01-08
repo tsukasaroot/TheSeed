@@ -49,6 +49,14 @@ void Server::closeServer()
 	exit(0);
 }
 
+void Server::clientChecks()
+{
+	for (auto it = this->_client.begin(); it != this->_client.end(); it++)
+	{
+		it->second->queryClientPosition();
+	}
+}
+
 SOCKET Server::getSocket()
 {
 	return this->serverRCV;

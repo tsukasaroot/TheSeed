@@ -25,11 +25,6 @@ public:
 
 	void queryClientInventory();
 
-	void forward();
-	void back();
-	void left();
-	void right();
-
 	double getX();
 	double getY();
 	double getZ();

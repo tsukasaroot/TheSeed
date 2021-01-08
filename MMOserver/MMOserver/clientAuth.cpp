@@ -61,21 +61,3 @@ void Server::savePlayerData(std::vector<std::string> cmd)
 	values.push_back(std::make_pair("email", "jorouco@free.fr"));
 	dataBase->update("test", "users", values);
 }
-
-void Server::getClientData(std::vector<std::string> cmd)
-{
-	if (cmd.size() == 2)
-	{
-		std::string nickName = cmd[0];
-		auto it = std::find(this->playerList.begin(), this->playerList.end(), nickName);
-
-		if (it != this->playerList.end())
-		{
-			auto dataToSend = this->_client[nickName]->getAll();
-			this->_client[nickName]->clientWrite(dataToSend);
-			return;
-		}
-		std::cerr << "Error: " << nickName << " this player don't exist, command denied." << std::endl;
-		return;
-	}
-}

@@ -9,6 +9,11 @@ void runOpcodes(Server* server, std::vector<std::string> opcodes, std::string ip
 	server->processOpcodes(opcodes, ip);
 }
 
+void checker(Server* server)
+{
+	server->clientChecks();
+}
+
 int main(int argc, char* argv[])
 {
 	std::string delimiter = "0x12";
@@ -27,6 +32,9 @@ int main(int argc, char* argv[])
 	SOCKET serverRCV = server->getSocket();
 	struct timeval read_timeout = server->getTimeVal();
 	SOCKADDR_IN ipep = server->getIpep();
+
+	std::chrono::system_clock systemClock;
+	std::chrono::system_clock::time_point lastRun = systemClock.now();
 
 	while (1)
 	{
@@ -62,6 +70,12 @@ int main(int argc, char* argv[])
 			memset(buffer, 0, buffLength);
 			line.clear();
 			opcodes.clear();
+		}
+		if (systemClock.now() - lastRun >= std::chrono::seconds(2))
+		{
+			lastRun += std::chrono::seconds(2);
+			std::thread threadChecker(checker, server);
+			threadChecker.detach();
 		}
 	}
 	return 0;

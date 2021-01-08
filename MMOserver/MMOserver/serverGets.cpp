@@ -14,3 +14,21 @@ void Server::getAllClientsName(std::vector<std::string> cmd)
 		this->_client[currentClient]->clientWrite(listName);
 	}
 }
+
+void Server::getClientData(std::vector<std::string> cmd)
+{
+	if (cmd.size() == 2)
+	{
+		std::string nickName = cmd[0];
+		auto it = std::find(this->playerList.begin(), this->playerList.end(), nickName);
+
+		if (it != this->playerList.end())
+		{
+			auto dataToSend = "C_GETCLIENTDATA:" + this->_client[nickName]->getAll();
+			this->_client[nickName]->clientWrite(dataToSend);
+			return;
+		}
+		std::cerr << "Error: " << nickName << " this player don't exist, command denied." << std::endl;
+		return;
+	}
+}
