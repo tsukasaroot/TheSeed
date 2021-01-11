@@ -2,7 +2,7 @@
 
 void Client::queryClientPosition()
 {
-	clientWrite("C_GETCURRENTPOSITION");
+	clientWrite("C_SENDCURRENTPOSITION");
 }
 
 void Client::queryClientInventory()

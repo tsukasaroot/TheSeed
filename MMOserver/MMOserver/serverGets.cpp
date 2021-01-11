@@ -5,7 +5,7 @@ void Server::sendAllClientsName(std::vector<std::string> cmd)
 	if (cmd.size() == 2)
 	{
 		std::string currentClient = cmd[0];
-		std::string listName = "S_GETALLCLIENTSNAME";
+		std::string listName = "C_GETALLCLIENTSNAME";
 
 		for (auto it = this->_client.begin(); it != this->_client.end(); it++)
 		{
@@ -52,8 +52,8 @@ void Server::sendProfile(std::vector<std::string> cmd)
 
 void Server::getPosition(std::vector<std::string> cmd)
 {
-	if (cmd.size() == 2)
+	if (cmd.size() == 5)
 	{
-
+		std::cout << "position received" << std::endl;
 	}
 }

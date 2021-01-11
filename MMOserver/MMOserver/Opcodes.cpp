@@ -13,7 +13,7 @@ void Server::Opcodesinitialize()
 	list.insert(std::pair<std::string, opcodes>("S_GLOBALMESSAGE", &Server::globalMessage));
 	list.insert(std::pair<std::string, opcodes>("S_SENDALLCLIENTSNAME", &Server::sendAllClientsName));
 	list.insert(std::pair<std::string, opcodes>("S_SENDPROFILE", &Server::sendProfile));
-	list.insert(std::pair<std::string, opcodes>("S_GETPOSITION", &Server::getPosition));
+	list.insert(std::pair<std::string, opcodes>("S_GETCURRENTPOSITION", &Server::getPosition));
 
 	std::cout << "OPCodes initialized: " << list.size() << " OPCodes loaded" << std::endl;
 
