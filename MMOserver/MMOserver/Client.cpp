@@ -41,6 +41,15 @@ void Client::clientWrite(std::string msg)
 }
 
 /*
+** Setters method
+*/
+
+void Client::setPositionQuery()
+{
+	this->positionQuery--;
+}
+
+/*
 ** Getters method
 */
 

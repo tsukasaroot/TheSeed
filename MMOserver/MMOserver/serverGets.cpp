@@ -54,6 +54,12 @@ void Server::getPosition(std::vector<std::string> cmd)
 {
 	if (cmd.size() == 5)
 	{
-		std::cout << "position received" << std::endl;
+		std::string nickName = cmd[0];
+		auto it = std::find(this->playerList.begin(), this->playerList.end(), nickName);
+		if (it != this->playerList.end())
+		{
+			std::cout << "position received" << std::endl;
+			this->_client[nickName]->setPositionQuery();
+		}
 	}
 }
