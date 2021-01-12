@@ -9,7 +9,7 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 	this->clientAddress = ip;
 	this->nickName = nickName;
 
-	clientWrite("C_LOGIN:Accepted");
+	clientWrite("C_LOGIN:" + nickName);
 }
 
 void Client::initClient(std::map<std::string, std::string> cmd)

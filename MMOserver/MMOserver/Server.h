@@ -9,6 +9,14 @@
 #include "messageManager.h"
 #include "skillManager.h"
 
+/*
+* Check if opcode contain the right amount of args and if a valid player exist
+* 
+* @param size of the command, the command itself and the player list contained in class Server
+* @return a boolean depending if all test succeed
+*/
+bool checkAll(int size, std::vector<std::string> cmd, std::vector<std::string>* playerList);
+
 class Server {
 public:
 	Server();
