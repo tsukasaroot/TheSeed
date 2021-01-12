@@ -14,6 +14,8 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 
 void Client::initClient(std::map<std::string, std::string> cmd)
 {
+	std::string data;
+
 	this->HP = std::stod(cmd["hp"]);
 	this->x = std::stod(cmd["x"]);
 	this->y = std::stod(cmd["y"]);
@@ -21,6 +23,11 @@ void Client::initClient(std::map<std::string, std::string> cmd)
 	this->MP = std::stoi(cmd["mp"]);
 	this->RE = std::stoi(cmd["re"]);
 	this->clientClass = std::stoi(cmd["class"]);
+
+	std::vector<std::string> array = { "C_LOGIN_DATA", this->nickName, cmd["hp"], cmd["x"], cmd["y"], cmd["z"], cmd["mp"], cmd["re"], cmd["class"] };
+
+	data = packetBuilder(array);
+	this->clientWrite(data);
 }
 
 void Client::closeClient()

@@ -15,6 +15,7 @@
 * @param size of the command, the command itself and the player list contained in class Server
 * @return a boolean depending if all test succeed
 */
+
 bool checkAll(int size, std::vector<std::string> cmd, std::vector<std::string>* playerList);
 
 class Server {

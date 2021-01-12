@@ -1,6 +1,6 @@
 #include "Server.h"
 
-std::map<std::string, std::vector<std::string>> stockXML(xmlParser *reader)
+std::map<std::string, std::vector<std::string>> stockXML(xmlParser* reader)
 {
 	std::map<std::string, std::vector<std::string>> object;
 
@@ -14,7 +14,7 @@ std::map<std::string, std::vector<std::string>> stockXML(xmlParser *reader)
 	return object;
 }
 
-bool checkAll(int size, std::vector<std::string> cmd, std::vector<std::string> *playerList)
+bool checkAll(int size, std::vector<std::string> cmd, std::vector<std::string>* playerList)
 {
 	if (cmd.size() == size)
 	{
@@ -26,4 +26,17 @@ bool checkAll(int size, std::vector<std::string> cmd, std::vector<std::string> *
 			std::cerr << "Error: " << nickName << " this player don't exist, command denied." << std::endl;
 	}
 	return false;
+}
+
+std::string packetBuilder(std::vector<std::string> requests)
+{
+	std::string result;
+
+	for (auto it = requests.begin(); it != requests.end(); it++)
+	{
+		result += *it;
+		if (it + 1 != requests.end())
+			result += ':';
+	}
+	return result;
 }

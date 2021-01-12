@@ -11,6 +11,8 @@
 #include <thread>
 #include <map>
 
+std::string packetBuilder(std::vector<std::string> requests);
+
 class Client {
 public:
 	Client() {};
