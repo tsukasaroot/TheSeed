@@ -48,15 +48,13 @@ void SQLManager::update(std::string user, std::string table, std::vector<std::pa
 	{
 		query += it->first + " = '" + it->second + "'";
 		if (it + 1 != values.end())
-			query += " AND ";
+			query += ", ";
 	}
 	query += condition;
 
-	std::cout << query << std::endl;
-
 	stmt = con->createStatement();
 	stmt->executeUpdate(query);
-	delete(stmt);
+	delete stmt;
 }
 
 void SQLManager::get(std::string table, std::vector<std::string> fields, std::vector<std::string> columnName, std::vector<std::string> where)

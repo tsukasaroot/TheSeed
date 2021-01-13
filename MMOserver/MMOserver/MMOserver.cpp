@@ -86,9 +86,9 @@ int main(int argc, char* argv[])
 			threadChecker.detach();
 		}
 
-		if (systemClock.now() - lastRunSaveWorld >= std::chrono::seconds(5))
+		if (systemClock.now() - lastRunSaveWorld >= std::chrono::seconds(59))
 		{
-			lastRunSaveWorld += std::chrono::seconds(5);
+			lastRunSaveWorld += std::chrono::seconds(59);
 			std::thread threadSaveWorld(saveWorld, server);
 			threadSaveWorld.detach();
 		}

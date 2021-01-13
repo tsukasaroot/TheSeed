@@ -52,8 +52,6 @@ void Client::saveClientToDatabase()
 {
 	std::vector<std::pair<std::string, std::string>> values;
 
-	std::cout << "starting save" << std::endl;
-
 	values.push_back(std::make_pair((std::string)"x", std::to_string(this->x)));
 	values.push_back(std::make_pair((std::string)"y", std::to_string(this->y)));
 	values.push_back(std::make_pair((std::string)"z", std::to_string(this->z)));
@@ -63,8 +61,6 @@ void Client::saveClientToDatabase()
 	//values.push_back(std::make_pair((std::string)"region", std::to_string(this->region)));
 
 	this->dataBase->update(this->nickName, "users", values);
-
-	std::cout << "save done" << std::endl;
 }
 
 /*
