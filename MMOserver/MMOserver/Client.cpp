@@ -57,8 +57,7 @@ void Client::saveClientToDatabase()
 	values.push_back(std::make_pair((std::string)"z", std::to_string(this->z)));
 	values.push_back(std::make_pair((std::string)"hp", std::to_string(this->HP)));
 	values.push_back(std::make_pair((std::string)"mp", std::to_string(this->MP)));
-	values.push_back(std::make_pair((std::string)"region", (std::string)"5"));
-	//values.push_back(std::make_pair((std::string)"region", std::to_string(this->region)));
+	values.push_back(std::make_pair((std::string)"region", std::to_string(this->region)));
 
 	this->dataBase->update(this->nickName, "users", values);
 }
