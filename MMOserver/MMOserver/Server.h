@@ -23,6 +23,7 @@ public:
 	Server();
 	void processOpcodes(std::vector<std::string> opcodes, std::string ip);
 	void clientChecks();
+	void saveWorld();
 
 	SOCKET getSocket();
 	struct timeval getTimeVal();

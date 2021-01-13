@@ -42,7 +42,7 @@ void SQLManager::update(std::string user, std::string table, std::vector<std::pa
 {
 	sql::Statement* stmt;
 	std::string query = "UPDATE " + table + " SET ";
-	std::string condition = " WHERE name LIKE '" + user + "'";
+	std::string condition = " WHERE name = '" + user + "'";
 
 	for (auto it = values.begin(); it != values.end(); it++)
 	{
@@ -51,6 +51,8 @@ void SQLManager::update(std::string user, std::string table, std::vector<std::pa
 			query += " AND ";
 	}
 	query += condition;
+
+	std::cout << query << std::endl;
 
 	stmt = con->createStatement();
 	stmt->executeUpdate(query);

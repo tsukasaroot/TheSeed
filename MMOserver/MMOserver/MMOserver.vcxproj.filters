@@ -87,14 +87,14 @@
     <ClCompile Include="message.cpp">
       <Filter>Fichiers sources\OPCodes</Filter>
     </ClCompile>
-    <ClCompile Include="serverGets.cpp">
-      <Filter>Fichiers sources\OPCodes</Filter>
-    </ClCompile>
     <ClCompile Include="skillManager.cpp">
       <Filter>Fichiers sources\Managers</Filter>
     </ClCompile>
     <ClCompile Include="queriesToClient.cpp">
       <Filter>Fichiers sources\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="clientGets.cpp">
+      <Filter>Fichiers sources\OPCodes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

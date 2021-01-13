@@ -176,7 +176,7 @@
     <ClCompile Include="queriesToClient.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="clientAuth.cpp" />
-    <ClCompile Include="serverGets.cpp" />
+    <ClCompile Include="clientGets.cpp" />
     <ClCompile Include="skillManager.cpp" />
     <ClCompile Include="SQLmanager.cpp" />
     <ClCompile Include="stringFormatting.cpp" />

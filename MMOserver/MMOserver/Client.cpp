@@ -4,6 +4,7 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 {
 	std::cout << "New client logging: " << nickName << std::endl;
 
+	this->dataBase = db;
 	this->inventory = new inventoryManager(db);
 	this->_client = serverRCV;
 	this->clientAddress = ip;
@@ -45,6 +46,25 @@ void Client::clientWrite(std::string msg)
 	this->bytes = sendto(this->_client, buffer, strlen(buffer), 0, (struct sockaddr*)&this->ipep, sizeof(this->ipep));
 	if (this->bytes == SOCKET_ERROR)
 		std::cout << "Can't send data: " << WSAGetLastError() << std::endl;
+}
+
+void Client::saveClientToDatabase()
+{
+	std::vector<std::pair<std::string, std::string>> values;
+
+	std::cout << "starting save" << std::endl;
+
+	values.push_back(std::make_pair((std::string)"x", std::to_string(this->x)));
+	values.push_back(std::make_pair((std::string)"y", std::to_string(this->y)));
+	values.push_back(std::make_pair((std::string)"z", std::to_string(this->z)));
+	values.push_back(std::make_pair((std::string)"hp", std::to_string(this->HP)));
+	values.push_back(std::make_pair((std::string)"mp", std::to_string(this->MP)));
+	values.push_back(std::make_pair((std::string)"region", (std::string)"5"));
+	//values.push_back(std::make_pair((std::string)"region", std::to_string(this->region)));
+
+	this->dataBase->update(this->nickName, "users", values);
+
+	std::cout << "save done" << std::endl;
 }
 
 /*

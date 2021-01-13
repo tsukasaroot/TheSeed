@@ -14,6 +14,11 @@ void checker(Server* server)
 	server->clientChecks();
 }
 
+void saveWorld(Server* server)
+{
+	server->saveWorld();
+}
+
 int main(int argc, char* argv[])
 {
 	std::string delimiter = "0x12";
@@ -34,7 +39,8 @@ int main(int argc, char* argv[])
 	SOCKADDR_IN ipep = server->getIpep();
 
 	std::chrono::system_clock systemClock;
-	std::chrono::system_clock::time_point lastRun = systemClock.now();
+	std::chrono::system_clock::time_point lastRunChecker = systemClock.now();
+	std::chrono::system_clock::time_point lastRunSaveWorld = systemClock.now();
 
 	while (1)
 	{
@@ -71,11 +77,20 @@ int main(int argc, char* argv[])
 			line.clear();
 			opcodes.clear();
 		}
-		if (systemClock.now() - lastRun >= std::chrono::seconds(2))
+
+		// Actions to make every two seconds
+		if (systemClock.now() - lastRunChecker >= std::chrono::seconds(2))
 		{
-			lastRun += std::chrono::seconds(2);
+			lastRunChecker += std::chrono::seconds(2);
 			std::thread threadChecker(checker, server);
 			threadChecker.detach();
+		}
+
+		if (systemClock.now() - lastRunSaveWorld >= std::chrono::seconds(5))
+		{
+			lastRunSaveWorld += std::chrono::seconds(5);
+			std::thread threadSaveWorld(saveWorld, server);
+			threadSaveWorld.detach();
 		}
 	}
 	return 0;

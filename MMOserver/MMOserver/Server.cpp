@@ -49,6 +49,14 @@ void Server::closeServer()
 	exit(0);
 }
 
+void Server::saveWorld()
+{
+	for (auto it = this->_client.begin(); it != this->_client.end(); it++)
+	{
+		it->second->saveClientToDatabase();
+	}
+}
+
 void Server::clientChecks()
 {
 	for (auto it = this->_client.begin(); it != this->_client.end(); it++)
