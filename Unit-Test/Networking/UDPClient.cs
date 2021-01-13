@@ -21,7 +21,8 @@ public class UDPClient : MonoBehaviour
 
     private byte[] receivedData;
     private string dataString;
-    private string nickName;
+    public string nickName;
+    private string pass;
 
     void Start()
     {
@@ -56,8 +57,15 @@ public class UDPClient : MonoBehaviour
 #endif
         }
 
-        nickName = "test";
-        string pass = "puissant";
+        // To refactor and move into movementController (name to change too)
+
+#if UNITY_EDITOR
+    nickName = "test";
+    pass = "puissant";
+#else
+        nickName = args[1];
+        pass = args[2];
+#endif
         byte[] received = new byte[0];
         SendData("S_LOGIN:" + nickName + ":" + pass);
 
@@ -67,8 +75,7 @@ public class UDPClient : MonoBehaviour
             string validation = Encoding.ASCII.GetString(received).Trim();
             if (validation != null)
             {
-                connected = (validation.Contains("C_LOGIN:Accepted0x12")) ? true : false;
-                Debug.Log("Accepted");
+                connected = (validation.Contains("C_LOGIN")) ? true : false;
             }
         }
     }

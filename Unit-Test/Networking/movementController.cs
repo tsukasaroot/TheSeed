@@ -36,6 +36,8 @@ public class movementController : MonoBehaviour
 
     private profileManager profile;
 
+    private bool inMovement;
+
     Dictionary<string, Action<string[]>> opcodesPtr;
 
     void Start()
@@ -49,6 +51,8 @@ public class movementController : MonoBehaviour
 
         profile = ProfileManager.GetComponent<profileManager>();
         ProfileManager.SetActive(GUI);
+
+        inMovement = false;
     }
 
     void Update()
@@ -72,7 +76,7 @@ public class movementController : MonoBehaviour
             transform.Translate(0,0, walkSpeed * Time.deltaTime);
             animations.Play("walk");
         } 
-        else if (Input.GetKey(inputBack))
+        if (Input.GetKey(inputBack))
         {
             if (rotate != inputBack)
             {
@@ -83,7 +87,7 @@ public class movementController : MonoBehaviour
             transform.Translate(0, 0, walkSpeed * Time.deltaTime);
             animations.Play("walk");
         }
-        else if (Input.GetKey(inputLeft))
+        if (Input.GetKey(inputLeft))
         {
             if (rotate != inputLeft)
             {
@@ -94,7 +98,7 @@ public class movementController : MonoBehaviour
             transform.Translate(0, 0, walkSpeed * Time.deltaTime);
             animations.Play("walk");
         }
-        else if (Input.GetKey(inputRight))
+        if (Input.GetKey(inputRight))
         {
             if (rotate != inputRight)
             {
@@ -105,10 +109,10 @@ public class movementController : MonoBehaviour
             transform.Translate(0, 0, walkSpeed * Time.deltaTime);
             animations.Play("walk");
         }
-        else
+        /*if (!inMovement)
         {
             animations.Play("idle");
-        }
+        }*/
 
         if (Input.GetKey(inputAttack))
         {
@@ -142,7 +146,15 @@ public class movementController : MonoBehaviour
 
     private void sendPosition(string[] chainList)
     {
-        client.SendData("S_GETPOSITION");
+        string query = "S_GETCURRENTPOSITION:";
+
+        float x = transform.position.x;
+        float y = transform.position.y;
+        float z = transform.position.z;
+
+        query += client.nickName + ':' + x + ':' + y + ':' + z;
+
+        client.SendData(query);
     }
 
     private void getProfile(string[] chainList)
@@ -150,10 +162,16 @@ public class movementController : MonoBehaviour
         profile.displayInventory(chainList);
     }
 
+    private void loginData(string[] chainList)
+    {
+        transform.position = new Vector3(float.Parse(chainList[3], System.Globalization.CultureInfo.InvariantCulture), float.Parse(chainList[4], System.Globalization.CultureInfo.InvariantCulture), float.Parse(chainList[5], System.Globalization.CultureInfo.InvariantCulture));
+    }
+
     private void initializeOpcodes()
     {
         opcodesPtr = new Dictionary<string, Action<string[]>>();
-        opcodesPtr["C_GETCURRENTPOSITION"] = sendPosition;
+        opcodesPtr["C_SENDCURRENTPOSITION"] = sendPosition;
         opcodesPtr["C_GETPROFILE"] = getProfile;
+        opcodesPtr["C_LOGIN_DATA"] = loginData;
     }
 }

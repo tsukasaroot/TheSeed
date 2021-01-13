@@ -16,7 +16,7 @@ public class profileManager : MonoBehaviour
     void OnEnable()
     {
         movementController p = player.GetComponent<movementController>();
-        p.client.SendData("S_SENDPROFILE:test");
+        p.client.SendData("S_SENDPROFILE:" + p.client.nickName);
     }
 
     void Update()
