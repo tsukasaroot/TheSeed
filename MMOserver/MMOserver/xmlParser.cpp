@@ -76,8 +76,8 @@ std::vector<std::string> xmlParser::cleanData(std::string data)
 
 std::string xmlParser::cleanParent(std::string data)
 {
-	data.erase(std::remove_if(data.begin(), data.end(), OneOf("/<")), data.end());
-	std::replace(data.begin(), data.end(), '>', ' ');
+	data.erase(std::remove_if(data.begin(), data.end(), OneOf("/<>")), data.end());
+//	std::replace(data.begin(), data.end(), '>', ' ');
 
 	return data;
 }

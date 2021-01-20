@@ -2,11 +2,26 @@
 
 SQLManager::SQLManager()
 {
-	connection_properties["hostName"] = server;
-	connection_properties["userName"] = userName;
-	connection_properties["password"] = password;
-	connection_properties["port"] = port;
-	connection_properties["OPT_RECONNECT"] = true;
+	this->reader = new xmlParser("DatabaseConfig.xml");
+	this->config = stockXML(this->reader);
+
+	this->server = "tcp://";
+	this->server += config["hostName"][0] + ':' + config["port"][0];
+	this->server += '/' + config["database"][0];
+
+	this->userName = config["username"][0];
+	if (this->config.find("password") != this->config.end())
+		this->password = config["password"][0];
+	this->port = std::stoi(config["port"][0]);
+
+	bool reconnector;
+
+	connection_properties["hostName"] = this->server;
+	connection_properties["userName"] = this->userName;
+	connection_properties["password"] = this->password;
+	connection_properties["port"] = this->port;
+	std::istringstream(this->config["reconnect"][0]) >> std::boolalpha >> reconnector;
+	connection_properties["OPT_RECONNECT"] = reconnector;
 
 	try
 	{

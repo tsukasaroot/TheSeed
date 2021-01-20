@@ -1,6 +1,7 @@
 #ifndef SQLMANAGER_H_
 #define SQLMANAGER_H_
 
+#include "xmlParser.h"
 #include "mysql_connection.h"
 
 #include <cppconn/driver.h>
@@ -15,8 +16,11 @@
 #include <algorithm>
 #include <map>
 #include <thread>
+#include <sstream>
 
 #pragma comment(lib, "ws2_32.lib")
+
+std::map<std::string, std::vector<std::string>> stockXML(xmlParser* reader);
 
 std::vector<std::string> formatString(std::string line);
 
@@ -31,14 +35,16 @@ public:
 	std::map<std::string, std::string> initPlayer(std::string name);
 	void get(std::string table, std::vector<std::string> fields, std::vector<std::string> columnName, std::vector<std::string> where);
 private:
-	const char *server = "tcp://127.0.0.1:3306/theseed";
-	const char *userName = "root";
-	const char *password = "";
-	const int port = 3306;
+	std::string server;
+	std::string userName;
+	std::string password = "";
+	int port = 3306;
 
 	sql::Driver *driver;
 	sql::Connection *con;
 	sql::ConnectOptionsMap connection_properties;
+	xmlParser* reader;
+	std::map<std::string, std::vector<std::string>> config;
 };
 
 #endif
