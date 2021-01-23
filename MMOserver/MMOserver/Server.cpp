@@ -11,7 +11,7 @@ Server::Server()
 	if (error != 0)
 		std::cout << "Can't initialize Winsock : " << error << " " << WSAGetLastError() << std::endl;
 	else
-		std::cout << "WSAStartup : OK" << std::endl;
+		std::cout << std::endl << "WSAStartup : OK" << std::endl;
 
 	this->serverRCV = socket(AF_INET, SOCK_DGRAM, 0);
 	if (this->serverRCV == INVALID_SOCKET)

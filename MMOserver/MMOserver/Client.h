@@ -31,7 +31,7 @@ public:
 	double getY();
 	double getZ();
 
-	void setPositionQuery();
+	void setPositionQuery(std::vector<std::string> cmd);
 
 	void saveClientToDatabase();
 
@@ -45,9 +45,10 @@ private:
 	std::string clientAddress;
 	std::string nickName;
 	std::string ip;
-	double x = 0, y = 0, z = 0, HP = 0;
-	int MP = 0, RE = 0, clientClass = 0, positionQuery = 0, region = 0;
-	double currency = 0;
+	double x = 0, y = 0, z = 0, HP = 0, currency = 0, exp = 0, attack = 0, critRate = 0,
+		critP = 0, defense = 0;
+	int MP = 0, RE = 0, clientClass = 0, positionQuery = 0, region = 0, level = 0;
+	bool isAlive = true;
 
 	inventoryManager* inventory;
 	SQLManager* dataBase;

@@ -43,6 +43,6 @@ void Server::getPosition(std::vector<std::string> cmd)
 	{
 		std::string nickName = cmd[0];
 
-		this->_client[nickName]->setPositionQuery();
+		this->_client[nickName]->setPositionQuery(cmd);
 	}
 }

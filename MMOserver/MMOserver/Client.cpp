@@ -17,15 +17,28 @@ void Client::initClient(std::map<std::string, std::string> cmd)
 {
 	std::string data;
 
-	this->HP = std::stod(cmd["hp"]);
 	this->x = std::stod(cmd["x"]);
 	this->y = std::stod(cmd["y"]);
 	this->z = std::stod(cmd["z"]);
-	this->MP = std::stoi(cmd["mp"]);
-	this->RE = std::stoi(cmd["re"]);
+	this->currency = std::stod(cmd["currency"]);
+	this->exp = std::stod(cmd["exp"]);
 	this->clientClass = std::stoi(cmd["class"]);
+	this->level = std::stoi(cmd["level"]);
+	this->region = std::stoi(cmd["region"]);
+	this->isAlive = std::stoi(cmd["isAlive"]);
+	this->HP = std::stod(cmd["hp"]);
+	this->MP = std::stod(cmd["mp"]);
+	this->attack = std::stod(cmd["attack"]);
+	this->critRate = std::stod(cmd["critRate"]);
+	this->critP = std::stod(cmd["critP"]);
+	this->defense = std::stod(cmd["defense"]);
+	this->RE = std::stoi(cmd["re"]);
 
-	std::vector<std::string> array = { "C_LOGIN_DATA", this->nickName, cmd["hp"], cmd["x"], cmd["y"], cmd["z"], cmd["mp"], cmd["re"], cmd["class"] };
+	std::vector<std::string> array = { "C_LOGIN_DATA", this->nickName, 
+		cmd["x"], cmd["y"], cmd["z"], cmd["currency"], cmd["exp"], cmd["hp"], cmd["mp"], cmd["attack"], cmd["critRate"], cmd["critP"], cmd["defense"],
+		cmd["class"], cmd["level"], cmd["region"], cmd["re"],
+		cmd["isAlive"]
+	};
 
 	data = packetBuilder(array);
 	this->clientWrite(data);
@@ -55,8 +68,6 @@ void Client::saveClientToDatabase()
 	values.push_back(std::make_pair((std::string)"x", std::to_string(this->x)));
 	values.push_back(std::make_pair((std::string)"y", std::to_string(this->y)));
 	values.push_back(std::make_pair((std::string)"z", std::to_string(this->z)));
-	values.push_back(std::make_pair((std::string)"hp", std::to_string(this->HP)));
-	values.push_back(std::make_pair((std::string)"mp", std::to_string(this->MP)));
 	values.push_back(std::make_pair((std::string)"region", std::to_string(this->region)));
 
 	this->dataBase->update(this->nickName, "users", values);
@@ -66,9 +77,12 @@ void Client::saveClientToDatabase()
 ** Setters method
 */
 
-void Client::setPositionQuery()
+void Client::setPositionQuery(std::vector<std::string> cmd)
 {
 	this->positionQuery--;
+	this->x = std::stod(cmd[1]);
+	this->y = std::stod(cmd[2]);
+	this->z = std::stod(cmd[3]);
 }
 
 /*
