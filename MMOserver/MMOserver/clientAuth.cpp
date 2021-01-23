@@ -59,5 +59,5 @@ void Server::savePlayerData(std::vector<std::string> cmd)
 	std::vector<std::pair<std::string, std::string>> values;
 
 	values.push_back(std::make_pair("email", "jorouco@free.fr"));
-	dataBase->update("test", "users", values);
+	dataBase->update("test", "name", "users", values);
 }

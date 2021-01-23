@@ -16,6 +16,7 @@ void checker(Server* server)
 
 void saveWorld(Server* server)
 {
+	std::cout << "Saving world..." << std::endl;
 	server->saveWorld();
 }
 

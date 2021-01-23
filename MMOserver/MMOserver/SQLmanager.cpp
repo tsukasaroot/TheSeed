@@ -53,11 +53,11 @@ void SQLManager::insert(std::string table, std::string column, std::vector<std::
 	// TODO to optimize so it run in one batch
 }
 
-void SQLManager::update(std::string user, std::string table, std::vector<std::pair<std::string, std::string>> values)
+void SQLManager::update(std::string user, std::string cond, std::string table, std::vector<std::pair<std::string, std::string>> values)
 {
 	sql::Statement* stmt;
 	std::string query = "UPDATE " + table + " SET ";
-	std::string condition = " WHERE name = '" + user + "'";
+	std::string condition = " WHERE " + cond + " = '" + user + "'";
 
 	for (auto it = values.begin(); it != values.end(); it++)
 	{
@@ -156,6 +156,7 @@ std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
 			result.insert(std::pair<std::string, std::string>("currency", std::to_string(res->getDouble("currency"))));
 			result.insert(std::pair<std::string, std::string>("exp", std::to_string(res->getDouble("exp"))));
 			result.insert(std::pair<std::string, std::string>("isAlive", std::to_string(res->getBoolean("isAlive"))));
+			result.insert(std::pair<std::string, std::string>("client_id", std::to_string(res->getInt("player_id"))));
 			id = res->getInt("player_id");
 		}
 

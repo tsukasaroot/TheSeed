@@ -27,12 +27,13 @@ void Client::initClient(std::map<std::string, std::string> cmd)
 	this->region = std::stoi(cmd["region"]);
 	this->isAlive = std::stoi(cmd["isAlive"]);
 	this->HP = std::stod(cmd["hp"]);
-	this->MP = std::stod(cmd["mp"]);
+	this->MP = std::stoi(cmd["mp"]);
 	this->attack = std::stod(cmd["attack"]);
 	this->critRate = std::stod(cmd["critRate"]);
 	this->critP = std::stod(cmd["critP"]);
 	this->defense = std::stod(cmd["defense"]);
 	this->RE = std::stoi(cmd["re"]);
+	this->client_id = std::stoi(cmd["client_id"]);
 
 	std::vector<std::string> array = { "C_LOGIN_DATA", this->nickName, 
 		cmd["x"], cmd["y"], cmd["z"], cmd["currency"], cmd["exp"], cmd["hp"], cmd["mp"], cmd["attack"], cmd["critRate"], cmd["critP"], cmd["defense"],
@@ -46,6 +47,7 @@ void Client::initClient(std::map<std::string, std::string> cmd)
 
 void Client::closeClient()
 {
+	saveClientToDatabase();
 	std::cout << "Client logged out: " << this->nickName << std::endl;
 }
 
@@ -69,8 +71,22 @@ void Client::saveClientToDatabase()
 	values.push_back(std::make_pair((std::string)"y", std::to_string(this->y)));
 	values.push_back(std::make_pair((std::string)"z", std::to_string(this->z)));
 	values.push_back(std::make_pair((std::string)"region", std::to_string(this->region)));
+	values.push_back(std::make_pair((std::string)"currency", std::to_string(this->currency)));
+	values.push_back(std::make_pair((std::string)"class", std::to_string(this->clientClass)));
+	values.push_back(std::make_pair((std::string)"exp", std::to_string(this->exp)));
+	values.push_back(std::make_pair((std::string)"isAlive", std::to_string(this->isAlive)));
 
-	this->dataBase->update(this->nickName, "users", values);
+	this->dataBase->update(this->nickName, "name", "users", values);
+	values.clear();
+
+	values.push_back(std::make_pair((std::string)"hp", std::to_string(this->HP)));
+	values.push_back(std::make_pair((std::string)"mp", std::to_string(this->MP)));
+	values.push_back(std::make_pair((std::string)"attack", std::to_string(this->attack)));
+	values.push_back(std::make_pair((std::string)"critRate", std::to_string(this->critRate)));
+	values.push_back(std::make_pair((std::string)"critP", std::to_string(this->critP)));
+	values.push_back(std::make_pair((std::string)"defense", std::to_string(this->defense)));
+	values.push_back(std::make_pair((std::string)"re", std::to_string(this->RE)));
+	this->dataBase->update(std::to_string(this->client_id), "user_id", "currentplayerstats", values);
 }
 
 /*
