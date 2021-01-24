@@ -19,6 +19,11 @@ void saveWorld(Server* server)
 	server->saveWorld();
 }
 
+void createNPC(Server* server)
+{
+
+}
+
 int main(int argc, char* argv[])
 {
 	std::string delimiter = "0x12";
@@ -41,6 +46,8 @@ int main(int argc, char* argv[])
 	std::chrono::system_clock systemClock;
 	std::chrono::system_clock::time_point lastRunChecker = systemClock.now();
 	std::chrono::system_clock::time_point lastRunSaveWorld = systemClock.now();
+
+	std::thread npcThread(createNPC, server);
 
 	while (1)
 	{
@@ -78,8 +85,7 @@ int main(int argc, char* argv[])
 			opcodes.clear();
 		}
 
-		// Actions to make every two seconds
-		if (systemClock.now() - lastRunChecker >= std::chrono::seconds(2))
+		if (systemClock.now() - lastRunChecker >= std::chrono::seconds(1))
 		{
 			lastRunChecker += std::chrono::seconds(2);
 			std::thread threadChecker(checker, server);
