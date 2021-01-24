@@ -22,16 +22,16 @@ void Client::initClient(std::map<std::string, std::string> cmd)
 	this->z = std::stod(cmd["z"]);
 	this->currency = std::stod(cmd["currency"]);
 	this->exp = std::stod(cmd["exp"]);
-	this->clientClass = std::stoi(cmd["class"]);
-	this->level = std::stoi(cmd["level"]);
-	this->region = std::stoi(cmd["region"]);
-	this->isAlive = std::stoi(cmd["isAlive"]);
 	this->HP = std::stod(cmd["hp"]);
 	this->MP = std::stoi(cmd["mp"]);
 	this->attack = std::stod(cmd["attack"]);
 	this->critRate = std::stod(cmd["critRate"]);
 	this->critP = std::stod(cmd["critP"]);
 	this->defense = std::stod(cmd["defense"]);
+	this->clientClass = std::stoi(cmd["class"]);
+	this->level = std::stoi(cmd["level"]);
+	this->region = std::stoi(cmd["region"]);
+	this->isAlive = std::stoi(cmd["isAlive"]);
 	this->RE = std::stoi(cmd["re"]);
 	this->client_id = std::stoi(cmd["client_id"]);
 
@@ -57,8 +57,8 @@ void Client::clientWrite(std::string msg)
 	this->ipep.sin_addr.s_addr = inet_addr(this->clientAddress.c_str()); // Indique l'adresse IP du client qui a été push
 	this->ipep.sin_port = htons(16384);
 	msg = msg + "0x12" + '\n';
-	strcpy_s(buffer, msg.c_str());
-	this->bytes = sendto(this->_client, buffer, strlen(buffer), 0, (struct sockaddr*)&this->ipep, sizeof(this->ipep));
+	strcpy_s(this->buffer, msg.c_str());
+	this->bytes = sendto(this->_client, this->buffer, strlen(this->buffer), 0, (struct sockaddr*)&this->ipep, sizeof(this->ipep));
 	if (this->bytes == SOCKET_ERROR)
 		std::cout << "Can't send data: " << WSAGetLastError() << std::endl;
 }
