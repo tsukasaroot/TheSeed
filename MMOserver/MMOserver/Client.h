@@ -38,6 +38,7 @@ public:
 	std::string getAll();
 	std::string getProfile();
 
+	int getAbnormalities();
 	SOCKET getClientSocket();
 	std::string getClientAddress();
 	std::string getNickName();
@@ -49,6 +50,10 @@ private:
 		critP = 0, defense = 0;
 	int MP = 0, RE = 0, clientClass = 0, positionQuery = 0, region = 0, level = 0, client_id = 0;
 	bool isAlive = true;
+
+	int abnormal = 0, modifier = 1;
+	float movementTolerance = 6.1;
+
 
 	inventoryManager* inventory;
 	SQLManager* dataBase;

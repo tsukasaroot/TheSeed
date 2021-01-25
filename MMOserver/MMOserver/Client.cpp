@@ -96,14 +96,44 @@ void Client::saveClientToDatabase()
 void Client::setPositionQuery(std::vector<std::string> cmd)
 {
 	this->positionQuery--;
-	this->x = std::stod(cmd[1]);
-	this->y = std::stod(cmd[2]);
-	this->z = std::stod(cmd[3]);
+
+	auto x = std::stod(cmd[1]);
+	auto y = std::stod(cmd[2]);
+	auto z = std::stod(cmd[3]);
+
+	double xChecker = abs(x - this->x);
+	double yChecker = abs(z - this->z);
+
+
+	if (xChecker > this->movementTolerance)
+	{
+		this->abnormal++;
+		clientWrite("C_CORRECTPOSITION:x:" + std::to_string(this->x));
+	}
+	else
+	{
+		this->x = x;
+	}
+
+	if (yChecker > this->movementTolerance)
+	{
+		this->abnormal++;
+		clientWrite("C_CORRECTPOSITION:z:" + std::to_string(this->z));
+	}
+	else
+	{
+		this->z = z;
+	}
 }
 
 /*
 ** Getters method
 */
+
+int Client::getAbnormalities()
+{
+	return this->abnormal;
+}
 
 SOCKET Client::getClientSocket()
 {

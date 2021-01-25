@@ -44,5 +44,12 @@ void Server::getPosition(std::vector<std::string> cmd)
 		std::string nickName = cmd[0];
 
 		this->_client[nickName]->setPositionQuery(cmd);
+		if (this->_client[nickName]->getAbnormalities() > 10)
+		{
+			std::vector<std::string> data;
+			data.push_back(nickName);
+			data.push_back(cmd[cmd.size() - 1]);
+			logout(data);
+		}
 	}
 }
