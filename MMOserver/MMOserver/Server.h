@@ -106,6 +106,8 @@ private:
 	std::map<std::string, Client*> _client;
 	std::map<std::string, std::string> Movements;
 	SQLManager *dataBase;
+
+	int abnormalitiesTolerance = 10;
 };
 
 #endif
