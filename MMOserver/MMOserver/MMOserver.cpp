@@ -63,13 +63,14 @@ int main(int argc, char* argv[])
 			tempo = sizeof(ipep);
 			bytes = recvfrom(serverRCV, buffer, buffLength, 0, (struct sockaddr*)&ipep, &tempo);
 			std::string ip = inet_ntoa(ipep.sin_addr);
+			std::string port = std::to_string(ipep.sin_port);
 			buffer[bytes - 1] = 0;
 
 			std::string line = buffer;
 			while ((pos = line.find(delimiter)) != std::string::npos)
 			{
 				std::string token = line.substr(0, line.find(delimiter));
-				token += ':' + ip;
+				token += ':' + ip + ':' + port;
 				
 				if (!token.empty())
 					opcodes.push_back(token);

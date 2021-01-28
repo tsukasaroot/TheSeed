@@ -18,13 +18,12 @@ public:
 	Client() {};
 	~Client() {};
 	void closeClient();
-	void initClient(std::string client, std::string nickName, SOCKET serverRCV, SQLManager* db);
+	void initClient(std::string client, std::string nickName, SOCKET serverRCV, SQLManager* db, std::string port);
 	void initClient(std::map<std::string, std::string> cmd);
 
 	void clientWrite(std::string msg);
 
 	void queryClientPosition();
-
 	void queryClientInventory();
 
 	double getX();
@@ -32,7 +31,6 @@ public:
 	double getZ();
 
 	void setPositionQuery(std::vector<std::string> cmd);
-
 	void saveClientToDatabase();
 
 	std::string getAll();
@@ -53,7 +51,6 @@ private:
 
 	int abnormal = 0, modifier = 1;
 	float movementTolerance = 6.1;
-
 
 	inventoryManager* inventory;
 	SQLManager* dataBase;

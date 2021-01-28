@@ -2,7 +2,7 @@
 
 SQLManager::SQLManager()
 {
-	this->reader = new xmlParser("DatabaseConfig.xml");
+	this->reader = new xmlParser("config/DatabaseConfig.xml");
 	this->config = stockXML(this->reader);
 
 	this->server = "tcp://";

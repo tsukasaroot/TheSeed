@@ -2,7 +2,7 @@
 
 void Server::logout(std::vector<std::string> cmd)
 {
-	if (cmd.size() == 2)
+	if (cmd.size() == 3)
 	{
 		std::string nickName = cmd[0];
 		auto it = std::find(this->playerList.begin(), this->playerList.end(), nickName);
@@ -26,7 +26,7 @@ void Server::logout(std::vector<std::string> cmd)
 
 void Server::login(std::vector<std::string> cmd)
 {
-	if (cmd.size() == 3)
+	if (cmd.size() == 4)
 	{
 		std::string login = cmd[0];
 		std::string password = cmd[1];
@@ -41,7 +41,7 @@ void Server::login(std::vector<std::string> cmd)
 		{
 			this->playerList.push_back(login);
 			this->_client.insert(std::pair<std::string, Client*>(login, new Client()));
-			_client[login]->initClient(cmd[2], result["name"], this->serverRCV, this->dataBase);
+			_client[login]->initClient(cmd[2], result["name"], this->serverRCV, this->dataBase, cmd[3]);
 
 			auto datas = this->dataBase->initPlayer(login);
 			_client[login]->initClient(datas);

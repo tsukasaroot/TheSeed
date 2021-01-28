@@ -1,7 +1,5 @@
 <functions>
-	<test>
-		<x87775/>
-	</test>
-	<login/>
-	<logout/>
+	<S_LOGIN>
+		<&Server::login/>
+	</S_LOGIN>
 </functions>

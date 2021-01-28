@@ -1,6 +1,6 @@
 #include "Client.h"
 
-void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, SQLManager *db)
+void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, SQLManager *db, std::string port)
 {
 	std::cout << "New client logging: " << nickName << std::endl;
 
@@ -9,6 +9,12 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 	this->_client = serverRCV;
 	this->clientAddress = ip;
 	this->nickName = nickName;
+	//this->ipep.sin_port = htons(std::stoul(port));
+	
+	auto reader = new xmlParser("config/clientConfig.xml");
+	auto config = stockXML(reader);
+
+	this->movementTolerance = std::stof(config["movementTolerance"][0]);
 
 	clientWrite("C_LOGIN:" + nickName);
 }

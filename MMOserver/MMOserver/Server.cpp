@@ -1,8 +1,22 @@
 #include "Server.h"
 
+std::map<std::string, std::vector<std::string>> Server::getServerConfig()
+{
+	auto reader = new xmlParser("config/serverConfig.xml");
+	auto config = stockXML(reader);
+
+	this->abnormalitiesTolerance = std::stoi(config["abnormalitiesTolerance"][0]);
+
+	return config;
+}
+
 Server::Server()
 {
 	dataBase = new SQLManager();
+
+	auto config = getServerConfig();
+
+	this->serverPort = std::stoi(config["port"][0]);
 
 	read_timeout.tv_sec = 0;
 	read_timeout.tv_usec = 10;
@@ -31,6 +45,7 @@ Server::Server()
 	
 	// Will initialiaze the different XMLs needed for the game
 	Opcodesinitialize();
+	std::cout << std::endl << "$ Main server ready $" << std::endl << "Listening on: " << this->serverPort << std::endl << std::endl;
 }
 
 void Server::closeServer()

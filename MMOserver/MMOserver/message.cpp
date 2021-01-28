@@ -2,7 +2,7 @@
 
 void Server::privateMessage(std::vector<std::string> cmd)
 {
-	if (checkAll(4, cmd, &this->playerList))
+	if (checkAll(5, cmd, &this->playerList))
 	{
 		std::string nickName = cmd[0];
 		Client* sender = this->_client[cmd[0]];
@@ -14,7 +14,7 @@ void Server::privateMessage(std::vector<std::string> cmd)
 
 void Server::globalMessage(std::vector<std::string> cmd)
 {
-	if (checkAll(3, cmd, &this->playerList))
+	if (checkAll(4, cmd, &this->playerList))
 	{
 		std::string nickName = cmd[0];
 		Client* sender = this->_client[cmd[0]];

@@ -2,7 +2,7 @@
 
 void Server::sendAllClientsName(std::vector<std::string> cmd)
 {
-	if (checkAll(2, cmd, &this->playerList))
+	if (checkAll(3, cmd, &this->playerList))
 	{
 		std::string currentClient = cmd[0];
 		std::string listName = "C_GETALLCLIENTSNAME";
@@ -17,7 +17,7 @@ void Server::sendAllClientsName(std::vector<std::string> cmd)
 
 void Server::sendClientData(std::vector<std::string> cmd)
 {
-	if (checkAll(2, cmd, &this->playerList))
+	if (checkAll(3, cmd, &this->playerList))
 	{
 		std::string nickName = cmd[0];
 
@@ -28,7 +28,7 @@ void Server::sendClientData(std::vector<std::string> cmd)
 
 void Server::sendProfile(std::vector<std::string> cmd)
 {
-	if (checkAll(2, cmd, &this->playerList))
+	if (checkAll(3, cmd, &this->playerList))
 	{
 		std::string nickName = cmd[0];
 
@@ -39,7 +39,7 @@ void Server::sendProfile(std::vector<std::string> cmd)
 
 void Server::getPosition(std::vector<std::string> cmd)
 {
-	if (checkAll(5, cmd, &this->playerList))
+	if (checkAll(6, cmd, &this->playerList))
 	{
 		std::string nickName = cmd[0];
 

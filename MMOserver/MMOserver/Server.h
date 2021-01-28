@@ -16,6 +16,7 @@
 * @return a boolean depending if all test succeed
 */
 
+std::map<std::string, std::vector<std::string>> stockXML(xmlParser* reader);
 bool checkAll(int size, std::vector<std::string> cmd, std::vector<std::string>* playerList);
 
 class Server {
@@ -29,6 +30,8 @@ public:
 	struct timeval getTimeVal();
 	SOCKADDR_IN getIpep();
 private:
+	std::map<std::string, std::vector<std::string>> getServerConfig();
+
 	int serverPort = 16384;
 	struct timeval read_timeout;
 	WSADATA initialisation_win32;
