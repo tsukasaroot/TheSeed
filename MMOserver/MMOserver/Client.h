@@ -24,7 +24,6 @@ public:
 	void clientWrite(std::string msg);
 
 	void queryClientPosition();
-	void queryClientInventory();
 
 	double getX();
 	double getY();
@@ -41,6 +40,7 @@ public:
 	std::string getClientAddress();
 	std::string getNickName();
 private:
+	int port = 16384;
 	std::string clientAddress;
 	std::string nickName;
 	std::string ip;

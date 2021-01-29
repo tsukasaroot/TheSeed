@@ -9,8 +9,8 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 	this->_client = serverRCV;
 	this->clientAddress = ip;
 	this->nickName = nickName;
-	//this->ipep.sin_port = htons(std::stoul(port));
-	
+	this->port = std::stoi(port);
+
 	auto reader = new xmlParser("config/clientConfig.xml");
 	auto config = stockXML(reader);
 

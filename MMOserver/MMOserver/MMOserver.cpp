@@ -63,6 +63,7 @@ int main(int argc, char* argv[])
 			tempo = sizeof(ipep);
 			bytes = recvfrom(serverRCV, buffer, buffLength, 0, (struct sockaddr*)&ipep, &tempo);
 			std::string ip = inet_ntoa(ipep.sin_addr);
+
 			std::string port = std::to_string(ipep.sin_port);
 			buffer[bytes - 1] = 0;
 
