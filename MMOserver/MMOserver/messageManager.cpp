@@ -12,7 +12,7 @@ void  messageManager::sendPrivateMessage(Client* clientFrom, Client* clientToSen
 		std::system(mkdir.c_str());
 	std::system(writeFile.c_str());
 
-	std::vector<std::string> array = { "C_GETPRIVATEMESSAGE", clientFrom->getNickName(), message };
+	std::vector<std::string> array = { "C_GETMESSAGE", clientFrom->getNickName(), message };
 	auto toSend = packetBuilder(array);
 
 	clientToSend->clientWrite(toSend);
@@ -30,7 +30,7 @@ void messageManager::sendGlobalMessage(Client* clientFrom, std::string message, 
 		std::system(mkdir.c_str());
 	std::system(writeFile.c_str());
 	
-	std::vector<std::string> array = { "C_GETPRIVATEMESSAGE", clientFrom->getNickName(), message };
+	std::vector<std::string> array = { "C_GETMESSAGE", clientFrom->getNickName(), message };
 	auto toSend = packetBuilder(array);
 
 	for (auto it = clientsToSend.begin(); it != clientsToSend.end(); it++)
