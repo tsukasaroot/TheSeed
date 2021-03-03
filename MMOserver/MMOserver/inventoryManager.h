@@ -5,7 +5,6 @@
 #include "SQLmanager.h"
 
 #include <windows.h>
-
 #include <iostream>
 #include <string>
 #include <thread>

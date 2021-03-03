@@ -96,6 +96,12 @@
     <ClCompile Include="clientGets.cpp">
       <Filter>Fichiers sources\OPCodes</Filter>
     </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>Fichiers sources\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="AIManager.cpp">
+      <Filter>Fichiers sources\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -123,6 +129,9 @@
       <Filter>Fichiers d%27en-tête\Managers</Filter>
     </ClInclude>
     <ClInclude Include="skillManager.h">
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="AIManager.h">
       <Filter>Fichiers d%27en-tête\Managers</Filter>
     </ClInclude>
   </ItemGroup>

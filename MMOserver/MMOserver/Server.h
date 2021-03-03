@@ -25,6 +25,7 @@ public:
 	void processOpcodes(std::vector<std::string> opcodes, std::string ip);
 	void clientChecks();
 	void saveWorld();
+	void createAI();
 
 	SOCKET getSocket();
 	struct timeval getTimeVal();

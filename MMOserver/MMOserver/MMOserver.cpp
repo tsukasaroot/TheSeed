@@ -21,7 +21,7 @@ void saveWorld(Server* server)
 
 void createNPC(Server* server)
 {
-
+	server->createAI();
 }
 
 int main(int argc, char* argv[])
