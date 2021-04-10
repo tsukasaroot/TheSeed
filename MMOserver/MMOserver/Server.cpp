@@ -7,6 +7,38 @@ std::map<std::string, std::vector<std::string>> Server::getServerConfig()
 
 	this->abnormalitiesTolerance = std::stoi(config["abnormalitiesTolerance"][0]);
 
+	auto moduleList = new xmlParser("config/listingPlugins.xml");
+	auto modules = stockXML(moduleList);
+
+	for (auto it = modules["moduleList"].begin(); it != modules["moduleList"].end(); it++)
+	{
+		if (config.count(*it))
+		{
+			std::vector<std::string> values;
+			std::string name = *it;
+
+			values.push_back(config[name][1]);
+			values.push_back(config[name][2]);
+
+			this->modulesConfiguration.insert(std::pair<std::string, std::vector<std::string>>(config[name][0], values));
+		}
+	}
+
+	/**
+	** To add the debug option
+	**/
+
+	/*for (auto it = modulesConfiguration.begin(); it != modulesConfiguration.end(); it++)
+	{
+		std::cout << std::endl << "Key : " << it->first << " Values : ";
+
+		for (auto sec = it->second.begin(); sec != it->second.end(); sec++)
+		{
+			std::cout << *sec << " - ";
+		}
+		std::cout << std::endl;
+	}*/
+
 	return config;
 }
 
@@ -19,7 +51,7 @@ Server::Server()
 	this->serverPort = std::stoi(config["port"][0]);
 
 	read_timeout.tv_sec = 0;
-	read_timeout.tv_usec = 10;
+	read_timeout.tv_usec = 1;
 
 	error = WSAStartup(MAKEWORD(2, 2), &initialisation_win32);
 	if (error != 0)

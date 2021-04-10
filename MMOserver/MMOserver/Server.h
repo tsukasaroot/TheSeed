@@ -112,6 +112,7 @@ private:
 	SQLManager *dataBase;
 
 	int abnormalitiesTolerance = 10;
+	std::map<std::string, std::vector<std::string>> modulesConfiguration;
 };
 
 #endif

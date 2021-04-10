@@ -24,6 +24,17 @@ void Server::Opcodesinitialize()
 	this->skills = new skillManager();
 }
 
+bool checkPlugins(std::string token, std::map<std::string, std::vector<std::string>> modulesConfiguration)
+{
+	auto tokenPrefix = token.substr(0, token.find('_') + 1);
+
+	if (modulesConfiguration.find(tokenPrefix) != modulesConfiguration.end())
+	{
+		return true;
+	}
+	return false;
+}
+
 void Server::processOpcodes(std::vector<std::string> opcodes, std::string ip)
 {
 	for (auto& cmd : opcodes)
@@ -35,6 +46,10 @@ void Server::processOpcodes(std::vector<std::string> opcodes, std::string ip)
 		if (this->list.find(token) != this->list.end())
 		{
 			(this->*list[token])(args);
+		}
+		else if (checkPlugins(token, this->modulesConfiguration))
+		{
+			//processPlugin()
 		}
 		else
 		{

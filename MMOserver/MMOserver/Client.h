@@ -50,7 +50,7 @@ private:
 	bool isAlive = true;
 
 	int abnormal = 0, modifier = 1;
-	float movementTolerance = 6.1;
+	double movementTolerance = 6.1;
 
 	inventoryManager* inventory;
 	SQLManager* dataBase;
