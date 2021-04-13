@@ -66,8 +66,6 @@ void Client::clientWrite(std::string msg)
 
 	strcpy_s(this->buffer, msg.c_str());
 
-
-
 	this->bytes = sendto(this->_client, this->buffer, strlen(this->buffer), 0, (struct sockaddr*)&this->ipep, sizeof(this->ipep));
 	if (this->bytes == SOCKET_ERROR)
 		std::cout << "Can't send data: " << WSAGetLastError() << std::endl;

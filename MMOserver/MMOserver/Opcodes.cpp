@@ -26,6 +26,8 @@ void Server::Opcodesinitialize()
 
 bool checkPlugins(std::string token, std::map<std::string, std::vector<std::string>> modulesConfiguration)
 {
+	auto tokenSide = token.substr(0, token.find('_') + 1);
+	token.erase(0, tokenSide.length());
 	auto tokenPrefix = token.substr(0, token.find('_') + 1);
 
 	if (modulesConfiguration.find(tokenPrefix) != modulesConfiguration.end())
@@ -49,7 +51,7 @@ void Server::processOpcodes(std::vector<std::string> opcodes, std::string ip)
 		}
 		else if (checkPlugins(token, this->modulesConfiguration))
 		{
-			//processPlugin()
+			processPlugins(token, cmd, args);
 		}
 		else
 		{
@@ -57,4 +59,46 @@ void Server::processOpcodes(std::vector<std::string> opcodes, std::string ip)
 		}
 		args.clear();
 	}
+}
+
+void relay(SOCKET serverRCV, char* buffer, SOCKADDR_IN ipep)
+{
+	sendto(serverRCV, buffer, strlen(buffer), 0, (struct sockaddr*)&ipep, sizeof(ipep));
+}
+
+void Server::processPlugins(std::string token, std::string cmd, std::vector<std::string> args)
+{
+	auto tokenSide = token.substr(0, token.find('_') + 1);
+	token.erase(0, tokenSide.length());
+	auto tokenPrefix = token.substr(0, token.find('_') + 1);
+	
+	char buffer[4024] = "";
+	int bytes;
+	std::string port;
+	std::string ip;
+
+	if (!this->modulesConfiguration.count(tokenPrefix))
+		return;
+
+	if (tokenSide[0] == 'S')
+	{
+		port = this->modulesConfiguration[tokenPrefix][1];
+		ip = this->modulesConfiguration[tokenPrefix][0];
+	}
+	else if (tokenSide[0] == 'C')
+	{
+		port = args[args.size() - 1];
+		ip = args[args.size() - 2];
+	}
+
+	this->ipep.sin_family = AF_INET;
+	this->ipep.sin_addr.s_addr = inet_addr(ip.c_str());
+	this->ipep.sin_port = htons(std::stoi(port));
+
+	cmd = token + ':' + cmd;
+	cmd += "0x12\n";
+
+	strcpy_s(buffer, cmd.c_str());
+
+	relay(this->serverRCV, buffer, this->ipep);
 }

@@ -95,6 +95,7 @@ private:
 	void getPosition(std::vector<std::string> cmd);
 
 	void Opcodesinitialize();
+	void processPlugins(std::string token, std::string cmd, std::vector<std::string> args);
 	void closeServer();
 
 	typedef void(Server::* opcodes)(std::vector<std::string>);
