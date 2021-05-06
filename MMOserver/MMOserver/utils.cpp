@@ -1,17 +1,55 @@
 #include "Server.h"
 
-std::string binariesString(std::string toBinaries, std::string salt)
+std::string decipherPacket(std::string toDecipher, std::string salt)
 {
-	std::string hashed = "";
+	std::vector<std::string> toprocess;
+	size_t pos = 0;
+	std::string unciphered = "";
+	std::string binariedSalt = "";
+	std::string delimiter = "A";
+
+	for (char& _char : salt)
+		binariedSalt += std::bitset<8>(_char).to_string();
+
+	while ((pos = toDecipher.find(delimiter)) != std::string::npos)
+	{
+		std::string token = toDecipher.substr(0, toDecipher.find(delimiter));
+
+		if (!token.empty())
+		{
+			std::cout << toDecipher.size() << std::endl;
+			toprocess.push_back(token);
+		}
+		toDecipher.erase(0, pos + delimiter.size());
+		token.clear();
+	}
+
+	for (auto it = toDecipher.begin(); it != toDecipher.end(); it++)
+	{
+		std::cout << "test" << '\n';
+	}
+}
+
+std::string cipherPacket(std::string toCipher, std::string salt)
+{
+	std::string ciphered = "";
 	std::string binariedSalt = "";
 
 	for (char& _char : salt)
 		binariedSalt += std::bitset<8>(_char).to_string();
 
-	for (char& _char : toBinaries)
-		hashed += std::to_string(_char * binariedSalt.size()) + ' ';
+	for (char& _char : toCipher)
+	{
+		if (_char == '\0')
+		{
+			ciphered += _char;
+			break;
+		}
+		ciphered += std::to_string(_char * binariedSalt.size()) + 'A';
+	}
+	decipherPacket(ciphered, salt);
 
-	return hashed;
+	return ciphered;
 }
 
 std::map<std::string, std::vector<std::string>> stockXML(xmlParser* reader)

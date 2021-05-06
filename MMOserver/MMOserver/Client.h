@@ -14,7 +14,7 @@
 #include <stdlib.h>
 
 std::string packetBuilder(std::vector<std::string> requests);
-std::string binariesString(std::string toBinaries, std::string salt);
+std::string cipherPacket(std::string toBinaries, std::string salt);
 
 class Client {
 public:
