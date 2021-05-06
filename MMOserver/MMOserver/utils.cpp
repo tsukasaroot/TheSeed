@@ -1,5 +1,19 @@
 #include "Server.h"
 
+std::string binariesString(std::string toBinaries, std::string salt)
+{
+	std::string hashed = "";
+	std::string binariedSalt = "";
+
+	for (char& _char : salt)
+		binariedSalt += std::bitset<8>(_char).to_string();
+
+	for (char& _char : toBinaries)
+		hashed += std::to_string(_char * binariedSalt.size()) + ' ';
+
+	return hashed;
+}
+
 std::map<std::string, std::vector<std::string>> stockXML(xmlParser* reader)
 {
 	std::map<std::string, std::vector<std::string>> object;

@@ -73,7 +73,6 @@ void Server::processPlugins(std::string token, std::string cmd, std::vector<std:
 	auto tokenPrefix = token.substr(0, token.find('_') + 1);
 	
 	char buffer[4024] = "";
-	int bytes;
 	std::string port;
 	std::string ip;
 

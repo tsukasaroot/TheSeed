@@ -5,13 +5,16 @@
 #include "SQLmanager.h"
 
 #include <windows.h>
-
+#include <bitset>
 #include <iostream>
 #include <string>
 #include <thread>
 #include <map>
+#include <wincrypt.h>
+#include <stdlib.h>
 
 std::string packetBuilder(std::vector<std::string> requests);
+std::string binariesString(std::string toBinaries, std::string salt);
 
 class Client {
 public:
@@ -61,6 +64,7 @@ private:
 	int error = 0, tempo = 0, bytes = 0;
 	char buffer[4024] = ""; // Tampon contenant les données reçues ou envoyées
 	SOCKADDR_IN ipep; // Déclaration de la structure des informations lié au serveur
+	std::string salt;
 };
 
 #endif

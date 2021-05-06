@@ -15,6 +15,7 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 	auto config = stockXML(reader);
 
 	this->movementTolerance = std::stof(config["movementTolerance"][0]);
+	this->salt = config["salt"][0];
 
 	clientWrite("C_LOGIN:" + nickName);
 }
@@ -64,7 +65,9 @@ void Client::clientWrite(std::string msg)
 	this->ipep.sin_port = htons(this->port);
 	msg = msg + "0x12" + '\n';
 
-	strcpy_s(this->buffer, msg.c_str());
+	std::string binariedPacket = binariesString(msg, this->salt);
+
+	strcpy_s(this->buffer, binariedPacket.c_str());
 
 	this->bytes = sendto(this->_client, this->buffer, strlen(this->buffer), 0, (struct sockaddr*)&this->ipep, sizeof(this->ipep));
 	if (this->bytes == SOCKET_ERROR)

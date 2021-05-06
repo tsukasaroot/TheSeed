@@ -154,6 +154,7 @@
       <AdditionalIncludeDirectories>C:\boost_1_74_0;E:\mysql-connector\include\jdbc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>26812;26495</DisableSpecificWarnings>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
