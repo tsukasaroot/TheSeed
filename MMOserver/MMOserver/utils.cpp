@@ -2,14 +2,10 @@
 
 std::string decipherPacket(std::string toDecipher, std::string salt)
 {
-	std::vector<std::string> toprocess;
 	size_t pos = 0;
 	std::string unciphered = "";
-	std::string binariedSalt = "";
 	std::string delimiter = "A";
 
-	for (char& _char : salt)
-		binariedSalt += std::bitset<8>(_char).to_string();
 
 	while ((pos = toDecipher.find(delimiter)) != std::string::npos)
 	{
@@ -17,17 +13,14 @@ std::string decipherPacket(std::string toDecipher, std::string salt)
 
 		if (!token.empty())
 		{
-			std::cout << toDecipher.size() << std::endl;
-			toprocess.push_back(token);
+			int i = std::stoi(token);
+			i = i / salt.size();
+			unciphered += i;
 		}
 		toDecipher.erase(0, pos + delimiter.size());
 		token.clear();
 	}
-
-	for (auto it = toDecipher.begin(); it != toDecipher.end(); it++)
-	{
-		std::cout << "test" << '\n';
-	}
+	return unciphered;
 }
 
 std::string cipherPacket(std::string toCipher, std::string salt)
@@ -40,15 +33,10 @@ std::string cipherPacket(std::string toCipher, std::string salt)
 
 	for (char& _char : toCipher)
 	{
-		if (_char == '\0')
-		{
-			ciphered += _char;
-			break;
-		}
 		ciphered += std::to_string(_char * binariedSalt.size()) + 'A';
 	}
-	decipherPacket(ciphered, salt);
-
+	auto t = decipherPacket(ciphered, binariedSalt);
+	std::cout << t << std::endl;
 	return ciphered;
 }
 
