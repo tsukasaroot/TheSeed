@@ -24,6 +24,8 @@ std::map<std::string, std::vector<std::string>> Server::getServerConfig()
 		}
 	}
 
+	this->salt = generateSalt(config["salt"][0]);
+
 	/**
 	** To add the debug option
 	**/

@@ -18,6 +18,8 @@
 
 std::map<std::string, std::vector<std::string>> stockXML(xmlParser* reader);
 bool checkAll(int size, std::vector<std::string> cmd, std::vector<std::string>* playerList);
+std::string decipherPacket(std::string toDecipher, std::string salt);
+std::string generateSalt(std::string salt);
 
 class Server {
 public:
@@ -30,6 +32,8 @@ public:
 	SOCKET getSocket();
 	struct timeval getTimeVal();
 	SOCKADDR_IN getIpep();
+
+	std::string salt;
 private:
 	std::map<std::string, std::vector<std::string>> getServerConfig();
 

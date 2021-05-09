@@ -20,4 +20,7 @@
 	<abnormalitiesTolerance>
 		<10/>
 	</abnormalitiesTolerance>
+	<salt>
+		<ILIKETHISSALT/>
+	</salt>
 </Server>

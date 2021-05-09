@@ -68,6 +68,7 @@ int main(int argc, char* argv[])
 			buffer[bytes - 1] = 0;
 
 			std::string line = buffer;
+			line = decipherPacket(line, server->salt);
 			while ((pos = line.find(delimiter)) != std::string::npos)
 			{
 				std::string token = line.substr(0, line.find(delimiter));

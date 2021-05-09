@@ -15,7 +15,7 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 	auto config = stockXML(reader);
 
 	this->movementTolerance = std::stof(config["movementTolerance"][0]);
-	this->salt = config["salt"][0];
+	this->salt = generateSalt(config["salt"][0]);
 
 	clientWrite("C_LOGIN:" + nickName);
 }

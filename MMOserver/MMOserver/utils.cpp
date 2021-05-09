@@ -26,18 +26,22 @@ std::string decipherPacket(std::string toDecipher, std::string salt)
 std::string cipherPacket(std::string toCipher, std::string salt)
 {
 	std::string ciphered = "";
-	std::string binariedSalt = "";
-
-	for (char& _char : salt)
-		binariedSalt += std::bitset<8>(_char).to_string();
 
 	for (char& _char : toCipher)
 	{
-		ciphered += std::to_string(_char * binariedSalt.size()) + 'A';
+		ciphered += std::to_string(_char * salt.size()) + 'A';
 	}
-	auto t = decipherPacket(ciphered, binariedSalt);
-	std::cout << t << std::endl;
 	return ciphered;
+}
+
+std::string generateSalt(std::string salt)
+{
+	std::string binariedSalt;
+	
+	for (char& _char : salt)
+		binariedSalt += std::bitset<8>(_char).to_string();
+
+	return binariedSalt;
 }
 
 std::map<std::string, std::vector<std::string>> stockXML(xmlParser* reader)
