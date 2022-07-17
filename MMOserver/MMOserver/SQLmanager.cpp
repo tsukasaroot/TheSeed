@@ -2,25 +2,30 @@
 
 SQLManager::SQLManager()
 {
-	this->reader = new xmlParser("config/DatabaseConfig.xml");
-	this->config = stockXML(this->reader);
+	xml_document<> doc;
+	xml_node<>* root_node = NULL;
 
-	this->server = "tcp://";
-	this->server += config["hostName"][0] + ':' + config["port"][0];
-	this->server += '/' + config["database"][0];
+	std::ifstream theFile("config/DatabaseConfig.xml");
+	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
+	buffer.push_back('\0');
 
-	this->userName = config["username"][0];
-	if (this->config.find("password") != this->config.end())
-		this->password = config["password"][0];
-	this->port = std::stoi(config["port"][0]);
+	doc.parse<0>(&buffer[0]);
 
+	root_node = doc.first_node("mySQL");
 	bool reconnector;
+
+	for (xml_node<>* student_node = root_node->first_node("database"); student_node; student_node = student_node->next_sibling())
+	{
+		this->userName = student_node->first_attribute("user")->value();
+		this->password = student_node->first_attribute("pass")->value();
+		this->port = std::stoi(student_node->first_attribute("port")->value());
+		std::istringstream(student_node->first_attribute("reconnect")->value()) >> std::boolalpha >> reconnector;
+	}
 
 	connection_properties["hostName"] = this->server;
 	connection_properties["userName"] = this->userName;
 	connection_properties["password"] = this->password;
 	connection_properties["port"] = this->port;
-	std::istringstream(this->config["reconnect"][0]) >> std::boolalpha >> reconnector;
 	connection_properties["OPT_RECONNECT"] = reconnector;
 
 	try

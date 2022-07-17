@@ -3,11 +3,24 @@
 
 #include "Client.h"
 #include "SQLmanager.h"
-#include "xmlParser.h"
 #include "npcSpawner.h"
 #include "itemManager.h"
 #include "messageManager.h"
 #include "skillManager.h"
+
+#ifdef __linux__ 
+//linux code goes here
+#include <stdio.h> 
+#include <stdlib.h> 
+#include <unistd.h> 
+#include <sys/types.h> 
+#include <sys/socket.h> 
+#include <arpa/inet.h> 
+#include <netinet/in.h> 
+#elif _WIN32
+// windows code goes here
+#include <winsock.h>
+#endif
 
 /*
 * Check if opcode contain the right amount of args and if a valid player exist
@@ -16,7 +29,6 @@
 * @return a boolean depending if all test succeed
 */
 
-std::map<std::string, std::vector<std::string>> stockXML(xmlParser* reader);
 bool checkAll(int size, std::vector<std::string> cmd, std::vector<std::string>* playerList);
 std::string decipherPacket(std::string toDecipher, std::string salt);
 std::string generateSalt(std::string salt);
@@ -35,7 +47,7 @@ public:
 
 	std::string salt;
 private:
-	std::map<std::string, std::vector<std::string>> getServerConfig();
+	void getServerConfig();
 
 	int serverPort = 16384;
 	struct timeval read_timeout;
@@ -111,7 +123,6 @@ private:
 	messageManager* messages;
 	itemsManager* items;
 	npcSpawner* npcSpawn;
-	xmlParser* reader;
 	std::map<std::string, Client*> _client;
 	std::map<std::string, std::string> Movements;
 	SQLManager *dataBase;

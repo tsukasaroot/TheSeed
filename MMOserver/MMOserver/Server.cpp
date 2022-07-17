@@ -1,56 +1,31 @@
 #include "Server.h"
 
-std::map<std::string, std::vector<std::string>> Server::getServerConfig()
+void Server::getServerConfig()
 {
-	auto reader = new xmlParser("config/serverConfig.xml");
-	auto config = stockXML(reader);
+	xml_document<> doc;
+	xml_node<>* root_node = NULL;
 
-	this->abnormalitiesTolerance = std::stoi(config["abnormalitiesTolerance"][0]);
+	std::ifstream theFile("config/serverConfig.xml");
+	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
+	buffer.push_back('\0');
 
-	auto moduleList = new xmlParser("config/listingPlugins.xml");
-	auto modules = stockXML(moduleList);
+	doc.parse<0>(&buffer[0]);
 
-	for (auto it = modules["moduleList"].begin(); it != modules["moduleList"].end(); it++)
+	root_node = doc.first_node("Servers");
+
+	for (xml_node<>* student_node = root_node->first_node("WorldServer"); student_node; student_node = student_node->next_sibling())
 	{
-		if (config.count(*it))
-		{
-			std::vector<std::string> values;
-			std::string name = *it;
-
-			values.push_back(config[name][1]);
-			values.push_back(config[name][2]);
-
-			this->modulesConfiguration.insert(std::pair<std::string, std::vector<std::string>>(config[name][0], values));
-		}
+		this->serverPort = std::stoi(student_node->first_attribute("port")->value());
+		this->abnormalitiesTolerance = std::stoi(student_node->first_attribute("packetAbnormalsPerClient")->value());
+		this->salt = student_node->first_attribute("opcodeSalt")->value();
 	}
-
-	this->salt = generateSalt(config["salt"][0]);
-
-	/**
-	** To add the debug option
-	**/
-
-	/*for (auto it = modulesConfiguration.begin(); it != modulesConfiguration.end(); it++)
-	{
-		std::cout << std::endl << "Key : " << it->first << " Values : ";
-
-		for (auto sec = it->second.begin(); sec != it->second.end(); sec++)
-		{
-			std::cout << *sec << " - ";
-		}
-		std::cout << std::endl;
-	}*/
-
-	return config;
 }
 
 Server::Server()
 {
 	dataBase = new SQLManager();
 
-	auto config = getServerConfig();
-
-	this->serverPort = std::stoi(config["port"][0]);
+	getServerConfig();
 
 	read_timeout.tv_sec = 0;
 	read_timeout.tv_usec = 1;

@@ -1,9 +1,15 @@
 #ifndef SQLMANAGER_H_
 #define SQLMANAGER_H_
 
-#include "xmlParser.h"
 #include "mysql_connection.h"
 
+#include <string>
+#include <map>
+#include <unordered_map>
+#include <vector>
+#include <fstream>
+#include <iostream>
+#include <algorithm>
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>
 #include <cppconn/prepared_statement.h>
@@ -12,15 +18,15 @@
 #include <iostream>
 #include <string>
 #include <errno.h>
-#include <winsock.h>
 #include <algorithm>
 #include <map>
 #include <thread>
 #include <sstream>
 
-#pragma comment(lib, "ws2_32.lib")
+#include <rapidxml/rapidxml.hpp>
+using namespace rapidxml;
 
-std::map<std::string, std::vector<std::string>> stockXML(xmlParser* reader);
+#pragma comment(lib, "ws2_32.lib")
 
 std::vector<std::string> formatString(std::string line);
 
@@ -43,7 +49,6 @@ private:
 	sql::Driver *driver;
 	sql::Connection *con;
 	sql::ConnectOptionsMap connection_properties;
-	xmlParser* reader;
 	std::map<std::string, std::vector<std::string>> config;
 };
 

@@ -1,5 +1,5 @@
-#ifndef XML_PARSER_H_
-# define XML_PARSER_H_
+ifndef XML_PARSER_H_
+# define XML_PARSER_H
 
 #include <string>
 #include <map>

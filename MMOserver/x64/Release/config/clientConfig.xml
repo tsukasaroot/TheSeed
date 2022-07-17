@@ -1,8 +1,4 @@
 <Client>
-	<movementTolerance>
-		<6.1/>
-	</movementTolerance>
-	<salt>
-		<ILIKETHISSALT/>
-	</salt>
+ <movementTolerance value="6.1" />
+ <salt text="ILIKETHISSALT" />
 </Client>

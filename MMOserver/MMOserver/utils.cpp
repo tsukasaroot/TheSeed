@@ -1,5 +1,38 @@
 #include "Server.h"
 
+std::vector<std::string> formatString(std::string line)
+{
+	std::vector<std::string> buildedCommands;
+	std::string token;
+
+	while (line.find(':') != std::string::npos)
+	{
+		token = line.substr(0, line.find(':'));
+		line.erase(0, token.length() + 1);
+		buildedCommands.push_back(token);
+		token.clear();
+	}
+	buildedCommands.push_back(line);
+	return buildedCommands;
+}
+
+xml_node<char>* openXml(std::string path, const char *root_node_name)
+{
+	xml_document<> doc;
+	xml_node<>* root_node = NULL;
+
+	std::ifstream theFile(path);
+	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
+	buffer.push_back('\0');
+
+	// Parse the buffer
+	doc.parse<0>(&buffer[0]);
+
+	// Find out the root node
+	root_node = doc.first_node(root_node_name);
+	return root_node;
+}
+
 std::string decipherPacket(std::string toDecipher, std::string salt)
 {
 	size_t pos = 0;
@@ -42,20 +75,6 @@ std::string generateSalt(std::string salt)
 		binariedSalt += std::bitset<8>(_char).to_string();
 
 	return binariedSalt;
-}
-
-std::map<std::string, std::vector<std::string>> stockXML(xmlParser* reader)
-{
-	std::map<std::string, std::vector<std::string>> object;
-
-	for (auto it = reader->Data.begin(); it != reader->Data.end(); it++)
-	{
-		auto parent = reader->cleanParent(it->first);
-		auto functions = reader->cleanData(it->second);
-
-		object.insert(std::pair<std::string, std::vector<std::string>>(parent, functions));
-	}
-	return object;
 }
 
 bool checkAll(int size, std::vector<std::string> cmd, std::vector<std::string>* playerList)

@@ -4,6 +4,9 @@
 #include "inventoryManager.h"
 #include "SQLmanager.h"
 
+#include <rapidxml/rapidxml.hpp>
+using namespace rapidxml;
+
 #include <windows.h>
 #include <bitset>
 #include <iostream>

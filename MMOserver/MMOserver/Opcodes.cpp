@@ -2,10 +2,6 @@
 
 void Server::Opcodesinitialize()
 {
-	this->reader = new xmlParser("opcodes.xml");
-	auto functions = this->reader->cleanData(reader->Data["<functions>"]);
-	std::string name = "&Server::login";
-
 	list.insert(std::pair<std::string, opcodes>("S_LOGIN", &Server::login));
 	list.insert(std::pair<std::string, opcodes>("S_LOGOUT", &Server::logout));
 	list.insert(std::pair<std::string, opcodes>("S_SAVEDATA", &Server::savePlayerData));

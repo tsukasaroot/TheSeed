@@ -11,11 +11,29 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 	this->nickName = nickName;
 	this->port = std::stoi(port);
 
-	auto reader = new xmlParser("config/clientConfig.xml");
-	auto config = stockXML(reader);
+	xml_document<> doc;
+	xml_node<>* root_node = NULL;
 
-	this->movementTolerance = std::stof(config["movementTolerance"][0]);
-	this->salt = generateSalt(config["salt"][0]);
+	std::ifstream theFile("config/clientConfig.xml");
+	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
+	buffer.push_back('\0');
+
+	// Parse the buffer
+	doc.parse<0>(&buffer[0]);
+
+	// Find out the root node
+	root_node = doc.first_node("Client");
+
+	// Iterate over the student nodes
+	for (xml_node<>* student_node = root_node->first_node("movementTolerance"); student_node; student_node = student_node->next_sibling())
+	{
+		this->movementTolerance = std::stoi(student_node->first_attribute("value")->value());
+	}
+
+	for (xml_node<>* student_node = root_node->first_node("salt"); student_node; student_node = student_node->next_sibling())
+	{
+		this->salt = generateSalt(student_node->first_attribute("text")->value());
+	}
 
 	clientWrite("C_LOGIN:" + nickName);
 }

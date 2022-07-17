@@ -68,12 +68,14 @@ int main(int argc, char* argv[])
 			buffer[bytes - 1] = 0;
 
 			std::string line = buffer;
-			line = decipherPacket(line, server->salt);
+			//line = decipherPacket(line, server->salt);
 			while ((pos = line.find(delimiter)) != std::string::npos)
 			{
 				std::string token = line.substr(0, line.find(delimiter));
 				token += ':' + ip + ':' + port;
 				
+				std::cout << token << std::endl;
+
 				if (!token.empty())
 					opcodes.push_back(token);
 				line.erase(0, pos + delimiter.length());
