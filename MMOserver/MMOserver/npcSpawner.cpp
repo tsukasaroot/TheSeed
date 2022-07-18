@@ -2,10 +2,17 @@
 
 npcSpawner::npcSpawner()
 {
+	const char* path = "datasheets/npcs.xml";
 	xml_document<> doc;
 	xml_node<>* root_node = NULL;
 
-	std::ifstream theFile("datasheets/npcs.xml");
+	if (!std::filesystem::exists(path))
+	{
+		std::cerr << "File " << path << " not found" << std::endl;
+		exit(-1);
+	}
+
+	std::ifstream theFile(path);
 	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
 	buffer.push_back('\0');
 

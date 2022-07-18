@@ -13,8 +13,10 @@
 #include <vector>
 #include <fstream>
 #include <algorithm>
+#include <filesystem>
 #include <rapidxml/rapidxml.hpp>
 using namespace rapidxml;
+
 class npcSpawner {
 public:
 	npcSpawner();

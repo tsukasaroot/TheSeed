@@ -16,8 +16,10 @@
 #include <unordered_map>
 #include <vector>
 #include <algorithm>
+#include <filesystem>
 #include <rapidxml/rapidxml.hpp>
 using namespace rapidxml;
+
 class skillManager
 {
 public:
