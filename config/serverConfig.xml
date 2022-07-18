@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<Servers>
-	<WorldServer port="7801" packetAbnormalsPerClient="10" opcodeSalt="ILIKETHISSALT"/>
-</Servers>

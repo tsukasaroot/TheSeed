@@ -1,5 +1,0 @@
-<functions>
-	<S_LOGIN>
-		<&Server::login/>
-	</S_LOGIN>
-</functions>

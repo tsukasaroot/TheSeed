@@ -105,13 +105,25 @@ private:
 	* @return no return values
 	*/
 	void sendAllClientsName(std::vector<std::string> cmd);
-
+	/**
+	* Send a profile data to the client asking for it
+	*/
 	void sendProfile(std::vector<std::string> cmd);
-
+	/**
+	* Check a player's position to update it on the server + checking for speedhacks / tps
+	*/
 	void getPosition(std::vector<std::string> cmd);
-
+	/**
+	* Initialize the opcodes
+	*/
 	void Opcodesinitialize();
+	/**
+	* Process sending packets to related servers
+	*/
 	void processPlugins(std::string token, std::string cmd, std::vector<std::string> args);
+	/**
+	* Shutdown server properly by saving all data
+	*/
 	void closeServer();
 
 	typedef void(Server::* opcodes)(std::vector<std::string>);

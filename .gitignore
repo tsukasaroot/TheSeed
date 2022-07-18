@@ -37,3 +37,4 @@ MMOserver/x64/
 *.tlog
 *.log
 *.recipe
+bin
