@@ -3,6 +3,8 @@
 #include "Server.h"
 
 auto const tableName = "users";
+const int buffLength = 4024;
+const std::string delimiter = "0x12";
 
 void runOpcodes(Server* server, std::vector<std::string> opcodes, std::string ip)
 {
@@ -24,14 +26,11 @@ void createNPC(Server* server)
 	server->createAI();
 }
 
-int main(int argc, char* argv[])
+void gameLoop()
 {
-	std::string delimiter = "0x12";
 	std::vector<std::string> opcodes;
-
 	std::vector<Client> client;
 
-	const int buffLength = 4024;
 	char buffer[buffLength];
 	int bytes;
 	int tempo;
@@ -43,11 +42,11 @@ int main(int argc, char* argv[])
 	struct timeval read_timeout = server->getTimeVal();
 	SOCKADDR_IN ipep = server->getIpep();
 
+	std::thread npcThread(createNPC, server);
+
 	std::chrono::system_clock systemClock;
 	std::chrono::system_clock::time_point lastRunChecker = systemClock.now();
 	std::chrono::system_clock::time_point lastRunSaveWorld = systemClock.now();
-
-	std::thread npcThread(createNPC, server);
 
 	while (1)
 	{
@@ -73,7 +72,7 @@ int main(int argc, char* argv[])
 			{
 				std::string token = line.substr(0, line.find(delimiter));
 				token += ':' + ip + ':' + port;
-				
+
 				std::cout << token << std::endl;
 
 				if (!token.empty())
@@ -104,5 +103,11 @@ int main(int argc, char* argv[])
 			threadSaveWorld.detach();
 		}
 	}
+}
+
+int main(int argc, char* argv[])
+{
+	gameLoop();
+
 	return 0;
 }

@@ -11,10 +11,17 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 	this->nickName = nickName;
 	this->port = std::stoi(port);
 
+	const char* path = "config/clientConfig.xml";
 	xml_document<> doc;
 	xml_node<>* root_node = NULL;
 
-	std::ifstream theFile("config/clientConfig.xml");
+	if (!std::filesystem::exists(path))
+	{
+		std::cerr << "File " << path << " not found" << std::endl;
+		exit(-1);
+	}
+
+	std::ifstream theFile(path);
 	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
 	buffer.push_back('\0');
 

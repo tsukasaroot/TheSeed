@@ -2,10 +2,17 @@
 
 SQLManager::SQLManager()
 {
+	const char* path = "config/DatabaseConfig.xml";
 	xml_document<> doc;
 	xml_node<>* root_node = NULL;
 
-	std::ifstream theFile("config/DatabaseConfig.xml");
+	if (!std::filesystem::exists(path))
+	{
+		std::cerr << "File " << path << " not found" << std::endl;
+		exit(-1);
+	}
+
+	std::ifstream theFile(path);
 	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
 	buffer.push_back('\0');
 

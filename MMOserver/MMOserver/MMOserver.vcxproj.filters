@@ -60,7 +60,7 @@
     <ClCompile Include="messageManager.cpp">
       <Filter>Fichiers sources\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="MMOserver.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Fichiers sources\Server</Filter>
     </ClCompile>
     <ClCompile Include="Server.cpp">

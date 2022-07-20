@@ -2,10 +2,20 @@
 
 void Server::getServerConfig()
 {
+	const char* path = "config/serverConfig.xml";
 	xml_document<> doc;
 	xml_node<>* root_node = NULL;
 
-	std::ifstream theFile("config/serverConfig.xml");
+	if (!std::filesystem::exists(path))
+	{
+		std::cerr << "File " << path << " not found" << std::endl;
+		exit(-1);
+	}
+
+	std::ifstream theFile(path);
+
+	std::cout << "test";
+
 	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
 	buffer.push_back('\0');
 
@@ -23,9 +33,9 @@ void Server::getServerConfig()
 
 Server::Server()
 {
-	dataBase = new SQLManager();
-
 	getServerConfig();
+
+	dataBase = new SQLManager();
 
 	read_timeout.tv_sec = 0;
 	read_timeout.tv_usec = 1;
@@ -51,7 +61,7 @@ Server::Server()
 	else
 		std::cout << "Bind : OK" << std::endl;
 	std::cout << std::endl;
-	
+
 	// Will initialiaze the different XMLs needed for the game
 	Opcodesinitialize();
 	std::cout << std::endl << "$ Main server ready $" << std::endl << "Listening on: " << this->serverPort << std::endl << std::endl;
@@ -64,7 +74,7 @@ void Server::closeServer()
 		std::cout << "Socket can't be freed : " << error << " " << WSAGetLastError() << std::endl;
 	else
 		std::cout << "close socket : OK" << std::endl;
-	 
+
 	error = WSACleanup();
 	if (error != 0)
 		std::cout << "Winsock can't be freed : " << error << " " << WSAGetLastError() << std::endl;
