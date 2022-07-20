@@ -12,6 +12,7 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 	this->port = std::stoi(port);
 
 	const char* path = "config/clientConfig.xml";
+
 	xml_document<> doc;
 	xml_node<>* root_node = NULL;
 
@@ -24,20 +25,15 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 	std::ifstream theFile(path);
 	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
 	buffer.push_back('\0');
-
-	// Parse the buffer
 	doc.parse<0>(&buffer[0]);
-
-	// Find out the root node
 	root_node = doc.first_node("Client");
 
-	// Iterate over the student nodes
-	for (xml_node<>* student_node = root_node->first_node("movementTolerance"); student_node; student_node = student_node->next_sibling())
+	if (xml_node<>* student_node = root_node->first_node("movementTolerance"))
 	{
 		this->movementTolerance = std::stoi(student_node->first_attribute("value")->value());
 	}
 
-	for (xml_node<>* student_node = root_node->first_node("salt"); student_node; student_node = student_node->next_sibling())
+	if (xml_node<>* student_node = root_node->first_node("salt"))
 	{
 		this->salt = generateSalt(student_node->first_attribute("text")->value());
 	}

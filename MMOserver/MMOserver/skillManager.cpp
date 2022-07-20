@@ -21,7 +21,7 @@ skillManager::skillManager()
 
 	int i = 0;
 
-	for (xml_node<>* student_node = root_node->first_node("sorcerer"); student_node; student_node = student_node->next_sibling())
+	if (xml_node<>* student_node = root_node->first_node("sorcerer"))
 	{
 		for (xml_node<>* student_node = root_node->first_node("skillTemplate"); student_node; student_node = student_node->next_sibling())
 		{

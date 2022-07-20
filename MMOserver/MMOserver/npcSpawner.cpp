@@ -15,11 +15,7 @@ npcSpawner::npcSpawner()
 	std::ifstream theFile(path);
 	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
 	buffer.push_back('\0');
-
-	// Parse the buffer
 	doc.parse<0>(&buffer[0]);
-
-	// Find out the root node
 	root_node = doc.first_node("npcData");
 
 	int i = 0;

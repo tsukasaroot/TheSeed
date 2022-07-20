@@ -18,16 +18,14 @@ void Server::getServerConfig()
 
 	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
 	buffer.push_back('\0');
-
 	doc.parse<0>(&buffer[0]);
-
 	root_node = doc.first_node("Servers");
 
-	for (xml_node<>* student_node = root_node->first_node("WorldServer"); student_node; student_node = student_node->next_sibling())
+	if (xml_node<>* node = root_node->first_node("WorldServer"))
 	{
-		this->serverPort = std::stoi(student_node->first_attribute("port")->value());
-		this->abnormalitiesTolerance = std::stoi(student_node->first_attribute("packetAbnormalsPerClient")->value());
-		this->salt = student_node->first_attribute("opcodeSalt")->value();
+		this->serverPort = std::stoi(node->first_attribute("port")->value());
+		this->abnormalitiesTolerance = std::stoi(node->first_attribute("packetAbnormalsPerClient")->value());
+		this->salt = node->first_attribute("opcodeSalt")->value();
 	}
 }
 

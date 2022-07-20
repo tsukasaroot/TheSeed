@@ -41,6 +41,7 @@ public:
 	std::map<std::string, std::string> initPlayer(std::string name);
 	void get(std::string table, std::vector<std::string> fields, std::vector<std::string> columnName, std::vector<std::string> where);
 private:
+	std::string database;
 	std::string server;
 	std::string userName;
 	std::string password = "";

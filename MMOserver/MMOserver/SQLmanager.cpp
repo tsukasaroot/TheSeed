@@ -15,24 +15,23 @@ SQLManager::SQLManager()
 	std::ifstream theFile(path);
 	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
 	buffer.push_back('\0');
-
 	doc.parse<0>(&buffer[0]);
-
 	root_node = doc.first_node("mySQL");
 	bool reconnector;
 
-	for (xml_node<>* student_node = root_node->first_node("database"); student_node; student_node = student_node->next_sibling())
+	if (xml_node<>* node = root_node->first_node("database"))
 	{
-		this->userName = student_node->first_attribute("user")->value();
-		this->password = student_node->first_attribute("pass")->value();
-		this->port = std::stoi(student_node->first_attribute("port")->value());
-		std::istringstream(student_node->first_attribute("reconnect")->value()) >> std::boolalpha >> reconnector;
+		this->database = node->first_attribute("name")->value();
+		this->server = node->first_attribute("host")->value();
+		this->userName = node->first_attribute("user")->value();
+		this->password = node->first_attribute("pass")->value();
+		this->port = std::stoi(node->first_attribute("port")->value());
+		std::istringstream(node->first_attribute("reconnect")->value()) >> std::boolalpha >> reconnector;
 	}
 
-	connection_properties["hostName"] = this->server;
+	connection_properties["hostName"] = "tcp://" + this->server + "/" + this->database;
 	connection_properties["userName"] = this->userName;
 	connection_properties["password"] = this->password;
-	connection_properties["port"] = this->port;
 	connection_properties["OPT_RECONNECT"] = reconnector;
 
 	try
@@ -53,7 +52,7 @@ void SQLManager::insert(std::string table, std::string column, std::vector<std::
 {
 	sql::PreparedStatement* pstmt;
 	std::string query = "INSERT INTO " + table + "(" + column + ") VALUES(?)";
-	pstmt = con->prepareStatement(query);
+	pstmt = this->con->prepareStatement(query);
 
 	auto i = 1;
 	for (std::vector<std::string>::iterator it = values.begin(); it != values.end(); ++it)
@@ -79,7 +78,7 @@ void SQLManager::update(std::string user, std::string cond, std::string table, s
 	}
 	query += condition;
 
-	stmt = con->createStatement();
+	stmt = this->con->createStatement();
 	stmt->executeUpdate(query);
 	delete stmt;
 }
@@ -110,7 +109,7 @@ void SQLManager::get(std::string table, std::vector<std::string> fields, std::ve
 	std::cout << query << std::endl;
 	try
 	{
-		stmt = con->createStatement();
+		stmt = this->con->createStatement();
 		res = stmt->executeQuery(query);
 		std::map<int, std::vector<double>> inventories;
 		std::vector<double> items_id;
@@ -154,7 +153,7 @@ std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
 
 	try
 	{
-		stmt = con->createStatement();
+		stmt = this->con->createStatement();
 		res = stmt->executeQuery(query);
 
 		while (res->next())
@@ -229,7 +228,7 @@ std::map<std::string, std::string> SQLManager::checkLogin(std::string nickName)
 
 	try
 	{
-		stmt = con->createStatement();
+		stmt = this->con->createStatement();
 		res = stmt->executeQuery(query);
 
 		while (res->next())
