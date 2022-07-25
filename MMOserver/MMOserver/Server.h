@@ -8,7 +8,7 @@
 #include "messageManager.h"
 #include "skillManager.h"
 
-#ifdef __linux__ 
+/*#ifdef __linux__ 
 //linux code goes here
 #include <stdio.h> 
 #include <stdlib.h> 
@@ -17,10 +17,10 @@
 #include <sys/socket.h> 
 #include <arpa/inet.h> 
 #include <netinet/in.h> 
-#elif _WIN32
+#elif _WIN32*/
 // windows code goes here
 #include <winsock.h>
-#endif
+//#endif
 
 /*
 * Check if opcode contain the right amount of args and if a valid player exist
