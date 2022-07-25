@@ -64,7 +64,7 @@ std::string cipherPacket(std::string toCipher, std::string salt)
 	{
 		ciphered += std::to_string(_char * salt.size()) + 'A';
 	}
-	return ciphered;
+	return toCipher;
 }
 
 std::string generateSalt(std::string salt)

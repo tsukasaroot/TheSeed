@@ -16,8 +16,8 @@ void Server::globalMessage(std::vector<std::string> cmd)
 {
 	if (checkAll(4, cmd, &this->playerList))
 	{
-		std::string nickName = cmd[0];
-		Client* sender = this->_client[cmd[0]];
+		std::string player_id = cmd[0];
+		Client* sender = this->_client[player_id];
 
 		this->messages->sendGlobalMessage(sender, cmd[1], this->_client);
 	}

@@ -1,5 +1,6 @@
 #include "Server.h"
 
+// Gotta need to send and check token validity, else anyone can disconnect another user lmao
 void Server::logout(std::vector<std::string> cmd)
 {
 	if (cmd.size() == 3)

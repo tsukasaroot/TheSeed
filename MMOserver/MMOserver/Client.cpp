@@ -38,6 +38,8 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 		this->salt = generateSalt(student_node->first_attribute("text")->value());
 	}
 
+	this->state = ISLOBBY;
+	std::cout << "Client state is " << this->state << std::endl;
 	clientWrite("C_LOGIN:" + nickName);
 }
 

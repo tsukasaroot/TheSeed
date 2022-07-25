@@ -71,7 +71,7 @@ private:
 	SOCKADDR_IN ipep; // Déclaration de la structure des informations lié au serveur
 	std::string salt;
 
-	enum MyEnum
+	enum WherePlayer
 	{
 		ISLOBBY,
 		ISWORLDSERVER
