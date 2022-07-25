@@ -26,7 +26,7 @@ public:
 	~Client() {};
 	void closeClient();
 	void initClient(std::string client, std::string nickName, SOCKET serverRCV, SQLManager* db, std::string port);
-	void initClient(std::map<std::string, std::string> cmd);
+	void initClient(std::map<std::string, std::string> cmd, std::string player_id);
 
 	void clientWrite(std::string msg);
 
@@ -55,6 +55,7 @@ private:
 		critP = 0, defense = 0;
 	int MP = 0, RE = 0, clientClass = 0, positionQuery = 0, region = 0, level = 0, client_id = 0;
 	bool isAlive = true;
+	int state = 0;
 
 	int abnormal = 0, modifier = 1;
 	double movementTolerance = 6.1;
@@ -69,6 +70,12 @@ private:
 	char buffer[4024] = ""; // Tampon contenant les données reçues ou envoyées
 	SOCKADDR_IN ipep; // Déclaration de la structure des informations lié au serveur
 	std::string salt;
+
+	enum MyEnum
+	{
+		ISLOBBY,
+		ISWORLDSERVER
+	};
 };
 
 #endif

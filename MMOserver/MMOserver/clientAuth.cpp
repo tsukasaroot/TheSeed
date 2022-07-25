@@ -20,32 +20,30 @@ void Server::logout(std::vector<std::string> cmd)
 	}
 	else
 	{
-		std::cout << "Not enough argument for this function" << std::endl;
+		std::cerr << "Not enough argument for this function" << std::endl;
 	}
 }
 
 void Server::login(std::vector<std::string> cmd)
 {
-	if (cmd.size() == 4)
+	if (cmd.size() == 3)
 	{
-		std::string login = cmd[0];
-		std::string password = cmd[1];
-		auto result = this->dataBase->checkLogin(login);
+		std::string token = cmd[0];
+		auto result = this->dataBase->checkLogin(token);
 
-		if (std::find(this->playerList.begin(), this->playerList.end(), login) != this->playerList.end())
+		if (result.size() > 0)
 		{
-			std::cerr << "Error: " << login << " player already logged, connection denied." << std::endl;
+			this->playerList.push_back(result["player_id"]);
+			this->_client.insert(std::pair<std::string, Client*>(result["player_id"], new Client()));
+			_client[result["player_id"]]->initClient(cmd[1], result["name"], this->serverRCV, this->dataBase, cmd[2]);
+
+			auto datas = this->dataBase->initPlayer(result["player_id"]);
+			_client[result["player_id"]]->initClient(datas, result["player_id"]);
 			return;
 		}
-		if (login == result["name"] && password == result["password"])
+		else
 		{
-			this->playerList.push_back(login);
-			this->_client.insert(std::pair<std::string, Client*>(login, new Client()));
-			_client[login]->initClient(cmd[2], result["name"], this->serverRCV, this->dataBase, cmd[3]);
-
-			auto datas = this->dataBase->initPlayer(login);
-			_client[login]->initClient(datas);
-			return;
+			std::cerr << "this player id " << token << " is unknown" << std::endl;
 		}
 	}
 	else
@@ -57,7 +55,14 @@ void Server::login(std::vector<std::string> cmd)
 void Server::savePlayerData(std::vector<std::string> cmd)
 {
 	std::vector<std::pair<std::string, std::string>> values;
+	std::string player_id = cmd[0];
 
-	values.push_back(std::make_pair("email", "jorouco@free.fr"));
-	dataBase->update("test", "name", "users", values);
+	values.push_back(std::make_pair("x", "8000"));
+	values.push_back(std::make_pair("y", "8000"));
+	values.push_back(std::make_pair("z", "8000"));
+	values.push_back(std::make_pair("region", "0"));
+	values.push_back(std::make_pair("isAlive", "1"));
+	values.push_back(std::make_pair("currency", "1000"));
+
+	dataBase->update(cmd[0], "player_id", "users", values);
 }

@@ -41,32 +41,32 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 	clientWrite("C_LOGIN:" + nickName);
 }
 
-void Client::initClient(std::map<std::string, std::string> cmd)
+void Client::initClient(std::map<std::string, std::string> player_data, std::string player_id)
 {
 	std::string data;
 
-	this->x = std::stod(cmd["x"]);
-	this->y = std::stod(cmd["y"]);
-	this->z = std::stod(cmd["z"]);
-	this->currency = std::stod(cmd["currency"]);
-	this->exp = std::stod(cmd["exp"]);
-	this->HP = std::stod(cmd["hp"]);
-	this->MP = std::stoi(cmd["mp"]);
-	this->attack = std::stod(cmd["attack"]);
-	this->critRate = std::stod(cmd["critRate"]);
-	this->critP = std::stod(cmd["critP"]);
-	this->defense = std::stod(cmd["defense"]);
-	this->clientClass = std::stoi(cmd["class"]);
-	this->level = std::stoi(cmd["level"]);
-	this->region = std::stoi(cmd["region"]);
-	this->isAlive = std::stoi(cmd["isAlive"]);
-	this->RE = std::stoi(cmd["re"]);
-	this->client_id = std::stoi(cmd["client_id"]);
+	this->x = std::stod(player_data["x"]);
+	this->y = std::stod(player_data["y"]);
+	this->z = std::stod(player_data["z"]);
+	this->currency = std::stod(player_data["currency"]);
+	this->exp = std::stod(player_data["exp"]);
+	this->HP = std::stod(player_data["hp"]);
+	this->MP = std::stoi(player_data["mp"]);
+	this->attack = std::stod(player_data["attack"]);
+	this->critRate = std::stod(player_data["critRate"]);
+	this->critP = std::stod(player_data["critP"]);
+	this->defense = std::stod(player_data["defense"]);
+	this->clientClass = std::stoi(player_data["class"]);
+	this->level = std::stoi(player_data["level"]);
+	this->region = std::stoi(player_data["region"]);
+	this->isAlive = std::stoi(player_data["isAlive"]);
+	this->RE = std::stoi(player_data["re"]);
+	this->client_id = std::stoi(player_id);
 
 	std::vector<std::string> array = { "C_LOGIN_DATA", this->nickName, 
-		cmd["x"], cmd["y"], cmd["z"], cmd["currency"], cmd["exp"], cmd["hp"], cmd["mp"], cmd["attack"], cmd["critRate"], cmd["critP"], cmd["defense"],
-		cmd["class"], cmd["level"], cmd["region"], cmd["re"],
-		cmd["isAlive"]
+		player_data["x"], player_data["y"], player_data["z"], player_data["currency"], player_data["exp"], player_data["hp"], player_data["mp"], player_data["attack"], player_data["critRate"], player_data["critP"], player_data["defense"],
+		player_data["class"], player_data["level"], player_data["region"], player_data["re"],
+		player_data["isAlive"]
 	};
 
 	data = packetBuilder(array);

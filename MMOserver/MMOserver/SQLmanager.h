@@ -37,7 +37,7 @@ public:
 	void insert(std::string table, std::string column, std::vector<std::string> values);
 	void update(std::string user, std::string cond, std::string table, std::vector<std::pair<std::string, std::string>> values);
 
-	std::map<std::string, std::string> checkLogin(std::string nickName);
+	std::map<std::string, std::string> checkLogin(std::string token);
 	std::map<std::string, std::string> initPlayer(std::string name);
 	void get(std::string table, std::vector<std::string> fields, std::vector<std::string> columnName, std::vector<std::string> where);
 private:

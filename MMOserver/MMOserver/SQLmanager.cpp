@@ -143,13 +143,12 @@ void SQLManager::get(std::string table, std::vector<std::string> fields, std::ve
 	}
 }
 
-std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
+std::map<std::string, std::string> SQLManager::initPlayer(std::string player_id)
 {
 	sql::Statement *stmt;
 	sql::ResultSet *res;
-	std::string query = "SELECT * FROM users WHERE name = '" + nickName + "'";
+	std::string query = "SELECT * FROM users WHERE player_id ='" + player_id + "'";
 	std::map<std::string, std::string> result;
-	int id = 0;
 
 	try
 	{
@@ -167,8 +166,6 @@ std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
 			result.insert(std::pair<std::string, std::string>("currency", std::to_string(res->getDouble("currency"))));
 			result.insert(std::pair<std::string, std::string>("exp", std::to_string(res->getDouble("exp"))));
 			result.insert(std::pair<std::string, std::string>("isAlive", std::to_string(res->getBoolean("isAlive"))));
-			result.insert(std::pair<std::string, std::string>("client_id", std::to_string(res->getInt("player_id"))));
-			id = res->getInt("player_id");
 		}
 
 		delete res;
@@ -176,35 +173,23 @@ std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
 
 		sql::Statement* stmt;
 		sql::ResultSet* res;
-		std::string query = "SELECT * FROM currentplayerstats WHERE user_id = '" + std::to_string(id) + "'";
+		std::string query = "SELECT * FROM currentplayerstats WHERE user_id = '" + player_id + "'";
 
-		try
+		stmt = con->createStatement();
+		res = stmt->executeQuery(query);
+		while (res->next())
 		{
-			stmt = con->createStatement();
-			res = stmt->executeQuery(query);
-			while (res->next())
-			{
-				result.insert(std::pair<std::string, std::string>("hp", std::to_string(res->getDouble("hp"))));
-				result.insert(std::pair<std::string, std::string>("mp", std::to_string(res->getDouble("mp"))));
-				result.insert(std::pair<std::string, std::string>("attack", std::to_string(res->getDouble("attack"))));
-				result.insert(std::pair<std::string, std::string>("critRate", std::to_string(res->getDouble("critRate"))));
-				result.insert(std::pair<std::string, std::string>("critP", std::to_string(res->getDouble("critP"))));
-				result.insert(std::pair<std::string, std::string>("defense", std::to_string(res->getDouble("defense"))));
-				result.insert(std::pair<std::string, std::string>("re", std::to_string(res->getDouble("re"))));
-			}
+			result.insert(std::pair<std::string, std::string>("hp", std::to_string(res->getDouble("hp"))));
+			result.insert(std::pair<std::string, std::string>("mp", std::to_string(res->getDouble("mp"))));
+			result.insert(std::pair<std::string, std::string>("attack", std::to_string(res->getDouble("attack"))));
+			result.insert(std::pair<std::string, std::string>("critRate", std::to_string(res->getDouble("critRate"))));
+			result.insert(std::pair<std::string, std::string>("critP", std::to_string(res->getDouble("critP"))));
+			result.insert(std::pair<std::string, std::string>("defense", std::to_string(res->getDouble("defense"))));
+			result.insert(std::pair<std::string, std::string>("re", std::to_string(res->getDouble("re"))));
+		}
 
-			delete res;
-			delete stmt;
-		}
-		catch (sql::SQLException& e)
-		{
-			std::cout << "# ERR: SQLException in " << __FILE__;
-			std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
-			std::cout << "# ERR: " << e.what();
-			std::cout << " (MySQL error code: " << e.getErrorCode();
-			std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
-			exit(0);
-		}
+		delete res;
+		delete stmt;
 
 		return result;
 	}
@@ -219,11 +204,11 @@ std::map<std::string, std::string> SQLManager::initPlayer(std::string nickName)
 	}
 }
 
-std::map<std::string, std::string> SQLManager::checkLogin(std::string nickName)
+std::map<std::string, std::string> SQLManager::checkLogin(std::string token)
 {
 	sql::Statement *stmt;
 	sql::ResultSet *res;
-	std::string query = "SELECT name, password FROM accounts WHERE name LIKE '" + nickName + "'";
+	std::string query = "SELECT VIP, name, account_id FROM accounts WHERE token = '" + token + "'";
 	std::map<std::string, std::string> result;
 
 	try
@@ -233,12 +218,31 @@ std::map<std::string, std::string> SQLManager::checkLogin(std::string nickName)
 
 		while (res->next())
 		{
+			result.insert(std::pair<std::string, std::string>("VIP", res->getString("VIP")));
 			result.insert(std::pair<std::string, std::string>("name", res->getString("name")));
-			result.insert(std::pair<std::string, std::string>("password", res->getString("password")));
+			result.insert(std::pair<std::string, std::string>("account_id", res->getString("account_id")));
 		}
 
 		delete res;
 		delete stmt;
+
+		if (result.size() > 0) {
+			sql::Statement* stmt;
+			sql::ResultSet* res;
+			std::string query = "SELECT player_id FROM users WHERE account_id = '" + result["account_id"] + "'";
+
+			stmt = this->con->createStatement();
+			res = stmt->executeQuery(query);
+
+			while (res->next())
+			{
+				result.insert(std::pair<std::string, std::string>("player_id", res->getString("player_id")));
+			}
+
+			delete res;
+			delete stmt;
+		}
+
 		return result;
 	}
 	catch (sql::SQLException &e)
