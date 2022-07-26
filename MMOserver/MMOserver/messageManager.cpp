@@ -2,11 +2,16 @@
 
 void  messageManager::sendPrivateMessage(Client* clientFrom, Client* clientToSend, std::string message)
 {
+	if (clientFrom->getState() != ISWORLDSERVER || clientToSend->getState() != ISWORLDSERVER)
+	{
+		return;
+	}
+
 	SYSTEMTIME time;
 	GetLocalTime(&time);
 
 	std::string mkdir = "mkdir messagesDumper\\" + clientFrom->getNickName();
-	std::string writeFile = "echo \"" + std::to_string(time.wHour) + ':' + std::to_string(time.wMinute) + " - to:" + clientToSend->getNickName() + "  -  " + message + "\" >> messagesDumper\\" + clientFrom->getNickName() + '\\' + std::to_string(time.wDay) + '-' +  std::to_string(time.wMonth) + '-' + std::to_string(time.wYear);
+	std::string writeFile = "echo \"" + std::to_string(time.wHour) + ':' + std::to_string(time.wMinute) + " - to:" + clientToSend->getNickName() + "  -  " + message + "\" >> messagesDumper\\" + clientFrom->getNickName() + '\\' + std::to_string(time.wDay) + '-' +  std::to_string(time.wMonth) + '-' + std::to_string(time.wYear) + ".txt";
 
 	if (fs::exists("messagesDumper\\" + clientFrom->getNickName()) == false)
 		std::system(mkdir.c_str());
@@ -20,11 +25,16 @@ void  messageManager::sendPrivateMessage(Client* clientFrom, Client* clientToSen
 
 void messageManager::sendGlobalMessage(Client* clientFrom, std::string message, std::map<std::string, Client*> clientsToSend)
 {
+	if (clientFrom->getState() != ISWORLDSERVER)
+	{
+		return;
+	}
+
 	SYSTEMTIME time;
 	GetLocalTime(&time);
 
 	std::string mkdir = "mkdir messagesDumper\\" + clientFrom->getNickName();
-	std::string writeFile = "echo \"" + std::to_string(time.wHour) + ':' + std::to_string(time.wMinute) + "  -  " + message + "\" >> messagesDumper\\" + clientFrom->getNickName() + '\\' + std::to_string(time.wDay) + '-' + std::to_string(time.wMonth) + '-' + std::to_string(time.wYear);
+	std::string writeFile = "echo \"" + std::to_string(time.wHour) + ':' + std::to_string(time.wMinute) + "  -  " + message + "\" >> messagesDumper\\" + clientFrom->getNickName() + '\\' + std::to_string(time.wDay) + '-' + std::to_string(time.wMonth) + '-' + std::to_string(time.wYear) +".txt";
 
 	if (fs::exists("messagesDumper\\" + clientFrom->getNickName()) == false)
 		std::system(mkdir.c_str());

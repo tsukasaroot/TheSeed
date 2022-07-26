@@ -1,14 +1,14 @@
 #include "Client.h"
 
-void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, SQLManager *db, std::string port)
+void Client::initClient(std::string ip, std::map<std::string, std::string> result, SOCKET serverRCV, SQLManager *db, std::string port)
 {
-	std::cout << "New client logging: " << nickName << std::endl;
+	std::cout << "New client logging: " << result["account_id"] << std::endl;
 
 	this->dataBase = db;
 	this->inventory = new inventoryManager(db);
 	this->_client = serverRCV;
 	this->clientAddress = ip;
-	this->nickName = nickName;
+	this->account_id = std::stoi(result["account_id"]);
 	this->port = std::stoi(port);
 
 	const char* path = "config/clientConfig.xml";
@@ -39,13 +39,13 @@ void Client::initClient(std::string ip, std::string nickName, SOCKET serverRCV, 
 	}
 
 	this->state = ISLOBBY;
-	std::cout << "Client state is " << this->state << std::endl;
-	clientWrite("C_LOGIN:" + nickName);
+	clientWrite("C_LOGIN:" + std::to_string(this->account_id));
+	clientWrite("C_LOBBY");
 }
 
-void Client::initClient(std::map<std::string, std::string> player_data, std::string player_id)
+void Client::initClient(std::map<std::string, std::string> player_data)
 {
-	std::string data;
+	std::string packet_data;
 
 	this->x = std::stod(player_data["x"]);
 	this->y = std::stod(player_data["y"]);
@@ -63,22 +63,26 @@ void Client::initClient(std::map<std::string, std::string> player_data, std::str
 	this->region = std::stoi(player_data["region"]);
 	this->isAlive = std::stoi(player_data["isAlive"]);
 	this->RE = std::stoi(player_data["re"]);
-	this->client_id = std::stoi(player_id);
+	this->player_id = (unsigned)std::stoi(player_data["player_id"]);
+	this->nickName = player_data["name"];
 
-	std::vector<std::string> array = { "C_LOGIN_DATA", this->nickName, 
-		player_data["x"], player_data["y"], player_data["z"], player_data["currency"], player_data["exp"], player_data["hp"], player_data["mp"], player_data["attack"], player_data["critRate"], player_data["critP"], player_data["defense"],
+	std::vector<std::string> array = {
+		"C_LOGIN_DATA", this->nickName, std::to_string(this->player_id),
+		player_data["x"], player_data["y"], player_data["z"], player_data["currency"], player_data["exp"],
+		player_data["hp"], player_data["mp"], player_data["attack"], player_data["critRate"], player_data["critP"], player_data["defense"],
 		player_data["class"], player_data["level"], player_data["region"], player_data["re"],
 		player_data["isAlive"]
 	};
 
-	data = packetBuilder(array);
-	this->clientWrite(data);
+	packet_data = packetBuilder(array);
+	this->clientWrite(packet_data);
 }
 
 void Client::closeClient()
 {
-	saveClientToDatabase();
-	std::cout << "Client logged out: " << this->nickName << std::endl;
+	if (this->state == ISWORLDSERVER)
+		saveClientToDatabase();
+	std::cout << "Client logged out: " << this->account_id << std::endl;
 }
 
 void Client::clientWrite(std::string msg)
@@ -87,14 +91,16 @@ void Client::clientWrite(std::string msg)
 	this->ipep.sin_addr.s_addr = inet_addr(this->clientAddress.c_str()); // Indique l'adresse IP du client qui a été push
 	this->ipep.sin_port = htons(this->port);
 	msg = msg + "0x12";
+	char buffer[4024] = "";
 
 	std::string hashedPacket = cipherPacket(msg, this->salt);
 
-	strcpy_s(this->buffer, hashedPacket.c_str());
+	strcpy_s(buffer, hashedPacket.c_str());
 
-	this->bytes = sendto(this->_client, this->buffer, strlen(this->buffer), 0, (struct sockaddr*)&this->ipep, sizeof(this->ipep));
+	this->bytes = sendto(this->_client, buffer, strlen(buffer), 0, (struct sockaddr*)&this->ipep, sizeof(this->ipep));
 	if (this->bytes == SOCKET_ERROR)
 		std::cout << "Can't send data: " << WSAGetLastError() << std::endl;
+	memset(buffer, 0, sizeof(buffer));
 }
 
 void Client::saveClientToDatabase()
@@ -110,7 +116,7 @@ void Client::saveClientToDatabase()
 	values.push_back(std::make_pair((std::string)"exp", std::to_string(this->exp)));
 	values.push_back(std::make_pair((std::string)"isAlive", std::to_string(this->isAlive)));
 
-	this->dataBase->update(this->nickName, "name", "users", values);
+	this->dataBase->update(std::to_string(this->player_id), "name", "users", values);
 	values.clear();
 
 	values.push_back(std::make_pair((std::string)"hp", std::to_string(this->HP)));
@@ -120,7 +126,7 @@ void Client::saveClientToDatabase()
 	values.push_back(std::make_pair((std::string)"critP", std::to_string(this->critP)));
 	values.push_back(std::make_pair((std::string)"defense", std::to_string(this->defense)));
 	values.push_back(std::make_pair((std::string)"re", std::to_string(this->RE)));
-	this->dataBase->update(std::to_string(this->client_id), "user_id", "currentplayerstats", values);
+	this->dataBase->update(std::to_string(this->player_id), "player_id", "currentplayerstats", values);
 }
 
 /*
@@ -197,6 +203,11 @@ double Client::getY()
 double Client::getZ()
 {
 	return this->z;
+}
+
+int Client::getState()
+{
+	return this->state;
 }
 
 std::string Client::getProfile()

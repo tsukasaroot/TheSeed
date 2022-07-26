@@ -5,18 +5,18 @@ void Server::logout(std::vector<std::string> cmd)
 {
 	if (cmd.size() == 3)
 	{
-		std::string nickName = cmd[0];
-		auto it = std::find(this->playerList.begin(), this->playerList.end(), nickName);
+		std::string token = cmd[0];
+		auto it = std::find(this->playerList.begin(), this->playerList.end(), token);
 
 		if (it != this->playerList.end())
 		{
 			this->playerList.erase(it);
-			this->_client[nickName]->closeClient();
-			delete(this->_client[nickName]);
-			this->_client.erase(nickName);
+			this->_client[token]->closeClient();
+			delete(this->_client[token]);
+			this->_client.erase(token);
 			return;
 		}
-		std::cerr << "Error: " << nickName << " player already logged out, logout command denied." << std::endl;
+		std::cerr << "Error: " << token << " player already logged out, logout command denied." << std::endl;
 		return;
 	}
 	else
@@ -31,25 +31,39 @@ void Server::login(std::vector<std::string> cmd)
 	{
 		std::string token = cmd[0];
 		auto result = this->dataBase->checkLogin(token);
-
+		
 		if (result.size() > 0)
 		{
-			this->playerList.push_back(result["player_id"]);
-			this->_client.insert(std::pair<std::string, Client*>(result["player_id"], new Client()));
-			_client[result["player_id"]]->initClient(cmd[1], result["name"], this->serverRCV, this->dataBase, cmd[2]);
-
-			auto datas = this->dataBase->initPlayer(result["player_id"]);
-			_client[result["player_id"]]->initClient(datas, result["player_id"]);
+			auto it = std::find(this->playerList.begin(), this->playerList.end(), result["player_id"]);
+			if (it != this->playerList.end())
+			{
+				std::cerr << "player is already connected " << result["account_id"] << std::endl;
+				this->_client[result["account_id"]]->clientWrite("S_LOGIN:alreadylogged");
+				return;
+			}
+			this->playerList.push_back(result["account_id"]);
+			this->_client.insert(std::pair<std::string, Client*>(result["account_id"], new Client()));
+			_client[result["account_id"]]->initClient(cmd[1], result, this->serverRCV, this->dataBase, cmd[2]);
 			return;
 		}
 		else
 		{
-			std::cerr << "this player id " << token << " is unknown" << std::endl;
+			std::cerr << "this account id " << token << " is unknown or already connected" << std::endl;
 		}
 	}
 	else
 	{
 		std::cout << "Not enough argument for this function" << std::endl;
+	}
+}
+
+void Server::inLobby(std::vector<std::string> cmd)
+{
+	if (this->_client[cmd[0]]->getState() == ISLOBBY)
+	{
+		auto datas = this->dataBase->initPlayer(cmd[0]);
+		this->_client[cmd[0]]->initClient(datas);
+		//setState to ISWORLDSERVER
 	}
 }
 

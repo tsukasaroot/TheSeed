@@ -14,8 +14,6 @@ void Server::getServerConfig()
 
 	std::ifstream theFile(path);
 
-	std::cout << "test";
-
 	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
 	buffer.push_back('\0');
 	doc.parse<0>(&buffer[0]);
@@ -93,7 +91,8 @@ void Server::clientChecks()
 {
 	for (auto it = this->_client.begin(); it != this->_client.end(); it++)
 	{
-		it->second->queryClientPosition();
+		if (it->second->getState() == ISWORLDSERVER)
+			it->second->queryClientPosition();
 	}
 }
 

@@ -3,6 +3,7 @@
 
 #include "inventoryManager.h"
 #include "SQLmanager.h"
+#include "enum.h"
 
 #include <rapidxml/rapidxml.hpp>
 using namespace rapidxml;
@@ -25,8 +26,8 @@ public:
 	Client() {};
 	~Client() {};
 	void closeClient();
-	void initClient(std::string client, std::string nickName, SOCKET serverRCV, SQLManager* db, std::string port);
-	void initClient(std::map<std::string, std::string> cmd, std::string player_id);
+	void initClient(std::string ip, std::map<std::string, std::string> result, SOCKET client, SQLManager* db, std::string port);
+	void initClient(std::map<std::string, std::string> player_data);
 
 	void clientWrite(std::string msg);
 
@@ -46,6 +47,7 @@ public:
 	SOCKET getClientSocket();
 	std::string getClientAddress();
 	std::string getNickName();
+	int getState();
 private:
 	int port = 16384;
 	std::string clientAddress;
@@ -53,9 +55,10 @@ private:
 	std::string ip;
 	double x = 0, y = 0, z = 0, HP = 0, currency = 0, exp = 0, attack = 0, critRate = 0,
 		critP = 0, defense = 0;
-	int MP = 0, RE = 0, clientClass = 0, positionQuery = 0, region = 0, level = 0, client_id = 0;
+	int MP = 0, RE = 0, clientClass = 0, positionQuery = 0, region = 0, level = 0;
 	bool isAlive = true;
 	int state = 0;
+	unsigned int account_id, player_id;
 
 	int abnormal = 0, modifier = 1;
 	double movementTolerance = 6.1;
@@ -67,15 +70,9 @@ private:
 
 	WSADATA initialisation_win32; // Variable permettant de récupérer la structure d'information sur l'initialisation
 	int error = 0, tempo = 0, bytes = 0;
-	char buffer[4024] = ""; // Tampon contenant les données reçues ou envoyées
+	 // Tampon contenant les données reçues ou envoyées
 	SOCKADDR_IN ipep; // Déclaration de la structure des informations lié au serveur
 	std::string salt;
-
-	enum WherePlayer
-	{
-		ISLOBBY,
-		ISWORLDSERVER
-	};
 };
 
-#endif
+#endif /* CLIENT_H_ */

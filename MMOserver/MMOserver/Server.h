@@ -126,6 +126,8 @@ private:
 	*/
 	void closeServer();
 
+	void inLobby(std::vector<std::string> cmd);
+
 	typedef void(Server::* opcodes)(std::vector<std::string>);
 
 	std::map<std::string, opcodes> list;

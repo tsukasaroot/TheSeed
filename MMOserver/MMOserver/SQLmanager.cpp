@@ -143,11 +143,11 @@ void SQLManager::get(std::string table, std::vector<std::string> fields, std::ve
 	}
 }
 
-std::map<std::string, std::string> SQLManager::initPlayer(std::string player_id)
+std::map<std::string, std::string> SQLManager::initPlayer(std::string account_id)
 {
 	sql::Statement *stmt;
 	sql::ResultSet *res;
-	std::string query = "SELECT * FROM users WHERE player_id ='" + player_id + "'";
+	std::string query = "SELECT * FROM users WHERE account_id ='" + account_id + "'";
 	std::map<std::string, std::string> result;
 
 	try
@@ -166,6 +166,8 @@ std::map<std::string, std::string> SQLManager::initPlayer(std::string player_id)
 			result.insert(std::pair<std::string, std::string>("currency", std::to_string(res->getDouble("currency"))));
 			result.insert(std::pair<std::string, std::string>("exp", std::to_string(res->getDouble("exp"))));
 			result.insert(std::pair<std::string, std::string>("isAlive", std::to_string(res->getBoolean("isAlive"))));
+			result.insert(std::pair<std::string, std::string>("player_id", std::to_string(res->getInt("player_id"))));
+			result.insert(std::pair<std::string, std::string>("name", res->getString("name")));
 		}
 
 		delete res;
@@ -173,7 +175,7 @@ std::map<std::string, std::string> SQLManager::initPlayer(std::string player_id)
 
 		sql::Statement* stmt;
 		sql::ResultSet* res;
-		std::string query = "SELECT * FROM currentplayerstats WHERE user_id = '" + player_id + "'";
+		std::string query = "SELECT * FROM currentplayerstats WHERE player_id = '" + result["player_id"] + "'";
 
 		stmt = con->createStatement();
 		res = stmt->executeQuery(query);
@@ -225,23 +227,6 @@ std::map<std::string, std::string> SQLManager::checkLogin(std::string token)
 
 		delete res;
 		delete stmt;
-
-		if (result.size() > 0) {
-			sql::Statement* stmt;
-			sql::ResultSet* res;
-			std::string query = "SELECT player_id FROM users WHERE account_id = '" + result["account_id"] + "'";
-
-			stmt = this->con->createStatement();
-			res = stmt->executeQuery(query);
-
-			while (res->next())
-			{
-				result.insert(std::pair<std::string, std::string>("player_id", res->getString("player_id")));
-			}
-
-			delete res;
-			delete stmt;
-		}
 
 		return result;
 	}

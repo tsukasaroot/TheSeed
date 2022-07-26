@@ -16,9 +16,6 @@
     <Filter Include="Fichiers sources\Database">
       <UniqueIdentifier>{8f01be2a-702a-4849-acaa-df4b6a15f8c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Database">
-      <UniqueIdentifier>{be476d10-79c1-4b5f-aafe-a74e1541a443}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\OPCodes">
       <UniqueIdentifier>{3612a81a-fc46-459c-8deb-cc3aaac85f3d}</UniqueIdentifier>
     </Filter>
@@ -30,9 +27,6 @@
     </Filter>
     <Filter Include="Fichiers sources\Server">
       <UniqueIdentifier>{1942d09f-5c5d-403b-9e83-8accb033b184}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Server">
-      <UniqueIdentifier>{490301e6-402e-4298-aa4c-bbb40fa34aea}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\Client">
       <UniqueIdentifier>{3616f26a-6e63-4d2c-8040-aa0745767fa9}</UniqueIdentifier>
@@ -95,9 +89,6 @@
     <ClInclude Include="Client.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="SQLmanager.h">
-      <Filter>Fichiers d%27en-tête\Database</Filter>
-    </ClInclude>
     <ClInclude Include="messageManager.h">
       <Filter>Fichiers d%27en-tête\Managers</Filter>
     </ClInclude>
@@ -107,9 +98,6 @@
     <ClInclude Include="npcSpawner.h">
       <Filter>Fichiers d%27en-tête\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Server.h">
-      <Filter>Fichiers d%27en-tête\Server</Filter>
-    </ClInclude>
     <ClInclude Include="itemManager.h">
       <Filter>Fichiers d%27en-tête\Managers</Filter>
     </ClInclude>
@@ -118,6 +106,15 @@
     </ClInclude>
     <ClInclude Include="AIManager.h">
       <Filter>Fichiers d%27en-tête\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="enum.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Server.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="SQLmanager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
