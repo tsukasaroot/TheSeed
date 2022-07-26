@@ -133,6 +133,11 @@ void Client::saveClientToDatabase()
 ** Setters method
 */
 
+void Client::setState(WherePlayer state)
+{
+	this->state = state;
+}
+
 void Client::setPositionQuery(std::vector<std::string> cmd)
 {
 	this->positionQuery--;

@@ -61,9 +61,10 @@ void Server::inLobby(std::vector<std::string> cmd)
 {
 	if (this->_client[cmd[0]]->getState() == ISLOBBY)
 	{
-		auto datas = this->dataBase->initPlayer(cmd[0]);
-		this->_client[cmd[0]]->initClient(datas);
-		//setState to ISWORLDSERVER
+		std::string account_id = cmd[0];
+		auto datas = this->dataBase->initPlayer(account_id);
+		this->_client[account_id]->initClient(datas);
+		this->_client[account_id]->setState(ISWORLDSERVER);
 	}
 }
 

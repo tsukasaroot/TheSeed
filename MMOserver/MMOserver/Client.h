@@ -39,6 +39,7 @@ public:
 
 	void setPositionQuery(std::vector<std::string> cmd);
 	void saveClientToDatabase();
+	void setState(WherePlayer state);
 
 	std::string getAll();
 	std::string getProfile();
