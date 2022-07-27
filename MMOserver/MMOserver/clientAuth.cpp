@@ -34,7 +34,7 @@ void Server::login(std::vector<std::string> cmd)
 		
 		if (result.size() > 0)
 		{
-			auto it = std::find(this->playerList.begin(), this->playerList.end(), result["player_id"]);
+			auto it = std::find(this->playerList.begin(), this->playerList.end(), result["account_id"]);
 			if (it != this->playerList.end())
 			{
 				std::cerr << "player is already connected " << result["account_id"] << std::endl;
@@ -62,7 +62,17 @@ void Server::inLobby(std::vector<std::string> cmd)
 	if (this->_client[cmd[0]]->getState() == ISLOBBY)
 	{
 		std::string account_id = cmd[0];
-		auto datas = this->dataBase->initPlayer(account_id);
+		std::string player_id = cmd[1];
+		auto datas = this->dataBase->initPlayer(account_id, player_id);
+
+		std::cout << datas.size() << std::endl;
+
+		if (datas.size() <= 1) {
+			std::cerr << "abort" << std::endl;
+			this->_client[account_id]->clientWrite("C_LOBBY:character doesn't exist");
+			return;
+		}
+
 		this->_client[account_id]->initClient(datas);
 		this->_client[account_id]->setState(ISWORLDSERVER);
 	}

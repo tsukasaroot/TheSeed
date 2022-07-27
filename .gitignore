@@ -38,3 +38,4 @@ MMOserver/x64/
 *.log
 *.recipe
 bin
+.idea

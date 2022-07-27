@@ -168,22 +168,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AI.cpp" />
-    <ClCompile Include="AIManager.cpp" />
-    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="ai.cpp" />
+    <ClCompile Include="aimanager.cpp" />
+    <ClCompile Include="client.cpp" />
     <ClCompile Include="inventoryManager.cpp" />
     <ClCompile Include="itemManager.cpp" />
     <ClCompile Include="message.cpp" />
     <ClCompile Include="messageManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="npcSpawner.cpp" />
-    <ClCompile Include="Opcodes.cpp" />
+    <ClCompile Include="opcodes.cpp" />
     <ClCompile Include="queriesToClient.cpp" />
-    <ClCompile Include="Server.cpp" />
+    <ClCompile Include="server.cpp" />
     <ClCompile Include="clientAuth.cpp" />
     <ClCompile Include="clientGets.cpp" />
     <ClCompile Include="skillManager.cpp" />
-    <ClCompile Include="SQLmanager.cpp" />
+    <ClCompile Include="sqlmanager.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>

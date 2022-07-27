@@ -1,0 +1,7 @@
+{
+	"login":"S_LOGIN:AHDZDZ54zqdD",
+	"logout":"S_LOGOUT:1",
+	"lobby":"S_LOBBY:1:2",
+	"wrong_lobby_request":"S_LOBBY:1:0",
+	"globalmessage": "S_GLOBALMESSAGE:1:This is a test message!"
+}

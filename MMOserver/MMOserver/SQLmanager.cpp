@@ -143,11 +143,11 @@ void SQLManager::get(std::string table, std::vector<std::string> fields, std::ve
 	}
 }
 
-std::map<std::string, std::string> SQLManager::initPlayer(std::string account_id)
+std::map<std::string, std::string> SQLManager::initPlayer(std::string account_id, std::string player_id)
 {
 	sql::Statement *stmt;
 	sql::ResultSet *res;
-	std::string query = "SELECT * FROM users WHERE account_id ='" + account_id + "'";
+	std::string query = "SELECT * FROM users WHERE account_id ='" + account_id + "' AND player_id = '" + player_id + "'";
 	std::map<std::string, std::string> result;
 
 	try

@@ -98,6 +98,7 @@ void Client::clientWrite(std::string msg)
 	strcpy_s(buffer, hashedPacket.c_str());
 
 	this->bytes = sendto(this->_client, buffer, strlen(buffer), 0, (struct sockaddr*)&this->ipep, sizeof(this->ipep));
+	std::cout << msg << std::endl;
 	if (this->bytes == SOCKET_ERROR)
 		std::cout << "Can't send data: " << WSAGetLastError() << std::endl;
 	memset(buffer, 0, sizeof(buffer));
