@@ -127,6 +127,7 @@ private:
 	void closeServer();
 
 	void inLobby(std::vector<std::string> cmd);
+	void initCreateCharacters(std::vector<std::string> cmd);
 
 	typedef void(Server::* opcodes)(std::vector<std::string>);
 

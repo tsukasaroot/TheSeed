@@ -171,6 +171,7 @@
     <ClCompile Include="ai.cpp" />
     <ClCompile Include="aimanager.cpp" />
     <ClCompile Include="client.cpp" />
+    <ClCompile Include="createCharacter.cpp" />
     <ClCompile Include="inventoryManager.cpp" />
     <ClCompile Include="itemManager.cpp" />
     <ClCompile Include="message.cpp" />

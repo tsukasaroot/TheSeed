@@ -25,6 +25,14 @@ while (1) {
 	echo 'Enter a command to send : ';
 	$input = readline();
 
+	if ($input === "help") {
+		echo "Available commands : \n";
+		foreach ($disponibleCommands as $key => $value) {
+			echo $key . "\n";
+		}
+		continue;
+	}
+
 	if ($input === "" || empty($disponibleCommands[$input]))
 		continue;
 

@@ -84,6 +84,9 @@
     <ClCompile Include="aimanager.cpp">
       <Filter>Fichiers sources\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="createCharacter.cpp">
+      <Filter>Fichiers sources\Server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
