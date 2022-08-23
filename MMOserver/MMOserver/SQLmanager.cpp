@@ -83,6 +83,64 @@ void SQLManager::update(std::string user, std::string cond, std::string table, s
 	delete stmt;
 }
 
+bool SQLManager::is_name_valid(std::string name)
+{
+	std::string query = "SELECT name FROM users WHERE name ='" + name + "'";
+	sql::ResultSet* res;
+
+	try {
+		res = this->con->createStatement()->executeQuery(query);
+
+		if (res->next() == true)
+		{
+			return true;
+		}
+	}
+	catch (sql::SQLException& e)
+	{
+		std::cout << "# ERR: SQLException in " << __FILE__;
+		std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
+		std::cout << "# ERR: " << e.what();
+		std::cout << " (MySQL error code: " << e.getErrorCode();
+		std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+	}
+	return false;
+}
+
+std::vector<std::map<std::string, std::string>> SQLManager::retrieve_all_chars(int account_id)
+{
+	std::string query = "SELECT player_id, name, class, level, lastEnterWorld FROM users WHERE account_id=" + std::to_string(account_id);
+	sql::ResultSet* res;
+	std::vector<std::map<std::string, std::string>> character_list;
+
+	try {
+		res = this->con->createStatement()->executeQuery(query);
+		while (res->next()) // columns player_id name class lastEnterWorld
+		{
+			std::map<std::string, std::string> characters;
+
+			characters.insert(std::pair<std::string, std::string>("player_id", std::to_string(res->getInt64("player_id"))));
+			characters.insert(std::pair<std::string, std::string>("name", res->getString("name")));
+			characters.insert(std::pair<std::string, std::string>("class", std::to_string(res->getInt("class"))));
+			characters.insert(std::pair<std::string, std::string>("lastEnterWorld", res->getString("lastEnterWorld")));
+			characters.insert(std::pair<std::string, std::string>("level", std::to_string(res->getInt("level"))));
+
+			character_list.push_back(characters);
+		}
+
+		delete res;
+	}
+	catch (sql::SQLException& e) {
+		std::cout << "# ERR: SQLException in " << __FILE__;
+		std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
+		std::cout << "# ERR: " << e.what();
+		std::cout << " (MySQL error code: " << e.getErrorCode();
+		std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+		exit(0);
+	}
+	return character_list;
+}
+
 void SQLManager::get(std::string table, std::vector<std::string> fields, std::vector<std::string> columnName, std::vector<std::string> where)
 {
 	// to refactor
@@ -106,7 +164,6 @@ void SQLManager::get(std::string table, std::vector<std::string> fields, std::ve
 		if (i + 1 != where.size() && i + 1 != columnName.size())
 			query += " AND ";
 	}
-	std::cout << query << std::endl;
 	try
 	{
 		stmt = this->con->createStatement();

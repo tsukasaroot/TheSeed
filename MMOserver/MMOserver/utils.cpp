@@ -1,18 +1,25 @@
 #include "Server.h"
 
-std::vector<std::string> formatString(std::string line)
+std::map<std::string, std::string> formatStringAssociative(std::string line)
 {
-	std::vector<std::string> buildedCommands;
+	std::map<std::string, std::string> buildedCommands;
 	std::string token;
 
 	while (line.find(':') != std::string::npos)
 	{
 		token = line.substr(0, line.find(':'));
 		line.erase(0, token.length() + 1);
-		buildedCommands.push_back(token);
+
+		auto key = token.substr(0, token.find('{'));
+		token.erase(0, key.length() + 1);
+
+		auto value = token.substr(0, token.find('}'));
+		token.erase(0, value.length() + 1);
+
+		buildedCommands.insert(std::pair<std::string, std::string>(key, value));
 		token.clear();
 	}
-	buildedCommands.push_back(line);
+
 	return buildedCommands;
 }
 
@@ -77,11 +84,11 @@ std::string generateSalt(std::string salt)
 	return binariedSalt;
 }
 
-bool checkAll(int size, std::vector<std::string> cmd, std::vector<std::string>* playerList)
+bool checkAll(int size, std::map<std::string, std::string> cmd, std::vector<std::string>* playerList)
 {
 	if (cmd.size() == size)
 	{
-		std::string nickName = cmd[0];
+		std::string nickName = cmd["id"];
 		auto it = std::find(playerList->begin(), playerList->end(), nickName);
 		if (it != playerList->end())
 			return true;

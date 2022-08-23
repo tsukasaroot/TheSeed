@@ -28,8 +28,6 @@ using namespace rapidxml;
 
 #pragma comment(lib, "ws2_32.lib")
 
-std::vector<std::string> formatString(std::string line);
-
 class SQLManager {
 public:
 	SQLManager();
@@ -40,6 +38,8 @@ public:
 	std::map<std::string, std::string> checkLogin(std::string token);
 	std::map<std::string, std::string> initPlayer(std::string account_id, std::string player_id);
 	void get(std::string table, std::vector<std::string> fields, std::vector<std::string> columnName, std::vector<std::string> where);
+	std::vector<std::map<std::string, std::string>> retrieve_all_chars(int account_id);
+	bool is_name_valid(std::string name);
 private:
 	std::string database;
 	std::string server;

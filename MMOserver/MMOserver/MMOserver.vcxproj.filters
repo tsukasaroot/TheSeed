@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Fichiers sources\Database">
-      <UniqueIdentifier>{8f01be2a-702a-4849-acaa-df4b6a15f8c5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\OPCodes">
       <UniqueIdentifier>{3612a81a-fc46-459c-8deb-cc3aaac85f3d}</UniqueIdentifier>
     </Filter>
@@ -33,9 +30,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sqlmanager.cpp">
-      <Filter>Fichiers sources\Database</Filter>
-    </ClCompile>
     <ClCompile Include="clientAuth.cpp">
       <Filter>Fichiers sources\OPCodes</Filter>
     </ClCompile>
@@ -85,7 +79,13 @@
       <Filter>Fichiers sources\Managers</Filter>
     </ClCompile>
     <ClCompile Include="createCharacter.cpp">
-      <Filter>Fichiers sources\Server</Filter>
+      <Filter>Fichiers sources\OPCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="lobby.cpp">
+      <Filter>Fichiers sources\OPCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlmanager.cpp">
+      <Filter>Fichiers sources\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

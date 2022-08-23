@@ -37,7 +37,7 @@ public:
 	double getY();
 	double getZ();
 
-	void setPositionQuery(std::vector<std::string> cmd);
+	void setPositionQuery(std::map<std::string, std::string> cmd);
 	void saveClientToDatabase();
 	void setState(WherePlayer state);
 

@@ -73,7 +73,7 @@ void gameLoop()
 				while ((pos = line.find(delimiter)) != std::string::npos)
 				{
 					std::string token = line.substr(0, line.find(delimiter));
-					token += ':' + ip + ':' + port;
+					token += ":ip{" + ip + "}:port{" + port + "}:"; 
 
 					std::cout << token << std::endl;
 

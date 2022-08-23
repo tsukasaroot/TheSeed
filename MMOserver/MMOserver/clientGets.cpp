@@ -1,10 +1,10 @@
 #include "server.h"
 
-void Server::sendAllClientsName(std::vector<std::string> cmd)
+void Server::sendAllClientsName(std::map<std::string, std::string> cmd)
 {
 	if (checkAll(3, cmd, &this->playerList))
 	{
-		std::string currentClient = cmd[0];
+		std::string currentClient = cmd["id"];
 		std::string listName = "C_GETALLCLIENTSNAME";
 
 		for (auto it = this->_client.begin(); it != this->_client.end(); it++)
@@ -15,41 +15,41 @@ void Server::sendAllClientsName(std::vector<std::string> cmd)
 	}
 }
 
-void Server::sendClientData(std::vector<std::string> cmd)
+void Server::sendClientData(std::map<std::string, std::string> cmd)
 {
 	if (checkAll(3, cmd, &this->playerList))
 	{
-		std::string nickName = cmd[0];
+		std::string id = cmd["id"];
 
-		auto dataToSend = "C_GETCLIENTDATA:" + this->_client[nickName]->getAll();
-		this->_client[nickName]->clientWrite(dataToSend);
+		auto dataToSend = "C_GETCLIENTDATA:" + this->_client[id]->getAll();
+		this->_client[id]->clientWrite(dataToSend);
 	}
 }
 
-void Server::sendProfile(std::vector<std::string> cmd)
+void Server::sendProfile(std::map<std::string, std::string> cmd)
 {
 	if (checkAll(3, cmd, &this->playerList))
 	{
-		std::string nickName = cmd[0];
+		std::string id = cmd["id"];
 
-		auto dataToSend = "C_GETPROFILE:" + this->_client[nickName]->getNickName() + ':' + this->_client[nickName]->getAll();
-		this->_client[nickName]->clientWrite(dataToSend);
+		auto dataToSend = "C_GETPROFILE:" + this->_client[id]->getNickName() + ':' + this->_client[id]->getAll();
+		this->_client[id]->clientWrite(dataToSend);
 	}
 }
 
-void Server::getPosition(std::vector<std::string> cmd)
+void Server::getPosition(std::map<std::string, std::string> cmd)
 {
 	if (checkAll(6, cmd, &this->playerList))
 	{
-		std::string nickName = cmd[0];
+		std::string id = cmd["id"];
 
-		this->_client[nickName]->setPositionQuery(cmd);
-		if (this->_client[nickName]->getAbnormalities() > this->abnormalitiesTolerance)
+		this->_client[id]->setPositionQuery(cmd);
+		if (this->_client[id]->getAbnormalities() > this->abnormalitiesTolerance)
 		{
-			std::vector<std::string> data;
-			data.push_back(nickName);
-			data.push_back(cmd[cmd.size() - 1]);
-			logout(data);
+			std::map<std::string, std::string> data;
+			data.insert(std::pair<std::string, std::string>("id", id));
+			data.insert(std::pair<std::string, std::string>("ip", cmd["ip"]));
+			client_exit(data);
 		}
 	}
 }

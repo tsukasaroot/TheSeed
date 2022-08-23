@@ -40,7 +40,6 @@ void Client::initClient(std::string ip, std::map<std::string, std::string> resul
 
 	this->state = ISLOBBY;
 	clientWrite("C_LOGIN:" + std::to_string(this->account_id));
-	clientWrite("C_LOBBY");
 }
 
 void Client::initClient(std::map<std::string, std::string> player_data)
@@ -66,7 +65,7 @@ void Client::initClient(std::map<std::string, std::string> player_data)
 	this->player_id = (unsigned)std::stoi(player_data["player_id"]);
 	this->nickName = player_data["name"];
 
-	std::vector<std::string> array = {
+	std::vector<std::string> array_data = {
 		"C_LOGIN_DATA", this->nickName, std::to_string(this->player_id),
 		player_data["x"], player_data["y"], player_data["z"], player_data["currency"], player_data["exp"],
 		player_data["hp"], player_data["mp"], player_data["attack"], player_data["critRate"], player_data["critP"], player_data["defense"],
@@ -74,7 +73,7 @@ void Client::initClient(std::map<std::string, std::string> player_data)
 		player_data["isAlive"]
 	};
 
-	packet_data = packetBuilder(array);
+	packet_data = packetBuilder(array_data);
 	this->clientWrite(packet_data);
 }
 
@@ -139,13 +138,13 @@ void Client::setState(WherePlayer state)
 	this->state = state;
 }
 
-void Client::setPositionQuery(std::vector<std::string> cmd)
+void Client::setPositionQuery(std::map<std::string, std::string> cmd)
 {
 	this->positionQuery--;
 
-	auto x = std::stod(cmd[1]);
+	/*auto x = std::stod(cmd[1]);
 	auto y = std::stod(cmd[2]);
-	auto z = std::stod(cmd[3]);
+	auto z = std::stod(cmd[3]);*/
 
 	double xChecker = abs(x - this->x);
 	double yChecker = abs(z - this->z);

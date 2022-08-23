@@ -1,24 +1,23 @@
-#include "server.h"
+#include "Server.h"
 
-void Server::privateMessage(std::vector<std::string> cmd)
+void Server::privateMessage(std::map<std::string, std::string> cmd)
 {
 	if (checkAll(5, cmd, &this->playerList))
 	{
-		std::string nickName = cmd[0];
-		Client* sender = this->_client[cmd[0]];
-		Client* receiver = this->_client[cmd[1]];
+		Client* sender = this->_client[cmd["id"]];
+		Client* receiver = this->_client[cmd["receiver_id"]];
 
-		this->messages->sendPrivateMessage(sender, receiver, cmd[2]);
+		this->messages->sendPrivateMessage(sender, receiver, cmd["message"]);
 	}
 }
 
-void Server::globalMessage(std::vector<std::string> cmd)
+void Server::globalMessage(std::map<std::string, std::string> cmd)
 {
 	if (checkAll(4, cmd, &this->playerList))
 	{
-		std::string player_id = cmd[0];
+		std::string player_id = cmd["id"];
 		Client* sender = this->_client[player_id];
 
-		this->messages->sendGlobalMessage(sender, cmd[1], this->_client);
+		this->messages->sendGlobalMessage(sender, cmd["message"], this->_client);
 	}
 }
