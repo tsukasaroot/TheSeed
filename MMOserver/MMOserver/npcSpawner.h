@@ -17,6 +17,8 @@
 #include <rapidxml/rapidxml.hpp>
 using namespace rapidxml;
 
+std::vector<char> openXml(const char* path);
+
 class npcSpawner {
 public:
 	npcSpawner();

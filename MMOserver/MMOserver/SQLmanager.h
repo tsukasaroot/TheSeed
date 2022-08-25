@@ -28,6 +28,8 @@ using namespace rapidxml;
 
 #pragma comment(lib, "ws2_32.lib")
 
+std::vector<char> openXml(const char* path);
+
 class SQLManager {
 public:
 	SQLManager();

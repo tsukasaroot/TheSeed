@@ -33,6 +33,7 @@ bool checkAll(int size, std::map<std::string, std::string> cmd, std::vector<std:
 std::string decipherPacket(std::string toDecipher, std::string salt);
 std::string generateSalt(std::string salt);
 std::map<std::string, std::string> formatStringAssociative(std::string line);
+std::vector<char> openXml(const char* path);
 
 class Server {
 public:
@@ -142,6 +143,8 @@ private:
 	*/
 	void checkNameValidity(std::map<std::string, std::string> cmd);
 
+	void client_logout(std::map<std::string, std::string> cmd);
+
 	typedef void(Server::* opcodes)(std::map<std::string, std::string>);
 
 	std::map<std::string, opcodes> list;
@@ -154,8 +157,8 @@ private:
 	std::map<std::string, Client*> _client;
 	std::map<std::string, std::string> Movements;
 	SQLManager *dataBase;
-	std::map<int, std::vector<std::string>> classes;
-	std::map<int, std::string> races;
+	std::vector<std::pair<std::string, int>> classes;
+	std::vector<std::pair<std::string, int>> races;
 
 	int abnormalitiesTolerance = 10;
 	std::map<std::string, std::vector<std::string>> modulesConfiguration;

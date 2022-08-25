@@ -17,12 +17,12 @@ if (!($sock = socket_create(AF_INET, SOCK_DGRAM, 0))) {
 echo "Socket created \n";
 $packet = "";
 $bytesRead = 0;
-
 $disponibleCommands = json_decode(file_get_contents("commands.json"), true);
 
 while (1) {
 	//Take some input to send
 	echo 'Enter a command to send : ';
+
 	$input = readline();
 
 	if ($input === "help") {

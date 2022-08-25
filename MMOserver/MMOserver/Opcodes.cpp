@@ -4,6 +4,7 @@ void Server::Opcodesinitialize()
 {
 	list.insert(std::pair<std::string, opcodes>("S_LOGIN", &Server::login));
 	list.insert(std::pair<std::string, opcodes>("S_EXIT", &Server::client_exit));
+	list.insert(std::pair<std::string, opcodes>("S_LOGOUT", &Server::client_logout));
 	list.insert(std::pair<std::string, opcodes>("S_SAVEDATA", &Server::savePlayerData));
 	list.insert(std::pair<std::string, opcodes>("S_SENDCLIENTDATA", &Server::sendClientData));
 	list.insert(std::pair<std::string, opcodes>("S_PRIVATEMESSAGE", &Server::privateMessage));
@@ -16,33 +17,41 @@ void Server::Opcodesinitialize()
 	list.insert(std::pair<std::string, opcodes>("S_CHECK_NAME_ISVALID", &Server::checkNameValidity));
 
 	std::cout << "OPCodes initialized: " << list.size() << " OPCodes loaded" << std::endl;
+	std::cout << std::endl;
 
 	this->items = new itemsManager();
+	std::cout << std::endl;
 	this->npcSpawn = new npcSpawner();
+	std::cout << std::endl;
 	this->messages = new messageManager();
+	std::cout << std::endl;
 	this->skills = new skillManager();
+	std::cout << std::endl;
 
-	const char* path = "datasheets/class.xml";
+	std::cout << std::endl;
+
 	xml_document<> doc;
-	xml_node<>* root_node = NULL;
+	std::vector<char> buffer;
+	
+	buffer = openXml("datasheets/class.xml");
+	doc.parse<0>(&buffer[0]);
 
-	if (!std::filesystem::exists(path))
+	auto class_xml = doc.first_node();
+
+	for (xml_node<>* node = class_xml->first_node(); node; node = node->next_sibling())
 	{
-		std::cerr << "File " << path << " not found" << std::endl;
-		exit(1);
+		this->classes.push_back(std::pair<std::string, int>("id", std::stoi(node->first_attribute("id")->value())));
 	}
 
-	std::ifstream theFile(path);
-
-	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
-	buffer.push_back('\0');
+	doc.clear();
+	
+	buffer = openXml("datasheets/races.xml");
 	doc.parse<0>(&buffer[0]);
-	root_node = doc.first_node("Class");
+	auto races_xml = doc.first_node();
 
-	if (xml_node<>* node = root_node->first_node("classDescription"))
+	for (xml_node<>* node = races_xml->first_node(); node; node = node->next_sibling())
 	{
-		node->first_attribute("name")->value();
-		std::stoi(node->first_attribute("id")->value());
+		this->classes.push_back(std::pair<std::string, int>("id", std::stoi(node->first_attribute("id")->value())));
 	}
 }
 

@@ -23,21 +23,21 @@ std::map<std::string, std::string> formatStringAssociative(std::string line)
 	return buildedCommands;
 }
 
-xml_node<char>* openXml(std::string path, const char *root_node_name)
+std::vector<char> openXml(const char* path)
 {
-	xml_document<> doc;
-	xml_node<>* root_node = NULL;
-
+	if (!std::filesystem::exists(path))
+	{
+		std::cerr << "File " << path << " not found" << std::endl;
+		exit(1);
+	}
+	std::cout << "Loading file " << path << std::endl;
 	std::ifstream theFile(path);
 	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
+	
 	buffer.push_back('\0');
+	theFile.close();
 
-	// Parse the buffer
-	doc.parse<0>(&buffer[0]);
-
-	// Find out the root node
-	root_node = doc.first_node(root_node_name);
-	return root_node;
+	return buffer;
 }
 
 std::string decipherPacket(std::string toDecipher, std::string salt)

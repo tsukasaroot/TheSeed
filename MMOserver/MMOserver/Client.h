@@ -26,6 +26,7 @@ public:
 	Client() {};
 	~Client() {};
 	void closeClient();
+	void logout();
 	void initClient(std::string ip, std::map<std::string, std::string> result, SOCKET client, SQLManager* db, std::string port);
 	void initClient(std::map<std::string, std::string> player_data);
 

@@ -2,19 +2,9 @@
 
 skillManager::skillManager()
 {
-	const char* path = "datasheets/skills.xml";
 	xml_document<> doc;
+	auto buffer = openXml("datasheets/skills.xml");
 	xml_node<>* root_node = NULL;
-
-	if (!std::filesystem::exists(path))
-	{
-		std::cerr << "File " << path << " not found" << std::endl;
-		exit(-1);
-	}
-
-	std::ifstream theFile(path);
-	std::vector<char> buffer((std::istreambuf_iterator<char>(theFile)), std::istreambuf_iterator<char>());
-	buffer.push_back('\0');
 
 	doc.parse<0>(&buffer[0]);
 	root_node = doc.first_node("skillData");

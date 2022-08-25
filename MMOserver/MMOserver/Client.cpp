@@ -39,7 +39,7 @@ void Client::initClient(std::string ip, std::map<std::string, std::string> resul
 	}
 
 	this->state = ISLOBBY;
-	clientWrite("C_LOGIN:" + std::to_string(this->account_id));
+	clientWrite("C_LOGIN:id{" + std::to_string(this->account_id) + "}");
 }
 
 void Client::initClient(std::map<std::string, std::string> player_data)
@@ -66,11 +66,11 @@ void Client::initClient(std::map<std::string, std::string> player_data)
 	this->nickName = player_data["name"];
 
 	std::vector<std::string> array_data = {
-		"C_LOGIN_DATA", this->nickName, std::to_string(this->player_id),
-		player_data["x"], player_data["y"], player_data["z"], player_data["currency"], player_data["exp"],
-		player_data["hp"], player_data["mp"], player_data["attack"], player_data["critRate"], player_data["critP"], player_data["defense"],
-		player_data["class"], player_data["level"], player_data["region"], player_data["re"],
-		player_data["isAlive"]
+		"C_LOGIN_DATA", "name{" + this->nickName + "}", "id{" + std::to_string(this->player_id) + "}",
+		"x{" + player_data["x"] + "}", "y{" + player_data["y"] + "}", "z{" + player_data["z"] + "}", "currency{" + player_data["currency"] + "}", "exp{" + player_data["exp"] + "}",
+		"hp{" + player_data["hp"] + "}", "mp{" + player_data["mp"] + "}", "attack{" + player_data["attack"] + "}", "critRate{" + player_data["critRate"] + "}", "critP{" + player_data["critP"] + "}", "defense{" + player_data["defense"] + "}",
+		"class{" + player_data["class"] + "}", "level{" + player_data["level"] + "}", "region{" + player_data["region"] + "}", "re{" + player_data["re"] + "}",
+		"isAlive{" + player_data["isAlive"] + "}"
 	};
 
 	packet_data = packetBuilder(array_data);
@@ -81,14 +81,26 @@ void Client::closeClient()
 {
 	if (this->state == ISWORLDSERVER)
 		saveClientToDatabase();
-	std::cout << "Client logged out: " << this->account_id << std::endl;
+	std::cout << "Client disconnect: " << this->account_id << std::endl;
+}
+
+
+void Client::logout()
+{
+	if (this->state == ISWORLDSERVER)
+		saveClientToDatabase();
+	std::cout << "Client logout: " << this->account_id << std::endl;
+	this->state = ISLOBBY;
+	this->clientWrite("C_LOGOUT");
 }
 
 void Client::clientWrite(std::string msg)
 {
 	this->ipep.sin_family = AF_INET;
 	this->ipep.sin_addr.s_addr = inet_addr(this->clientAddress.c_str()); // Indique l'adresse IP du client qui a été push
-	this->ipep.sin_port = htons(this->port);
+	//this->ipep.sin_port = htons(this->port);
+	// for testing purposes
+	this->ipep.sin_port = htons(9000);
 	msg = msg + "0x12";
 	char buffer[4024] = "";
 
@@ -97,7 +109,6 @@ void Client::clientWrite(std::string msg)
 	strcpy_s(buffer, hashedPacket.c_str());
 
 	this->bytes = sendto(this->_client, buffer, strlen(buffer), 0, (struct sockaddr*)&this->ipep, sizeof(this->ipep));
-	std::cout << msg << std::endl;
 	if (this->bytes == SOCKET_ERROR)
 		std::cout << "Can't send data: " << WSAGetLastError() << std::endl;
 	memset(buffer, 0, sizeof(buffer));

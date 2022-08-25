@@ -7,7 +7,7 @@ void Server::privateMessage(std::map<std::string, std::string> cmd)
 		Client* sender = this->_client[cmd["id"]];
 		Client* receiver = this->_client[cmd["receiver_id"]];
 
-		this->messages->sendPrivateMessage(sender, receiver, cmd["message"]);
+		this->messages->sendPrivateMessage(sender, receiver, "message{" + cmd["message"] + "}");
 	}
 }
 
@@ -18,6 +18,6 @@ void Server::globalMessage(std::map<std::string, std::string> cmd)
 		std::string player_id = cmd["id"];
 		Client* sender = this->_client[player_id];
 
-		this->messages->sendGlobalMessage(sender, cmd["message"], this->_client);
+		this->messages->sendGlobalMessage(sender, "message{" + cmd["message"] + "}", this->_client);
 	}
 }

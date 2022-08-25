@@ -1,6 +1,7 @@
 {
 	"login":"S_LOGIN:token{AHDZDZ54zqdD}",
-	"logout":"S_EXIT:id{1}",
+	"exit":"S_EXIT:id{1}",
+	"logout":"S_LOGOUT:id{1}",
 	"lobby":"S_LOBBY:id{1}:character_id{2}",
 	"wrong_lobby_request":"S_LOBBY:id{1}:character_id{0}",
 	"globalmessage": "S_GLOBALMESSAGE:id{1}:message{This is a test message!}",
