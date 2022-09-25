@@ -1,5 +1,13 @@
 #include "Server.h"
 
+bool to_bool(std::string str) {
+	std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+	std::istringstream is(str);
+	bool b;
+	is >> std::boolalpha >> b;
+	return b;
+}
+
 std::map<std::string, std::string> formatStringAssociative(std::string line)
 {
 	std::map<std::string, std::string> buildedCommands;

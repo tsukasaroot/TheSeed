@@ -159,6 +159,7 @@ private:
 	SQLManager *dataBase;
 	std::vector<std::pair<std::string, int>> classes;
 	std::vector<std::pair<std::string, int>> races;
+	std::unordered_map<std::string, std::map<std::string, std::unordered_map<std::string, std::string>>> sliders;
 
 	int abnormalitiesTolerance = 10;
 	std::map<std::string, std::vector<std::string>> modulesConfiguration;

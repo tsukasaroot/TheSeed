@@ -53,6 +53,23 @@ void Server::Opcodesinitialize()
 	{
 		this->classes.push_back(std::pair<std::string, int>("id", std::stoi(node->first_attribute("id")->value())));
 	}
+
+	doc.clear();
+	buffer = openXml("datasheets/customization.xml");
+	doc.parse<0>(&buffer[0]);
+	auto customization_xml = doc.first_node();
+
+	for (xml_node<>* node = customization_xml->first_node(); node; node = node->next_sibling())
+	{
+		this->sliders[node->name()][node->first_attribute("id")->value()]["x"] = "125500.000";
+		this->sliders[node->name()][node->first_attribute("id")->value()]["y"] = "125500.000";
+		this->sliders[node->name()][node->first_attribute("id")->value()]["z"] = "125500.000";
+	}
+	
+	if (this->sliders["head"].count("1"))
+	{
+		std::cout << "basic head_1 exists debug method to find customization values" << std::endl;
+	}
 }
 
 bool checkPlugins(std::string token, std::map<std::string, std::vector<std::string>> modulesConfiguration)

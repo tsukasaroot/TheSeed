@@ -38,6 +38,16 @@ void Client::initClient(std::string ip, std::map<std::string, std::string> resul
 		this->salt = generateSalt(student_node->first_attribute("text")->value());
 	}
 
+	if (xml_node<>* student_node = root_node->first_node("debug"))
+	{
+		this->debug = to_bool(student_node->first_attribute("status")->value());
+
+		if (this->debug) {
+			std::cout << "We hardcode port to send to client" << std::endl;
+			this->port = std::stoi(student_node->first_attribute("port")->value());
+		}
+	}
+
 	this->state = ISLOBBY;
 	clientWrite("C_LOGIN:id{" + std::to_string(this->account_id) + "}");
 }
@@ -98,9 +108,7 @@ void Client::clientWrite(std::string msg)
 {
 	this->ipep.sin_family = AF_INET;
 	this->ipep.sin_addr.s_addr = inet_addr(this->clientAddress.c_str()); // Indique l'adresse IP du client qui a été push
-	//this->ipep.sin_port = htons(this->port);
-	// for testing purposes
-	this->ipep.sin_port = htons(9000);
+	this->ipep.sin_port = htons(this->port);
 	msg = msg + "0x12";
 	char buffer[4024] = "";
 

@@ -7,6 +7,5 @@
 	"globalmessage": "S_GLOBALMESSAGE:id{1}:message{This is a test message!}",
 	"checkname_invalid": "S_CHECK_NAME_ISVALID:id{1}:name{testtt}",
 	"checkname_valid": "S_CHECK_NAME_ISVALID:id{1}:name{test}",
-	"login_a": "S_LOGIN:token{AHDZDZ54zqdD}",
-	"checkname_invalid_&": "S_CHECK_NAME_ISVALID:id{1}:name{testtt}"
+	"create_char": "S_CREATE_CHAR:id{1}:name{newchar}:head{1}:body{1}:legs{1}:feets{1}:hair{1}:race{1}:class{1}"
 }

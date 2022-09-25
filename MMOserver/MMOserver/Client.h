@@ -20,6 +20,7 @@ using namespace rapidxml;
 std::string packetBuilder(std::vector<std::string> requests);
 std::string cipherPacket(std::string toBinaries, std::string salt);
 std::string generateSalt(std::string salt);
+bool to_bool(std::string str);
 
 class Client {
 public:
@@ -52,6 +53,7 @@ public:
 	int getState();
 private:
 	int port = 16384;
+	bool debug;
 	std::string clientAddress;
 	std::string nickName;
 	std::string ip;

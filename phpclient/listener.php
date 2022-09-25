@@ -1,6 +1,7 @@
 <?php
 $server = '127.0.0.1';
 $port = 7801;
+$ctn = 0;
 
 if (!($sock = socket_create(AF_INET, SOCK_DGRAM, 0))) {
 	$errorcode = socket_last_error();
@@ -65,4 +66,5 @@ while (1) {
 			echo $key . " : " . $value . "\n";
 		echo "\n";
 	}
+	echo "\nOpcode counts: " . $ctn++ . "\n";
 }
