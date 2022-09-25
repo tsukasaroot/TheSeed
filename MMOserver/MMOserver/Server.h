@@ -146,6 +146,7 @@ private:
 	void client_logout(std::map<std::string, std::string> cmd);
 
 	typedef void(Server::* opcodes)(std::map<std::string, std::string>);
+	typedef std::unordered_map<std::string, std::map<std::string, std::unordered_map<std::string, std::string>>> Slider;
 
 	std::map<std::string, opcodes> list;
 	std::vector<std::string> playerList;
@@ -159,7 +160,7 @@ private:
 	SQLManager *dataBase;
 	std::vector<std::pair<std::string, int>> classes;
 	std::vector<std::pair<std::string, int>> races;
-	std::unordered_map<std::string, std::map<std::string, std::unordered_map<std::string, std::string>>> sliders;
+	Slider sliders;
 
 	int abnormalitiesTolerance = 10;
 	std::map<std::string, std::vector<std::string>> modulesConfiguration;

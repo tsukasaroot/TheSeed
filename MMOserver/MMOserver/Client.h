@@ -22,6 +22,8 @@ std::string cipherPacket(std::string toBinaries, std::string salt);
 std::string generateSalt(std::string salt);
 bool to_bool(std::string str);
 
+typedef std::unordered_map<std::string, std::map<std::string, std::unordered_map<std::string, std::string>>> Slider;
+
 class Client {
 public:
 	Client() {};
@@ -39,6 +41,7 @@ public:
 	double getY();
 	double getZ();
 
+	void setSliders(Slider sliders);
 	void setPositionQuery(std::map<std::string, std::string> cmd);
 	void saveClientToDatabase();
 	void setState(WherePlayer state);
@@ -52,6 +55,7 @@ public:
 	std::string getNickName();
 	int getState();
 private:
+	Slider sliders;
 	int port = 16384;
 	bool debug;
 	std::string clientAddress;

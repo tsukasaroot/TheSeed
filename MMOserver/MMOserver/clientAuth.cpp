@@ -82,7 +82,7 @@ void Server::login(std::map<std::string, std::string> cmd)
 			this->playerList.push_back(result["account_id"]);
 			this->_client.insert(std::pair<std::string, Client*>(result["account_id"], new Client()));
 			_client[result["account_id"]]->initClient(cmd["ip"], result, this->serverRCV, this->dataBase, cmd["port"]);
-
+			_client[result["account_id"]]->setSliders(this->sliders);
 			auto characters = this->dataBase->retrieve_all_chars(std::stoi(result["account_id"]));
 			std::vector<std::string> packets_array = {
 				"C_LOBBY", "c_number{" + std::to_string(characters.size()) + "}"

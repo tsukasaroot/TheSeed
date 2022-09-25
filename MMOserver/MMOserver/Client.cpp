@@ -152,6 +152,11 @@ void Client::saveClientToDatabase()
 ** Setters method
 */
 
+void Client::setSliders(Slider sliders)
+{
+	this->sliders = sliders;
+}
+
 void Client::setState(WherePlayer state)
 {
 	this->state = state;

@@ -82,7 +82,7 @@ bool SQLManager::is_name_valid(std::string name)
 	try {
 		res = this->con->createStatement()->executeQuery(query);
 
-		if (res->next() == true)
+		if (res->rowsCount() == 0)
 		{
 			return true;
 		}
