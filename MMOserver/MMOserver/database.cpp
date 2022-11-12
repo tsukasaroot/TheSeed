@@ -74,7 +74,7 @@ void SQLManager::update(std::string user, std::string cond, std::string table, s
 	delete stmt;
 }
 
-void SQLManager::registerNewCharacter(int id, std::string name, Slider sliders)
+void SQLManager::registerNewCharacter(std::string id, std::string name, Slider sliders)
 {
 
 }

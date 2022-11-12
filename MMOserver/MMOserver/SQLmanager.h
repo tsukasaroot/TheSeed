@@ -43,7 +43,7 @@ public:
 	void get(std::string table, std::vector<std::string> fields, std::vector<std::string> columnName, std::vector<std::string> where);
 	std::vector<std::map<std::string, std::string>> retrieve_all_chars(int account_id);
 	bool is_name_valid(std::string name);
-	void registerNewCharacter(int id, std::string name, Slider sliders);
+	void registerNewCharacter(std::string id, std::string name, Slider sliders);
 private:
 	std::string database;
 	std::string server;
