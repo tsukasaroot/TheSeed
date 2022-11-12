@@ -29,6 +29,8 @@ void Server::createCharacters(std::map<std::string, std::string> cmd)
 	}
 
 	this->_client[currentClient]->setSliders(temp_slider);
+
+	this->dataBase->registerNewCharacter(currentClient, cmd["name"], this->sliders);
 }
 
 void Server::checkNameValidity(std::map<std::string, std::string> cmd)

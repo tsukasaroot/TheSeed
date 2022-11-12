@@ -48,13 +48,7 @@
     <ClCompile Include="messageManager.cpp">
       <Filter>Fichiers sources\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Fichiers sources\Server</Filter>
-    </ClCompile>
     <ClCompile Include="server.cpp">
-      <Filter>Fichiers sources\Server</Filter>
-    </ClCompile>
-    <ClCompile Include="utils.cpp">
       <Filter>Fichiers sources\Server</Filter>
     </ClCompile>
     <ClCompile Include="client.cpp">
@@ -84,8 +78,14 @@
     <ClCompile Include="lobby.cpp">
       <Filter>Fichiers sources\OPCodes</Filter>
     </ClCompile>
-    <ClCompile Include="sqlmanager.cpp">
-      <Filter>Fichiers sources\Managers</Filter>
+    <ClCompile Include="database.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

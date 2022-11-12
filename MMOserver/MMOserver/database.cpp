@@ -74,6 +74,11 @@ void SQLManager::update(std::string user, std::string cond, std::string table, s
 	delete stmt;
 }
 
+void SQLManager::registerNewCharacter(int id, std::string name, Slider sliders)
+{
+
+}
+
 bool SQLManager::is_name_valid(std::string name)
 {
 	std::string query = "SELECT name FROM users WHERE name ='" + name + "'";

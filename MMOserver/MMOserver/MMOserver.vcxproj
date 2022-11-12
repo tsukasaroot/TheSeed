@@ -185,7 +185,7 @@
     <ClCompile Include="clientAuth.cpp" />
     <ClCompile Include="clientGets.cpp" />
     <ClCompile Include="skillManager.cpp" />
-    <ClCompile Include="sqlmanager.cpp" />
+    <ClCompile Include="database.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
