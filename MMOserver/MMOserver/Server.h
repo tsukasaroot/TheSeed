@@ -147,6 +147,7 @@ private:
 
 	typedef void(Server::* opcodes)(std::map<std::string, std::string>);
 	typedef std::unordered_map<std::string, std::map<std::string, std::unordered_map<std::string, std::string>>> Slider;
+	typedef std::unordered_map<std::string, std::string> PlayerSlider;
 
 	std::map<std::string, opcodes> list;
 	std::vector<std::string> playerList;

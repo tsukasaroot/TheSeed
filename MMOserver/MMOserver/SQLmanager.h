@@ -30,6 +30,7 @@ using namespace rapidxml;
 
 std::vector<char> openXml(const char* path);
 typedef std::unordered_map<std::string, std::map<std::string, std::unordered_map<std::string, std::string>>> Slider;
+typedef std::unordered_map<std::string, std::string> PlayerSlider;
 
 class SQLManager {
 public:
@@ -43,7 +44,7 @@ public:
 	void get(std::string table, std::vector<std::string> fields, std::vector<std::string> columnName, std::vector<std::string> where);
 	std::vector<std::map<std::string, std::string>> retrieve_all_chars(int account_id);
 	bool is_name_valid(std::string name);
-	void registerNewCharacter(std::string id, std::string name, Slider sliders);
+	void registerNewCharacter(std::string id, std::string name, std::string player_class, PlayerSlider sliders);
 private:
 	std::string database;
 	std::string server;

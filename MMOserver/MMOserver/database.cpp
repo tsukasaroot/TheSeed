@@ -74,9 +74,68 @@ void SQLManager::update(std::string user, std::string cond, std::string table, s
 	delete stmt;
 }
 
-void SQLManager::registerNewCharacter(std::string id, std::string name, Slider sliders)
+void SQLManager::registerNewCharacter(std::string id, std::string name, std::string player_class, PlayerSlider sliders)
 {
+	sql::ResultSet* res;
+	std::string query;
 
+	query = "INSERT INTO users (account_id, name, class) VALUES (" + id + ", " + '"' + name + '"' +  ", " + player_class + ")";
+
+	try
+	{
+		this->con->createStatement()->execute(query);
+	}
+	catch (sql::SQLException& e)
+	{
+		std::cout << "# ERR: SQLException in " << __FILE__;
+		std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
+		std::cout << "# ERR: " << e.what();
+		std::cout << " (MySQL error code: " << e.getErrorCode();
+		std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+	}
+
+	query = "SELECT LAST_INSERT_ID() AS player_id";
+	double player_id = NULL;
+
+	try
+	{
+		res = this->con->createStatement()->executeQuery(query);
+		if (res->rowsCount() > 0)
+		{
+			while (res->next())
+			{
+				player_id = res->getInt64("player_id");
+			}
+		}
+	}
+	catch (sql::SQLException& e)
+	{
+		std::cout << "# ERR: SQLException in " << __FILE__;
+		std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
+		std::cout << "# ERR: " << e.what();
+		std::cout << " (MySQL error code: " << e.getErrorCode();
+		std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+	}
+
+
+	if (player_id != NULL)
+	{
+		query = "INSERT INTO appearance VALUES (" + std::to_string(player_id) + ", " +
+			sliders["head"] + ", " + sliders["body"] + ", " + sliders["feets"] + ", " + sliders["hair"] + ", " + sliders["legs"] + ", " + sliders["race"] + ")";
+	}
+
+	try
+	{
+		this->con->createStatement()->execute(query);
+	}
+	catch (sql::SQLException& e)
+	{
+		std::cout << "# ERR: SQLException in " << __FILE__;
+		std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
+		std::cout << "# ERR: " << e.what();
+		std::cout << " (MySQL error code: " << e.getErrorCode();
+		std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+	}
 }
 
 bool SQLManager::is_name_valid(std::string name)
