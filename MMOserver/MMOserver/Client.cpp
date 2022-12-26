@@ -61,17 +61,19 @@ void Client::initClient(std::map<std::string, std::string> player_data)
 	this->z = std::stod(player_data["z"]);
 	this->currency = std::stod(player_data["currency"]);
 	this->exp = std::stod(player_data["exp"]);
+
 	this->HP = std::stod(player_data["hp"]);
 	this->MP = std::stoi(player_data["mp"]);
 	this->attack = std::stod(player_data["attack"]);
 	this->critRate = std::stod(player_data["critRate"]);
 	this->critP = std::stod(player_data["critP"]);
 	this->defense = std::stod(player_data["defense"]);
+	this->RE = std::stoi(player_data["re"]);
+
 	this->clientClass = std::stoi(player_data["class"]);
 	this->level = std::stoi(player_data["level"]);
 	this->region = std::stoi(player_data["region"]);
 	this->isAlive = std::stoi(player_data["isAlive"]);
-	this->RE = std::stoi(player_data["re"]);
 	this->player_id = (unsigned)std::stoi(player_data["player_id"]);
 	this->nickName = player_data["name"];
 
@@ -82,6 +84,8 @@ void Client::initClient(std::map<std::string, std::string> player_data)
 		"class{" + player_data["class"] + "}", "level{" + player_data["level"] + "}", "region{" + player_data["region"] + "}", "re{" + player_data["re"] + "}",
 		"isAlive{" + player_data["isAlive"] + "}"
 	};
+
+	this->inventory->getClientInventory(this->player_id);
 
 	packet_data = packetBuilder(array_data);
 	this->clientWrite(packet_data);

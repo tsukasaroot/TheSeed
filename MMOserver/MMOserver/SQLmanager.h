@@ -41,7 +41,7 @@ public:
 
 	std::map<std::string, std::string> checkLogin(std::string token);
 	std::map<std::string, std::string> initPlayer(std::string account_id, std::string player_id);
-	void get(std::string table, std::vector<std::string> fields, std::vector<std::string> columnName, std::vector<std::string> where);
+	std::string getInventory(std::string table, std::vector<std::string> fields, std::vector<std::string> columnName, std::vector<std::string> where);
 	std::vector<std::map<std::string, std::string>> retrieve_all_chars(int account_id);
 	bool is_name_valid(std::string name);
 	void registerNewCharacter(std::string id, std::string name, std::string player_class, PlayerSlider sliders);

@@ -15,8 +15,9 @@ public:
 	inventoryManager(SQLManager* db);
 	void addItem(std::vector<int> item);
 	void saveClientInventory(std::string cmd);
-	void getClientInventory(std::string client);
+	void getClientInventory(int client);
 private:
+	std::string inventory;
 	SQLManager* dataBase;
 	xml_node<char>* items;
 };

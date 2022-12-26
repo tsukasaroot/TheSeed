@@ -4,7 +4,9 @@
 enum WherePlayer
 {
 	ISLOBBY,
-	ISWORLDSERVER
+	ISWORLDSERVER,
+	ISCINEMATIC,
+	ISCREATECHAR
 };
 
 #endif

@@ -74,6 +74,11 @@ void SQLManager::update(std::string user, std::string cond, std::string table, s
 	delete stmt;
 }
 
+
+/**
+* Create a new character for a given account
+* TODO: dynamic base stats to register to DB
+*/
 void SQLManager::registerNewCharacter(std::string id, std::string name, std::string player_class, PlayerSlider sliders)
 {
 	sql::ResultSet* res;
@@ -136,6 +141,21 @@ void SQLManager::registerNewCharacter(std::string id, std::string name, std::str
 		std::cout << " (MySQL error code: " << e.getErrorCode();
 		std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
 	}
+
+	query = "INSERT INTO currentplayerstats VALUES (" + std::to_string(player_id) + ", 100, 100, 10, 0, 0, 10, 2000)";
+	try
+	{
+		this->con->createStatement()->execute(query);
+	}
+	catch (sql::SQLException& e)
+	{
+		std::cout << "# ERR: SQLException in " << __FILE__;
+		std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
+		std::cout << "# ERR: " << e.what();
+		std::cout << " (MySQL error code: " << e.getErrorCode();
+		std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+	}
+
 }
 
 bool SQLManager::is_name_valid(std::string name)
@@ -196,7 +216,7 @@ std::vector<std::map<std::string, std::string>> SQLManager::retrieve_all_chars(i
 	return character_list;
 }
 
-void SQLManager::get(std::string table, std::vector<std::string> fields, std::vector<std::string> columnName, std::vector<std::string> where)
+std::string SQLManager::getInventory(std::string table, std::vector<std::string> fields, std::vector<std::string> columnName, std::vector<std::string> where)
 {
 	// to refactor
 
@@ -223,26 +243,16 @@ void SQLManager::get(std::string table, std::vector<std::string> fields, std::ve
 	{
 		stmt = this->con->createStatement();
 		res = stmt->executeQuery(query);
-		std::map<int, std::vector<double>> inventories;
-		std::vector<double> items_id;
+		std::map<int, std::string> inventories;
+		std::string items_id;
 		
 		while (res->next())
 		{
-			items_id.push_back(res->getDouble("item_id"));
-			inventories.insert(std::pair<int, std::vector<double>>(res->getInt("player_id"), items_id));
+			items_id = res->getString("items_id");
 		}
-		items_id.clear();
+		return items_id;
 		delete res;
 		delete stmt;
-		for (auto it = inventories.begin(); it != inventories.end(); it++)
-		{
-			std::cout << "player " << it->first << std::endl;
-			for (auto itI = it->second.begin(); itI != it->second.end(); itI++)
-			{
-				std::cout << "Has those items in inventory: " << *itI << std::endl;
-			}
-		}
-		return;
 	}
 	catch (sql::SQLException& e)
 	{

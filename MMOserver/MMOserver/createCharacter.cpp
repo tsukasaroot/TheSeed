@@ -24,6 +24,8 @@ void Server::createCharacters(std::map<std::string, std::string> cmd)
 		this->_client[cmd["id"]]->clientWrite("C_LOBBY:character doesn't exist");
 	}
 
+	this->_client[cmd["id"]]->setState(ISCREATECHAR);
+
 	PlayerSlider temp_slider;
 
 	if (!this->dataBase->is_name_valid(cmd["name"]))
@@ -43,6 +45,7 @@ void Server::createCharacters(std::map<std::string, std::string> cmd)
 	this->_client[currentClient]->setSliders(temp_slider);
 
 	this->dataBase->registerNewCharacter(currentClient, cmd["name"], cmd["class"], temp_slider);
+	this->_client[cmd["id"]]->setState(ISLOBBY);
 }
 
 void Server::checkNameValidity(std::map<std::string, std::string> cmd)
